@@ -3,7 +3,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parent
 TAB='giang_pcb4_real_v1'
 def build():
-    nodes=[dict(id=TAB,type='tab',label='VisA PCB4 — AI thật',disabled=False,info='v2: SQLite persistent workflow, loopback only. Source: pcb4-demo/build_flow.py')]
+    nodes=[dict(id=TAB,type='tab',label='VisA PCB4 — AI thật',disabled=False,info='v2: SQLite persistent workflow, loopback only. Source: demo/build_flow.py')]
     def add(id,type,wires=None,**kw):
         nodes.append(dict(id='pcb_'+id,z=TAB,type=type,x=kw.pop('x',500),y=kw.pop('y',200),wires=[['pcb_'+v for v in w] for w in (wires or [])],**kw))
     for i,route in enumerate(['demo','infer','alerts','ack','health']):

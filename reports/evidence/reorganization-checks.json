@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-22",
+  "scope": "Repository paths and offline tests only; no runtime move or deploy",
+  "sqlite_tests": {
+    "passed": 7,
+    "failed": 0
+  },
+  "legacy_engine": {
+    "passed": 15,
+    "failed": 0
+  },
+  "legacy_workflow": {
+    "passed": 98,
+    "failed": 0
+  },
+  "legacy_python_unit": {
+    "passed": 4,
+    "failed": 0
+  },
+  "legacy_flow_build": "pass; 8 unique routes",
+  "real_demo_flow_build": "pass",
+  "relative_markdown_links": "all resolve",
+  "python_syntax": "pass",
+  "http_rerun": false,
+  "running_model_and_database_moved": false
+}

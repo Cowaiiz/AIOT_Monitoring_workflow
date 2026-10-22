@@ -138,7 +138,7 @@ Giao diện Inspect có khu vực kiểm tra ảnh, kết quả, cảnh báo và
 
 | Lớp kiểm chứng | Kết quả | Phạm vi và nguồn |
 |---|---|---|
-| Demo HTTP giả lập: JS engine / workflow offline | 15/15 và 98/98 đạt | Bằng chứng trong `results/` của repo Giang |
+| Demo HTTP giả lập: JS engine / workflow offline | 15/15 và 98/98 đạt | Bằng chứng trong `legacy/http-mock/results/` của repo Giang |
 | Demo giả lập: Python unit / Python HTTP | 4/4 và 93/93 đạt | Không phải kiểm thử inference ảnh |
 | Demo giả lập: browser HTTP | 94/94 theo ảnh người dùng | Không có JSON tự động v2 trong gói cũ |
 | Tải giả lập | 10.000 bản ghi, không lỗi | Không suy diễn thành năng lực AI/camera |
@@ -171,6 +171,6 @@ Các lỗi ảnh cố ý, ID không tồn tại và lỗi ghi dữ liệu mô ph
 
 Bản cập nhật Git kèm mã chuẩn bị/train của Giang, dịch vụ inference, SQLite, UI, build/deploy, kiểm thử và các bằng chứng đã chọn. Dataset, checkpoint, `.venv`, cache, database vận hành và backup chứa flow không liên quan không được đưa vào Git. Đường dẫn Windows trong script là cấu hình môi trường đã thử, cần sửa cho máy khác; gói này chưa phải bộ cài dùng ngay trên mọi máy.
 
-Hướng dẫn chi tiết: [demo AI thật](../pcb4-demo/README.md), [chuẩn bị/train](../bao-model/TRAINING_README.md), [kết quả tổng hợp](evidence/verification-summary.json). Giữ tài liệu demo giả lập cũ để phân biệt các giai đoạn. Nội dung của Bảo được dẫn về repo gốc, không sửa repo của Bảo hoặc nhận các số benchmark đó là kết quả của Giang.
+Hướng dẫn chi tiết: [demo AI thật](../demo/README.md), [chuẩn bị/train](../model/TRAINING_README.md), [kết quả tổng hợp](evidence/verification-summary.json). Giữ tài liệu demo giả lập cũ để phân biệt các giai đoạn. Nội dung của Bảo được dẫn về repo gốc, không sửa repo của Bảo hoặc nhận các số benchmark đó là kết quả của Giang.
 
 Kết quả hiện tại chứng minh được khả năng ghép khối AI với workflow cảnh báo và web nội bộ. Nó chưa chứng minh mô hình đủ tin cậy để tự động lựa chọn bo mạch tốt, chưa kiểm chứng camera/cảm biến thật và chưa đáp ứng toàn bộ các mốc triển khai của dự án. Đây là cơ sở để thầy đánh giá tiến độ và góp ý cho vòng thí nghiệm tiếp theo.

@@ -4,7 +4,7 @@
     "type": "tab",
     "label": "VisA PCB4 — AI thật",
     "disabled": false,
-    "info": "v2: SQLite persistent workflow, loopback only. Source: pcb4-demo/build_flow.py"
+    "info": "v2: SQLite persistent workflow, loopback only. Source: demo/build_flow.py"
   },
   {
     "id": "pcb_demo",

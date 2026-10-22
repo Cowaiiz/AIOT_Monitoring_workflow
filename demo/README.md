@@ -1,6 +1,6 @@
 # Inspect: demo ảnh PCB4 và Node-RED
 
-Trạng thái 22/10/2026: model thật đã nối HTTP, SQLite và UI Inspect đã deploy. Nguồn/HTML khớp deploy và cảnh báo giữ nguyên theo script. Các thao tác UI trước đợt thiết kế lại đã được người dùng thử; chưa có kiểm thử browser tự động cho toàn bộ UI Inspect mới. Xem [báo cáo tiến độ](../Report/BAO_CAO_TIEN_DO.md).
+Trạng thái 22/10/2026: model thật đã nối HTTP, SQLite và UI Inspect đã deploy. Nguồn/HTML khớp deploy và cảnh báo giữ nguyên theo script. Các thao tác UI trước đợt thiết kế lại đã được người dùng thử; chưa có kiểm thử browser tự động cho toàn bộ UI Inspect mới. Xem [báo cáo tiến độ](../reports/BAO_CAO_TIEN_DO.md).
 
 ## Thành phần
 
@@ -14,14 +14,14 @@ Trạng thái 22/10/2026: model thật đã nối HTTP, SQLite và UI Inspect đ
 
 ## Điều kiện chạy
 
-Đây là snapshot môi trường Windows đã thử, chưa phải bộ cài đa nền tảng. Cần Node-RED ở cổng 1880, môi trường Python đã cài torch/torchvision/anomalib tương thích, dataset PCB4 và checkpoint. Xem [hướng dẫn mô hình](../bao-model/TRAINING_README.md). Dataset và checkpoint không có trong Git.
+Đây là snapshot môi trường Windows đã thử, chưa phải bộ cài đa nền tảng. Cần Node-RED ở cổng 1880, môi trường Python đã cài torch/torchvision/anomalib tương thích, dataset PCB4 và checkpoint. Xem [hướng dẫn mô hình](../model/TRAINING_README.md). Dataset và checkpoint không có trong Git.
 
 Mã hiện tham chiếu `D:/Project/aiot-model/runs/visa-pcb4-20261022-213717` trong model_service.py, dataset dưới `D:/Project/aiot-model/datasets/visa`. Sửa đường dẫn RUN/dataset nếu dùng máy hoặc lần train khác. `check_local.py` và phần kiểm chứng startup dùng test-predictions.json cùng run. Không trộn checkpoint với ngưỡng/manifest của một lần chạy khác.
 
 Sau khi chuẩn bị môi trường, mở terminal riêng chạy `node-red.cmd`, rồi chạy từ thư mục repo:
 
 ```powershell
-& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\pcb4-demo\start_demo.py
+& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\demo\start_demo.py
 ```
 
 Chờ `http_passed: true`, mở http://localhost:1880/giang-pcb4/v1/demo . Giữ terminal model mở. Nếu cổng đã dùng, không mở instance thứ hai. Script không tự tắt dịch vụ khác hoặc thay cấu hình bảo mật.
@@ -29,7 +29,7 @@ Chờ `http_passed: true`, mở http://localhost:1880/giang-pcb4/v1/demo . Giữ
 Chỉ cập nhật UI khi Node-RED và model đang chạy:
 
 ```powershell
-& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\pcb4-demo\update_ui.py
+& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\demo\update_ui.py
 ```
 
 Đợi UI UPDATED và tải lại trang. Mã build là nguồn chính để lần build sau giữ đúng UI; không chỉnh flow import riêng rồi bỏ quên source.
@@ -39,14 +39,23 @@ Chỉ cập nhật UI khi Node-RED và model đang chạy:
 Trong `pcb4/Data/Images`: Normal/0011.JPG dưới ngưỡng; Anomaly/009.JPG tạo cảnh báo; Anomaly/000.JPG là lỗi bị bỏ sót. Nút Phân tích tạo bản ghi mới; Gửi lại giữ ID/timestamp/ảnh. Retry không thêm cảnh báo, ACK lặp không đổi thời gian đầu tiên. Chọn model/threshold khác có thể thay kết quả mong đợi, cần cập nhật baseline kiểm chứng một cách có căn cứ.
 
 ```powershell
-python .\pcb4-demo\test_storage.py
-& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\pcb4-demo\check_local.py
+python .\demo\test_storage.py
+& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\demo\check_local.py
 ```
 
 Các file JSON đi kèm là kết quả đã chọn từ phiên chạy, không tự thay thế test trên máy mới. Startup tạo bản ghi verify_ và tự ACK cảnh báo kiểm thử. Kết quả mở lại DB đã được thử; bài dừng/khởi động lại tiến trình thật còn chưa hoàn tất.
 
 ## Lưu trữ và giới hạn
 
-SQLite nằm ở `pcb4-demo/data/workflow.sqlite3`. Tối đa 20.000 cảnh báo/100.000 bản ghi, không tự xóa khi đầy. ACK không giải phóng dung lượng. Giữ file DB và backup; không đưa database hoạt động lên Git hoặc đồng bộ nhiều máy cùng ghi. Không có nút archive/restore. Khi nâng v1 RAM lên v2, giữ Node-RED chạy để lấy cảnh báo cũ trước redeploy; legacy ID thiếu fingerprint trả lỗi riêng khi retry.
+SQLite nằm ở `demo/data/workflow.sqlite3`. Tối đa 20.000 cảnh báo/100.000 bản ghi, không tự xóa khi đầy. ACK không giải phóng dung lượng. Giữ file DB và backup; không đưa database hoạt động lên Git hoặc đồng bộ nhiều máy cùng ghi. Không có nút archive/restore. Khi nâng v1 RAM lên v2, giữ Node-RED chạy để lấy cảnh báo cũ trước redeploy; legacy ID thiếu fingerprint trả lỗi riêng khi retry.
 
 AI chỉ thử PCB4; recall baseline 31%, chưa dùng để kết luận sản phẩm tốt. Heatmap không phải nhãn lỗi chính xác. Ngưỡng gốc đọc threshold.json, score quy đổi s/(s+t), ngưỡng 0,5; không phải xác suất. Chỉ dùng một người/một ảnh mỗi lần trong demo. Chưa có camera, MQTT, cảm biến, workflow thứ hai hoặc bộ cài offline được kiểm chứng.
+
+
+## Chuyển từ cấu trúc cũ
+
+Repo đã đổi `pcb4-demo` thành `demo`, `bao-model` thành `model`, `Report` thành `reports`; demo giả lập ở `legacy/http-mock`. Hai URL demo và ID tab Node-RED không đổi. Thư mục dữ liệu/model trên ổ D không đổi tự động.
+
+Bản đang chạy tại máy Giang vẫn nằm ở thư mục cũ. Không chạy start_demo ở thư mục mới song song với dịch vụ đang chiếm cổng 1891. Nếu muốn chuyển hẳn, ngừng thao tác, tạo backup SQLite bằng API backup hoặc dừng dịch vụ rồi sao chép `pcb4-demo/data/workflow.sqlite3` sang `demo/data/workflow.sqlite3` cùng các file SQLite phụ nếu có. Giữ bản gốc và backup. Chỉ dùng database trên một máy/một phiên ghi; không dùng Git để đồng bộ DB.
+
+Đối chiếu số cảnh báo và trạng thái ACK sau khi chuyển. Nếu flow v2 đã tồn tại nhưng DB ở vị trí mới chưa có, startup chủ động từ chối tạo kho rỗng. Đây là bảo vệ dữ liệu, không phải yêu cầu xóa flow hoặc database.

@@ -13,8 +13,8 @@ Lấy VisA từ [nguồn chính thức Amazon Science](https://github.com/amazon
 `prepare_visa_pcb4.py` mặc định đọc `D:/Downloads/VisA_20220922.tar`, chỉ giải nén pcb4 và split_csv/1cls.csv vào `D:/Project/aiot-model/datasets/visa`; giữ nguyên nhãn mask. Kiểm tra đường dẫn và checksum file có sẵn, không ghi đè file khác nội dung. Đổi các hằng ARCHIVE/DEST nếu dùng đường dẫn khác.
 
 ```powershell
-& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\bao-model\prepare_visa_pcb4.py
-& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\bao-model\train_visa_pcb4.py
+& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\model\prepare_visa_pcb4.py
+& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\model\train_visa_pcb4.py
 ```
 
 Script train hỗ trợ `--root` để đổi gốc `D:/Project/aiot-model`. Dùng split chính thức: 904 normal train, 101 normal test, 100 anomaly test. Seed 42 tách 100 normal từ train để calibration; fit 804 ảnh. ResNet18 layer2/layer3, ảnh 256×256, chuẩn hóa ImageNet một lần; bank tối đa 2.000 patch lấy mẫu ngẫu nhiên bằng priority. Không phải greedy coreset PatchCore chuẩn.
@@ -25,7 +25,7 @@ Ngưỡng là quantile 99% higher trên calibration normal; không dùng test ch
 
 Mỗi lần tạo `runs/visa-pcb4-<timestamp>` riêng, gồm model.pt, threshold.json, manifest.json, calibration.json, test-predictions.json và results.json. Chỉ coi hoàn tất khi có COMPLETE và results.json. model.pt lưu state_dict/config/bank của PatchcoreModel, không phải Lightning .ckpt cho predictor cũ.
 
-Kết quả baseline và manifest được lưu tại [Report/evidence](../Report/evidence). SHA256 checkpoint trong verification-summary.json giúp nhận diện file đã chạy; checkpoint không được commit. Tự chạy lại có thể khác chút theo thiết bị/phiên bản; seed không bảo đảm giống bit trên mọi máy. Khi nối demo, sửa RUN trong model_service.py trỏ đúng run cùng checkpoint/ngưỡng, không chọn tùy tiện checkpoint mới nhất.
+Kết quả baseline và manifest được lưu tại [Report/evidence](../reports/evidence). SHA256 checkpoint trong verification-summary.json giúp nhận diện file đã chạy; checkpoint không được commit. Tự chạy lại có thể khác chút theo thiết bị/phiên bản; seed không bảo đảm giống bit trên mọi máy. Khi nối demo, sửa RUN trong model_service.py trỏ đúng run cùng checkpoint/ngưỡng, không chọn tùy tiện checkpoint mới nhất.
 
 ## Kết quả và hạn chế
 
