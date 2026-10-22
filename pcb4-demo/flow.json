@@ -1,0 +1,266 @@
+[
+  {
+    "id": "giang_pcb4_real_v1",
+    "type": "tab",
+    "label": "VisA PCB4 — AI thật",
+    "disabled": false,
+    "info": "v2: SQLite persistent workflow, loopback only. Source: pcb4-demo/build_flow.py"
+  },
+  {
+    "id": "pcb_demo",
+    "z": "giang_pcb4_real_v1",
+    "type": "http in",
+    "x": 100,
+    "y": 80,
+    "wires": [
+      [
+        "pcb_guard"
+      ]
+    ],
+    "name": "demo",
+    "url": "/giang-pcb4/v1/demo",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false
+  },
+  {
+    "id": "pcb_infer",
+    "z": "giang_pcb4_real_v1",
+    "type": "http in",
+    "x": 100,
+    "y": 160,
+    "wires": [
+      [
+        "pcb_guard"
+      ]
+    ],
+    "name": "infer",
+    "url": "/giang-pcb4/v1/infer",
+    "method": "post",
+    "upload": false,
+    "skipBodyParsing": false
+  },
+  {
+    "id": "pcb_alerts",
+    "z": "giang_pcb4_real_v1",
+    "type": "http in",
+    "x": 100,
+    "y": 240,
+    "wires": [
+      [
+        "pcb_guard"
+      ]
+    ],
+    "name": "alerts",
+    "url": "/giang-pcb4/v1/alerts",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false
+  },
+  {
+    "id": "pcb_ack",
+    "z": "giang_pcb4_real_v1",
+    "type": "http in",
+    "x": 100,
+    "y": 320,
+    "wires": [
+      [
+        "pcb_guard"
+      ]
+    ],
+    "name": "ack",
+    "url": "/giang-pcb4/v1/ack",
+    "method": "post",
+    "upload": false,
+    "skipBodyParsing": false
+  },
+  {
+    "id": "pcb_health",
+    "z": "giang_pcb4_real_v1",
+    "type": "http in",
+    "x": 100,
+    "y": 400,
+    "wires": [
+      [
+        "pcb_guard"
+      ]
+    ],
+    "name": "health",
+    "url": "/giang-pcb4/v1/health",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false
+  },
+  {
+    "id": "pcb_guard",
+    "z": "giang_pcb4_real_v1",
+    "type": "function",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_dispatch"
+      ],
+      [
+        "pcb_response"
+      ]
+    ],
+    "name": "Loopback only",
+    "outputs": 2,
+    "func": "const ip=msg.req.socket?.remoteAddress||msg.req._req?.socket?.remoteAddress;if(!['127.0.0.1','::1','::ffff:127.0.0.1'].includes(ip)){msg.statusCode=403;msg.payload={code:'LOCAL_ONLY'};return [null,msg];}return [msg,null];"
+  },
+  {
+    "id": "pcb_dispatch",
+    "z": "giang_pcb4_real_v1",
+    "type": "function",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_request"
+      ],
+      [
+        "pcb_engine"
+      ],
+      [
+        "pcb_response"
+      ]
+    ],
+    "name": "Image / workflow routes",
+    "outputs": 3,
+    "func": "const r=msg.req.url.split('?')[0].split('/').pop();msg.route=r;\nif(r==='demo'){msg.headers={'content-type':'text/html; charset=utf-8'};msg.payload=\"<!doctype html>\\n<html lang=\\\"vi\\\"><head><meta charset=\\\"utf-8\\\"><meta name=\\\"viewport\\\" content=\\\"width=device-width,initial-scale=1\\\"><title>Inspect \\u2014 Ki\\u1ec3m tra h\\u00ecnh \\u1ea3nh</title>\\n<style>\\n:root{--ink:#192b39;--muted:#6b7c89;--line:#e3e9ed;--bg:#f5f7f9;--accent:#087f73;--nav:#122b38;--warning:#a15d12;--radius:14px}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.55 \\\"Segoe UI\\\",system-ui,sans-serif}button,input,select{font:inherit}button,a,input{ -webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #65cbb9;outline-offset:3px}a{color:var(--accent)}h1,h2,h3,p{margin:0}h1{font-size:27px;letter-spacing:-.7px;line-height:1.2}h2{font-size:17px;letter-spacing:-.25px}h3{font-size:14px}svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.sidebar{width:220px;position:fixed;inset:0 auto 0 0;background:var(--nav);color:#b5c7d1;display:flex;flex-direction:column;padding:30px 18px;z-index:10}.brand{display:flex;align-items:center;gap:12px;padding:0 10px;color:#fff;font-size:23px;font-weight:650;letter-spacing:-.5px}.brand-icon{height:36px;width:36px;border:1px solid #49616c;border-radius:10px;display:grid;place-items:center;color:#78dec9}.brand small{display:block;font-size:10px;letter-spacing:2px;color:#91a7b3;font-weight:500}.nav-label{margin:42px 12px 12px;font-size:10px;letter-spacing:1.6px;color:#8099a8}nav{display:grid;gap:7px}.nav-item{background:transparent;color:#b9cbd5;border:0;border-radius:8px;display:flex;align-items:center;text-align:left;gap:12px;padding:13px 14px}.nav-item:hover{background:#203b49}.nav-item[aria-current=page]{background:#234751;color:#9aebd8}.nav-item .count{margin-left:auto;font-size:11px;background:#365662;padding:1px 7px;border-radius:5px}.sidebar-foot{margin-top:auto;padding:22px 10px 0;border-top:1px solid #2b4350;font-size:12px;color:#91a9b6}.sidebar-foot strong{display:block;font-size:13px;color:#cbd9e0;font-weight:500;margin-bottom:5px}.shell{margin-left:220px}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;gap:18px}.breadcrumbs{color:var(--muted);font-size:12px}.breadcrumbs b{font-weight:500;color:var(--ink)}.top-actions{display:flex;align-items:center;gap:16px}.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;background:#edf3f4;color:#4b6876;border-radius:6px;font-size:12px;white-space:nowrap}.pill[data-state=ready]{background:#e8f6f0;color:#18735b}.pill[data-state=error]{background:#fceeed;color:#b3433e}.dot{width:6px;height:6px;border-radius:50%;background:currentColor}.workspace{max-width:1530px;padding:30px 34px 40px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:24px}.page-head p{color:var(--muted);margin-top:8px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #d7e1e6;background:#fff;color:#344d5d;padding:10px 15px;border-radius:8px;font-weight:550;white-space:nowrap}.btn:hover:not(:disabled){background:#f1f6f6;border-color:#a9c1c7}.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}.btn.primary:hover:not(:disabled){background:#096a63}.btn.small{font-size:12px;padding:6px 10px}.btn.icon{padding:8px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}.metric{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:17px 20px;display:flex;align-items:center;justify-content:space-between}.metric .label{font-size:12px;color:var(--muted)}.metric b{display:block;font-size:28px;font-weight:600;line-height:1.2;margin-top:6px;font-variant-numeric:tabular-nums}.metric .symbol{padding:12px;border-radius:10px;background:#f0f5f7;color:#5c7888}.metric.wait .symbol{background:#fff6e6;color:#b5812e}.metric.done .symbol{background:#ebf7f2;color:#428d74}.inspection-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:20px}.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}.card-head{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line)}.step{color:#8ca0ab;font-size:11px;font-weight:600;margin-right:10px}.tag{color:#687e8b;background:#f2f5f7;border:1px solid #e5ebef;border-radius:5px;padding:3px 7px;font-size:10px;letter-spacing:.5px}.card-body{padding:20px}.dropzone{border:1.5px dashed #b8cdcf;border-radius:10px;background:#f7fbfa;min-height:133px;padding:22px;display:flex;align-items:center;justify-content:center;gap:18px;transition:.2s;cursor:pointer}.dropzone.dragover{background:#e3f5ef;border-color:#087f73;box-shadow:0 0 0 3px #087f7312}.dropzone .upload-icon{height:45px;width:45px;border-radius:12px;display:grid;place-items:center;background:#e7f3ef;color:var(--accent)}.dropzone p{font-weight:550}.dropzone small{display:block;color:var(--muted);font-size:12px;margin-top:6px}.dropzone .choose{color:var(--accent);text-decoration:underline;text-underline-offset:3px}.filebar{display:flex;align-items:center;gap:10px;padding:13px 0 0}.file-info{flex:1;min-width:0}.file-info strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px;font-weight:550}.file-info small{font-size:11px;color:var(--muted)}.toolbar{margin:21px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.tabs{display:inline-flex;background:#eef2f5;padding:3px;border-radius:7px;gap:2px}.tabs button{border:0;background:transparent;border-radius:5px;color:#677d8c;padding:6px 12px;font-size:12px}.tabs button[aria-pressed=true]{background:white;color:#1e554f;box-shadow:0 1px 3px #17334617}.compare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.image-label{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#6e8490;margin-bottom:8px}.image-label span:last-child{font-size:10px;color:#93a4ad}.imagebox{height:260px;display:flex;align-items:center;justify-content:center;position:relative;background:#f4f6f8;border:1px solid #e7edf0;border-radius:8px;overflow:hidden}.imagebox img{width:100%;height:100%;object-fit:contain;transition:transform .15s}.empty{text-align:center;color:#9aabb5;max-width:180px;font-size:12px}.empty svg{display:block;width:32px;height:32px;margin:0 auto 12px;stroke-width:1.2}.viewer-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:10px;font-size:11px;color:var(--muted)}.zoom{display:flex;align-items:center;gap:8px;white-space:nowrap}.zoom input{width:80px;accent-color:var(--accent)}.actionbar{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding:17px 20px;background:#fcfdfd;gap:12px}.actionbar span{font-size:11px;color:var(--muted)}.result-stack{display:flex;flex-direction:column;gap:16px}.result-card{flex:1}.result-symbol{width:48px;height:48px;background:#eef3f6;border-radius:50%;display:grid;place-items:center;margin-bottom:16px;color:#8b9da9}.result-symbol svg{width:24px;height:24px}#decision{font-size:21px;font-weight:600;line-height:1.4;letter-spacing:-.5px}#decisionNote{font-size:12px;color:var(--muted);margin-top:8px;min-height:37px}.result-card[data-state=alert] .result-symbol{background:#fff0dc;color:#ab6713}.result-card[data-state=normal] .result-symbol{background:#e9f6ef;color:#287a5a}.result-card[data-state=error] .result-symbol{background:#ffece9;color:#af4239}.result-card[data-state=busy] .result-symbol{animation:pulse 1s infinite}.score-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;border-top:1px solid var(--line);padding-top:20px;margin-top:22px}.score-pair small{font-size:11px;color:var(--muted)}.score-pair b{font-size:23px;font-weight:600;display:block;margin:4px 0;font-variant-numeric:tabular-nums}.score-pair .threshold{border-left:1px solid var(--line);padding-left:14px}.score-track{height:6px;background:#edf1f4;border-radius:9px;margin-top:16px;overflow:hidden}.score-track div{height:100%;width:0;background:#8b9eaa;transition:width .4s}.result-card[data-state=alert] .score-track div{background:#d3983d}.result-card[data-state=normal] .score-track div{background:#3b9b7a}.score-explainer{font-size:10px;color:var(--muted);margin:7px 0 17px}.result-meta{border-top:1px solid var(--line);padding-top:14px;margin-top:14px;display:grid;gap:10px}.result-meta div{display:flex;justify-content:space-between;gap:15px;font-size:11px;color:var(--muted)}.result-meta b{font-weight:500;color:#385366;font-variant-numeric:tabular-nums}.result-controls{display:grid;gap:8px;margin-top:22px}.hint-card{border:1px solid #eee2ca;background:#fffcf5;padding:16px 18px;border-radius:12px;font-size:12px;color:#80623c}.hint-card b{display:flex;align-items:center;gap:7px;font-weight:550;margin-bottom:7px}.hint-card svg{width:16px;height:16px}.hint-card button{border:0;background:transparent;color:#87632b;padding:9px 0 0;font-size:11px;text-decoration:underline}.section-spacer{margin-top:22px}.subtle{font-size:12px;color:var(--muted)}.table-toolbar{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}.search{flex:1;min-width:150px;display:flex;gap:9px;align-items:center;color:#91a3ac}.search input{border:0;outline:none;width:100%;font-size:12px;color:var(--ink);padding:5px;background:transparent}.search svg{width:16px;height:16px}.scroll{overflow:auto;max-height:520px}table{width:100%;border-collapse:collapse;text-align:left;white-space:nowrap}th{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:#8194a0;background:#fafbfc;padding:13px 20px;border-bottom:1px solid var(--line)}td{padding:15px 20px;border-bottom:1px solid #eef2f4;font-size:12px}td small{display:block;font-size:10px;color:#91a1ab;margin-top:4px}.status{display:inline-flex;align-items:center;gap:6px;border-radius:5px;font-size:11px;padding:4px 8px;background:#fff3df;color:#a26716}.status.acked{background:#eaf5f0;color:#397a60}.status svg{width:12px;height:12px}.table-empty{padding:40px;text-align:center;color:#91a3ad}.table-foot{display:flex;justify-content:space-between;align-items:center;padding:13px 20px;font-size:11px;color:var(--muted)}.table-foot button{font-size:11px}.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.model-grid .card-body{display:grid;gap:15px}.kv{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:12px;gap:20px}.kv span{color:var(--muted)}.callout{padding:15px 18px;background:#fff8ea;border:1px solid #f0dfbe;border-radius:8px;font-size:13px;color:#8b6329}.model-grid ul{margin:0;padding-left:18px;color:var(--muted)}details{border-top:1px solid var(--line);padding:15px 20px}summary{cursor:pointer;font-size:12px;color:#567183}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:360px;overflow:auto;background:#f4f7f9;border-radius:8px;padding:15px;font-size:11px}.footer{display:flex;justify-content:space-between;font-size:11px;color:#8c9ea9;margin-top:24px;gap:15px}.toast{position:fixed;bottom:25px;right:25px;max-width:440px;padding:14px 20px;border:1px solid #c7ded8;background:#f4fffa;color:#256c56;box-shadow:0 10px 40px #163f3b19;border-radius:10px;z-index:20}.toast.error{background:#fff4f1;border-color:#efcbc4;color:#a74b3e}.spin{animation:pulse .9s infinite}@keyframes pulse{50%{opacity:.4}}@media(min-width:1450px){.imagebox{height:340px}}@media(max-width:1100px){.sidebar{width:185px;padding:25px 12px}.shell{margin-left:185px}.workspace{padding:24px}.topbar{padding:0 24px}.inspection-layout{grid-template-columns:minmax(0,1fr) 270px}.imagebox{height:215px}.compare{gap:8px}}@media(max-width:900px){.inspection-layout{grid-template-columns:1fr}.result-stack{display:grid;grid-template-columns:1fr 1fr}.hint-card{align-self:start}.model-grid{grid-template-columns:1fr}}@media(max-width:650px){.sidebar{position:static;width:auto;padding:16px}.brand{font-size:20px}.brand small,.nav-label,.sidebar-foot{display:none}nav{display:flex;gap:5px;margin-top:15px}.nav-item{padding:9px;font-size:11px;flex:1;justify-content:center;gap:6px}.nav-item svg{width:16px}.nav-item .count{display:none}.shell{margin:0}.topbar{padding:0 16px;height:52px}.breadcrumbs{font-size:11px}.top-actions .local-label{display:none}.workspace{padding:20px 14px}.page-head{align-items:flex-start}h1{font-size:23px}.page-head p{font-size:12px}.page-head>.btn{font-size:0;padding:9px}.metrics{gap:8px}.metric{padding:13px}.metric b{font-size:24px}.metric .symbol{display:none}.metric .label{font-size:10px}.result-stack{display:flex}.compare{grid-template-columns:1fr 1fr}.imagebox{height:190px}.card-body{padding:15px}.toolbar{align-items:flex-start}.tabs button{padding:6px 9px;font-size:11px}.viewer-foot{flex-wrap:wrap}.dropzone{padding:18px 12px;gap:12px}.dropzone p{font-size:12px}.actionbar{padding:15px}.actionbar>span{display:none}.actionbar .btn{width:100%}.table-toolbar{padding:13px}.table-toolbar .tabs{width:100%;justify-content:space-between}.toast{left:14px;right:14px;bottom:14px}.footer{font-size:10px}}\\n</style></head><body>\\n<svg aria-hidden=\\\"true\\\" style=\\\"position:absolute;width:0;height:0;overflow:hidden\\\"><defs>\\n<symbol id=\\\"i-scan\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M7 12h10M12 7v10\\\"/></symbol>\\n<symbol id=\\\"i-grid\\\" viewBox=\\\"0 0 24 24\\\"><rect x=\\\"3\\\" y=\\\"3\\\" width=\\\"7\\\" height=\\\"7\\\" rx=\\\"1.5\\\"/><rect x=\\\"14\\\" y=\\\"3\\\" width=\\\"7\\\" height=\\\"7\\\" rx=\\\"1.5\\\"/><rect x=\\\"3\\\" y=\\\"14\\\" width=\\\"7\\\" height=\\\"7\\\" rx=\\\"1.5\\\"/><rect x=\\\"14\\\" y=\\\"14\\\" width=\\\"7\\\" height=\\\"7\\\" rx=\\\"1.5\\\"/></symbol>\\n<symbol id=\\\"i-alert\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"m12 3 10 18H2L12 3ZM12 9v5m0 3h.01\\\"/></symbol>\\n<symbol id=\\\"i-check\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"m5 12 4 4L19 6\\\"/></symbol>\\n<symbol id=\\\"i-info\\\" viewBox=\\\"0 0 24 24\\\"><circle cx=\\\"12\\\" cy=\\\"12\\\" r=\\\"9\\\"/><path d=\\\"M12 11v6m0-10h.01\\\"/></symbol>\\n<symbol id=\\\"i-image\\\" viewBox=\\\"0 0 24 24\\\"><rect x=\\\"3\\\" y=\\\"3\\\" width=\\\"18\\\" height=\\\"18\\\" rx=\\\"3\\\"/><circle cx=\\\"8\\\" cy=\\\"8\\\" r=\\\"1.5\\\"/><path d=\\\"m3 17 5-5 4 4 4-6 5 7\\\"/></symbol>\\n<symbol id=\\\"i-upload\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6\\\"/></symbol>\\n<symbol id=\\\"i-download\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"M12 3v13m-5-5 5 5 5-5M4 16v5h16v-5\\\"/></symbol>\\n<symbol id=\\\"i-refresh\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"M20 7v5h-5M4 17v-5h5M6 6a8 8 0 0 1 13 3M5 15a8 8 0 0 0 13 3\\\"/></symbol>\\n<symbol id=\\\"i-search\\\" viewBox=\\\"0 0 24 24\\\"><circle cx=\\\"10\\\" cy=\\\"10\\\" r=\\\"6\\\"/><path d=\\\"m15 15 5 5\\\"/></symbol>\\n<symbol id=\\\"i-arrow\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"M4 12h16m-6-6 6 6-6 6\\\"/></symbol>\\n<symbol id=\\\"i-close\\\" viewBox=\\\"0 0 24 24\\\"><path d=\\\"m6 6 12 12M6 18 18 6\\\"/></symbol>\\n</defs></svg>\\n<aside class=\\\"sidebar\\\"><div class=\\\"brand\\\"><span class=\\\"brand-icon\\\"><svg><use href=\\\"#i-scan\\\"/></svg></span><div>Inspect<small>VISUAL MONITORING</small></div></div><p class=\\\"nav-label\\\">KH\\u00d4NG GIAN L\\u00c0M VI\\u1ec6C</p><nav aria-label=\\\"\\u0110i\\u1ec1u h\\u01b0\\u1edbng ch\\u00ednh\\\"><button class=\\\"nav-item\\\" data-view=\\\"inspection\\\" aria-current=\\\"page\\\"><svg><use href=\\\"#i-grid\\\"/></svg>Ki\\u1ec3m tra h\\u00ecnh \\u1ea3nh</button><button class=\\\"nav-item\\\" data-view=\\\"alerts\\\"><svg><use href=\\\"#i-alert\\\"/></svg>C\\u1ea3nh b\\u00e1o<span class=\\\"count\\\" id=\\\"navPending\\\">\\u2014</span></button><button class=\\\"nav-item\\\" data-view=\\\"model\\\"><svg><use href=\\\"#i-info\\\"/></svg>Th\\u00f4ng tin m\\u00f4 h\\u00ecnh</button></nav><div class=\\\"sidebar-foot\\\"><strong>Kh\\u00f4ng gian th\\u1eed nghi\\u1ec7m</strong>PCB4 \\u00b7 Ki\\u1ec3m tra t\\u1eebng \\u1ea3nh<br>D\\u1eef li\\u1ec7u l\\u01b0u t\\u1ea1i m\\u00e1y</div></aside>\\n<div class=\\\"shell\\\"><header class=\\\"topbar\\\"><div class=\\\"breadcrumbs\\\">Kh\\u00f4ng gian l\\u00e0m vi\\u1ec7c &nbsp; / &nbsp; <b id=\\\"breadcrumb\\\">Ki\\u1ec3m tra h\\u00ecnh \\u1ea3nh</b></div><div class=\\\"top-actions\\\"><span class=\\\"local-label subtle\\\">Phi\\u00ean n\\u1ed9i b\\u1ed9</span><span id=\\\"connection\\\" class=\\\"pill\\\" role=\\\"status\\\"><i class=\\\"dot\\\"></i><span id=\\\"connectionText\\\">\\u0110ang k\\u1ebft n\\u1ed1i</span></span></div></header>\\n<main class=\\\"workspace\\\"><div class=\\\"page-head\\\"><div><h1 id=\\\"pageTitle\\\">Ki\\u1ec3m tra h\\u00ecnh \\u1ea3nh</h1><p id=\\\"pageDescription\\\">T\\u1ea3i \\u1ea3nh bo m\\u1ea1ch \\u0111\\u1ec3 ki\\u1ec3m tra v\\u00e0 theo d\\u00f5i k\\u1ebft qu\\u1ea3.</p></div><button class=\\\"btn\\\" id=\\\"download\\\"><svg><use href=\\\"#i-download\\\"/></svg>Xu\\u1ea5t d\\u1eef li\\u1ec7u</button></div>\\n<div class=\\\"metrics\\\"><div class=\\\"metric\\\"><div><span class=\\\"label\\\">T\\u1ed5ng c\\u1ea3nh b\\u00e1o</span><b id=\\\"total\\\">\\u2014</b></div><div class=\\\"symbol\\\"><svg><use href=\\\"#i-grid\\\"/></svg></div></div><div class=\\\"metric wait\\\"><div><span class=\\\"label\\\">Ch\\u1edd x\\u00e1c nh\\u1eadn</span><b id=\\\"pending\\\">\\u2014</b></div><div class=\\\"symbol\\\"><svg><use href=\\\"#i-alert\\\"/></svg></div></div><div class=\\\"metric done\\\"><div><span class=\\\"label\\\">\\u0110\\u00e3 x\\u00e1c nh\\u1eadn</span><b id=\\\"acked\\\">\\u2014</b></div><div class=\\\"symbol\\\"><svg><use href=\\\"#i-check\\\"/></svg></div></div></div>\\n<section id=\\\"view-inspection\\\" aria-label=\\\"Ki\\u1ec3m tra h\\u00ecnh \\u1ea3nh\\\"><div class=\\\"inspection-layout\\\"><div class=\\\"card\\\"><div class=\\\"card-head\\\"><h2><span class=\\\"step\\\">01</span>\\u1ea2nh ki\\u1ec3m tra</h2><span class=\\\"tag\\\">PCB4</span></div><div class=\\\"card-body\\\"><input id=\\\"file\\\" type=\\\"file\\\" accept=\\\"image/png,image/jpeg\\\" hidden><div id=\\\"dropzone\\\" class=\\\"dropzone\\\" role=\\\"button\\\" tabindex=\\\"0\\\" aria-label=\\\"K\\u00e9o th\\u1ea3 ho\\u1eb7c ch\\u1ecdn \\u1ea3nh JPEG, PNG\\\"><div class=\\\"upload-icon\\\"><svg><use href=\\\"#i-upload\\\"/></svg></div><div><p>K\\u00e9o th\\u1ea3 \\u1ea3nh v\\u00e0o \\u0111\\u00e2y ho\\u1eb7c <span class=\\\"choose\\\">ch\\u1ecdn t\\u1eeb m\\u00e1y</span></p><small>JPEG, PNG \\u00b7 T\\u1ed1i \\u0111a 5 MB \\u00b7 M\\u1ed9t \\u1ea3nh m\\u1ed7i l\\u1ea7n</small></div></div><div class=\\\"filebar\\\" id=\\\"filebar\\\" hidden><svg style=\\\"color:var(--accent)\\\"><use href=\\\"#i-image\\\"/></svg><div class=\\\"file-info\\\"><strong id=\\\"filename\\\"></strong><small id=\\\"filesize\\\"></small></div><button class=\\\"btn icon\\\" id=\\\"clear\\\" aria-label=\\\"B\\u1ecf \\u1ea3nh \\u0111\\u00e3 ch\\u1ecdn\\\"><svg><use href=\\\"#i-close\\\"/></svg></button></div><div class=\\\"toolbar\\\"><h3>\\u0110\\u1ed1i chi\\u1ebfu h\\u00ecnh \\u1ea3nh</h3><div class=\\\"tabs\\\" aria-label=\\\"Ch\\u1ebf \\u0111\\u1ed9 b\\u1ea3n \\u0111\\u1ed3\\\"><button id=\\\"overlayOn\\\" aria-pressed=\\\"true\\\">Ch\\u1ed3ng l\\u1edbp</button><button id=\\\"overlayOff\\\" aria-pressed=\\\"false\\\">B\\u1ea3n \\u0111\\u1ed3</button></div></div><div class=\\\"compare\\\"><div><div class=\\\"image-label\\\"><span>\\u1ea2nh g\\u1ed1c</span><span>INPUT</span></div><div class=\\\"imagebox\\\"><img id=\\\"original\\\" hidden alt=\\\"\\u1ea2nh bo m\\u1ea1ch \\u0111\\u00e3 ch\\u1ecdn\\\"><div class=\\\"empty\\\" id=\\\"originalEmpty\\\"><svg><use href=\\\"#i-image\\\"/></svg>Ch\\u01b0a c\\u00f3 \\u1ea3nh \\u0111\\u1ea7u v\\u00e0o</div></div></div><div><div class=\\\"image-label\\\"><span id=\\\"mapLabel\\\">B\\u1ea3n \\u0111\\u1ed3 ch\\u1ed3ng l\\u1edbp</span><span>ANALYSIS</span></div><div class=\\\"imagebox\\\"><img id=\\\"heat\\\" hidden alt=\\\"B\\u1ea3n \\u0111\\u1ed3 b\\u1ea5t th\\u01b0\\u1eddng\\\"><div class=\\\"empty\\\" id=\\\"heatEmpty\\\"><svg><use href=\\\"#i-scan\\\"/></svg>K\\u1ebft qu\\u1ea3 xu\\u1ea5t hi\\u1ec7n sau khi ph\\u00e2n t\\u00edch</div></div></div></div><div class=\\\"viewer-foot\\\"><span>M\\u00e0u n\\u00f3ng bi\\u1ec3u th\\u1ecb m\\u1ee9c b\\u1ea5t th\\u01b0\\u1eddng t\\u01b0\\u01a1ng \\u0111\\u1ed1i.</span><label class=\\\"zoom\\\" for=\\\"zoom\\\">Thu ph\\u00f3ng <input type=\\\"range\\\" id=\\\"zoom\\\" min=\\\"100\\\" max=\\\"200\\\" step=\\\"10\\\" value=\\\"100\\\"><span id=\\\"zoomValue\\\">100%</span></label></div></div><div class=\\\"actionbar\\\"><span>\\u1ea2nh \\u0111\\u01b0\\u1ee3c x\\u1eed l\\u00fd trong h\\u1ec7 th\\u1ed1ng n\\u1ed9i b\\u1ed9.</span><button id=\\\"run\\\" class=\\\"btn primary\\\" disabled>Ph\\u00e2n t\\u00edch \\u1ea3nh<svg><use href=\\\"#i-arrow\\\"/></svg></button></div></div>\\n<div class=\\\"result-stack\\\"><div class=\\\"card result-card\\\" id=\\\"resultCard\\\" data-state=\\\"idle\\\"><div class=\\\"card-head\\\"><h2><span class=\\\"step\\\">02</span>K\\u1ebft qu\\u1ea3 ki\\u1ec3m tra</h2></div><div class=\\\"card-body\\\"><div class=\\\"result-symbol\\\"><svg><use id=\\\"decisionIcon\\\" href=\\\"#i-scan\\\"/></svg></div><p id=\\\"decision\\\" role=\\\"status\\\">Ch\\u1edd \\u1ea3nh ki\\u1ec3m tra</p><p id=\\\"decisionNote\\\">Ch\\u1ecdn m\\u1ed9t \\u1ea3nh v\\u00e0 b\\u1eaft \\u0111\\u1ea7u ph\\u00e2n t\\u00edch \\u0111\\u1ec3 xem k\\u1ebft qu\\u1ea3.</p><div class=\\\"score-pair\\\"><div><small>\\u0110i\\u1ec3m b\\u1ea5t th\\u01b0\\u1eddng</small><b id=\\\"scoreValue\\\">\\u2014</b></div><div class=\\\"threshold\\\"><small>Ng\\u01b0\\u1ee1ng c\\u1ea3nh b\\u00e1o</small><b id=\\\"thresholdValue\\\">\\u2014</b></div></div><div class=\\\"score-track\\\"><div id=\\\"scoreBar\\\"></div></div><p class=\\\"score-explainer\\\">Thanh bi\\u1ec3u th\\u1ecb t\\u1ef7 l\\u1ec7 \\u0111i\\u1ec3m/ng\\u01b0\\u1ee1ng, kh\\u00f4ng ph\\u1ea3i x\\u00e1c su\\u1ea5t.</p><div class=\\\"result-meta\\\"><div><span>X\\u1eed l\\u00fd & b\\u1ea3n \\u0111\\u1ed3</span><b id=\\\"modelTime\\\">\\u2014</b></div><div><span>To\\u00e0n b\\u1ed9 y\\u00eau c\\u1ea7u</span><b id=\\\"totalTime\\\">\\u2014</b></div><div><span>B\\u1ea3n ghi</span><b id=\\\"recordId\\\">\\u2014</b></div></div><div class=\\\"result-controls\\\"><button id=\\\"retry\\\" class=\\\"btn\\\" disabled><svg><use href=\\\"#i-refresh\\\"/></svg>G\\u1eedi l\\u1ea1i c\\u00f9ng b\\u1ea3n ghi</button><button class=\\\"btn\\\" data-view=\\\"alerts\\\">Xem danh s\\u00e1ch c\\u1ea3nh b\\u00e1o<svg><use href=\\\"#i-arrow\\\"/></svg></button></div></div></div><div class=\\\"hint-card\\\"><b><svg><use href=\\\"#i-info\\\"/></svg>L\\u01b0u \\u00fd khi \\u0111\\u1ecdc k\\u1ebft qu\\u1ea3</b>D\\u01b0\\u1edbi ng\\u01b0\\u1ee1ng kh\\u00f4ng \\u0111\\u1ed3ng ngh\\u0129a v\\u1edbi kh\\u00f4ng c\\u00f3 l\\u1ed7i. M\\u00f4 h\\u00ecnh hi\\u1ec7n \\u0111ang trong giai \\u0111o\\u1ea1n \\u0111\\u00e1nh gi\\u00e1.<br><button data-view=\\\"model\\\">Xem hi\\u1ec7u qu\\u1ea3 v\\u00e0 gi\\u1edbi h\\u1ea1n m\\u00f4 h\\u00ecnh</button></div></div></div></section>\\n<section id=\\\"view-alerts\\\" hidden aria-label=\\\"Danh s\\u00e1ch c\\u1ea3nh b\\u00e1o\\\"><div class=\\\"card\\\"><div class=\\\"card-head\\\"><div><h2>Danh s\\u00e1ch c\\u1ea3nh b\\u00e1o</h2><p class=\\\"subtle\\\" style=\\\"margin-top:5px\\\">Theo d\\u00f5i v\\u00e0 x\\u00e1c nh\\u1eadn c\\u00e1c k\\u1ebft qu\\u1ea3 c\\u1ea7n ki\\u1ec3m tra.</p></div><button class=\\\"btn small\\\" id=\\\"refresh\\\"><svg><use href=\\\"#i-refresh\\\"/></svg>L\\u00e0m m\\u1edbi</button></div><div class=\\\"table-toolbar\\\"><div class=\\\"tabs\\\" aria-label=\\\"L\\u1ecdc tr\\u1ea1ng th\\u00e1i\\\"><button data-filter=\\\"all\\\" aria-pressed=\\\"true\\\">T\\u1ea5t c\\u1ea3</button><button data-filter=\\\"pending\\\" aria-pressed=\\\"false\\\">Ch\\u1edd x\\u00e1c nh\\u1eadn</button><button data-filter=\\\"acknowledged\\\" aria-pressed=\\\"false\\\">\\u0110\\u00e3 x\\u00e1c nh\\u1eadn</button></div><label class=\\\"search\\\"><svg><use href=\\\"#i-search\\\"/></svg><input id=\\\"search\\\" type=\\\"search\\\" placeholder=\\\"T\\u00ecm theo m\\u00e3 b\\u1ea3n ghi\\u2026\\\" aria-label=\\\"T\\u00ecm c\\u1ea3nh b\\u00e1o theo m\\u00e3 b\\u1ea3n ghi\\\"></label></div><div class=\\\"scroll\\\"><table><thead><tr><th>B\\u1ea3n ghi</th><th>Th\\u1eddi gian</th><th>\\u0110i\\u1ec3m / ng\\u01b0\\u1ee1ng</th><th>Tr\\u1ea1ng th\\u00e1i</th><th>Thao t\\u00e1c</th></tr></thead><tbody id=\\\"rows\\\"></tbody></table></div><div class=\\\"table-foot\\\"><span id=\\\"rowCount\\\">Ch\\u01b0a c\\u00f3 d\\u1eef li\\u1ec7u</span><div><button class=\\\"btn small\\\" id=\\\"previous\\\">Tr\\u01b0\\u1edbc</button> <span id=\\\"pageIndex\\\">1 / 1</span> <button class=\\\"btn small\\\" id=\\\"next\\\">Sau</button></div></div></div><p class=\\\"subtle\\\" style=\\\"margin-top:14px\\\">X\\u00e1c nh\\u1eadn ch\\u1ec9 \\u0111\\u00e1nh d\\u1ea5u \\u0111\\u00e3 xem, kh\\u00f4ng ch\\u1ee9ng minh l\\u1ed7i \\u0111\\u00e3 \\u0111\\u01b0\\u1ee3c kh\\u1eafc ph\\u1ee5c. C\\u1ea3nh b\\u00e1o ki\\u1ec3m th\\u1eed c\\u00f3 m\\u00e3 b\\u1eaft \\u0111\\u1ea7u b\\u1eb1ng \\u201cverify_\\u201d.</p></section>\\n<section id=\\\"view-model\\\" hidden aria-label=\\\"Th\\u00f4ng tin m\\u00f4 h\\u00ecnh\\\"><div class=\\\"model-grid\\\"><div class=\\\"card\\\"><div class=\\\"card-head\\\"><h2>C\\u1ea5u h\\u00ecnh \\u0111ang s\\u1eed d\\u1ee5ng</h2><span class=\\\"tag\\\">BASELINE</span></div><div class=\\\"card-body\\\"><div class=\\\"kv\\\"><span>D\\u1eef li\\u1ec7u</span><b>VisA \\u00b7 PCB4</b></div><div class=\\\"kv\\\"><span>M\\u00f4 h\\u00ecnh</span><b>PatchCore / ResNet18</b></div><div class=\\\"kv\\\"><span>B\\u1ed9 nh\\u1edb \\u0111\\u1eb7c tr\\u01b0ng</span><b>2.000 patch, l\\u1ea5y m\\u1eabu ng\\u1eabu nhi\\u00ean</b></div><div class=\\\"kv\\\"><span>Fit / calibration / test</span><b>804 / 100 / 201 \\u1ea3nh</b></div><div class=\\\"kv\\\"><span>Ng\\u01b0\\u1ee1ng g\\u1ed1c</span><b>14,6407</b></div><p class=\\\"subtle\\\">Ng\\u01b0\\u1ee1ng ch\\u1ecdn t\\u1eeb 100 \\u1ea3nh normal calibration. \\u0110i\\u1ec3m l\\u00e0 kho\\u1ea3ng c\\u00e1ch b\\u1ea5t th\\u01b0\\u1eddng, kh\\u00f4ng ph\\u1ea3i x\\u00e1c su\\u1ea5t l\\u1ed7i. Ch\\u01b0a ch\\u1ea1y l\\u1ea7n c\\u1ea3i thi\\u1ec7n m\\u00f4 h\\u00ecnh.</p></div></div><div class=\\\"card\\\"><div class=\\\"card-head\\\"><h2>\\u0110\\u00e1nh gi\\u00e1 tr\\u00ean t\\u1eadp test</h2></div><div class=\\\"card-body\\\"><div class=\\\"kv\\\"><span>Ph\\u00e1t hi\\u1ec7n / b\\u1ecf s\\u00f3t \\u1ea3nh l\\u1ed7i</span><b>31 / 69 tr\\u00ean 100 \\u1ea3nh</b></div><div class=\\\"kv\\\"><span>B\\u00e1o nh\\u1ea7m \\u1ea3nh normal</span><b>0 / 101 \\u1ea3nh</b></div><div class=\\\"kv\\\"><span>Image AUROC</span><b>94,11%</b></div><div class=\\\"kv\\\"><span>Recall / F1</span><b>31% / 47,33%</b></div><div class=\\\"callout\\\">Baseline b\\u1ecf s\\u00f3t nhi\\u1ec1u \\u1ea3nh l\\u1ed7i. Ch\\u1ec9 th\\u1eed tr\\u00ean PCB4; ch\\u01b0a ki\\u1ec3m ch\\u1ee9ng v\\u1edbi \\u1ea3nh camera ho\\u1eb7c s\\u1ea3n ph\\u1ea9m kh\\u00e1c. AUROC kh\\u00f4ng ph\\u1ea3i t\\u1ef7 l\\u1ec7 \\u1ea3nh \\u0111\\u01b0\\u1ee3c ph\\u00e2n lo\\u1ea1i \\u0111\\u00fang.</div></div></div><div class=\\\"card\\\"><div class=\\\"card-head\\\"><h2>L\\u01b0u tr\\u1eef & ph\\u1ea1m vi</h2></div><div class=\\\"card-body\\\"><ul><li>C\\u1ea3nh b\\u00e1o v\\u00e0 ACK l\\u01b0u b\\u1eb1ng SQLite tr\\u00ean m\\u00e1y.</li><li>Gi\\u1edbi h\\u1ea1n 20.000 c\\u1ea3nh b\\u00e1o, 100.000 b\\u1ea3n ghi; \\u0111\\u1ea7y th\\u00ec b\\u00e1o l\\u1ed7i, kh\\u00f4ng t\\u1ef1 x\\u00f3a.</li><li>Heatmap \\u0111\\u01b0\\u1ee3c chu\\u1ea9n h\\u00f3a ri\\u00eang t\\u1eebng \\u1ea3nh; ch\\u01b0a \\u0111\\u00e1nh gi\\u00e1 \\u0111\\u1ed9 ch\\u00ednh x\\u00e1c \\u0111\\u1ecbnh v\\u1ecb l\\u1ed7i.</li><li>Ch\\u01b0a k\\u1ebft n\\u1ed1i camera, c\\u1ea3m bi\\u1ebfn IoT ho\\u1eb7c g\\u1eedi th\\u00f4ng b\\u00e1o b\\u00ean ngo\\u00e0i.</li></ul><a href=\\\"/giang-aiot/v1/demo\\\" target=\\\"_blank\\\" rel=\\\"noopener\\\">M\\u1edf b\\u1ed9 ki\\u1ec3m th\\u1eed d\\u1eef li\\u1ec7u gi\\u1ea3 l\\u1eadp \\u2197</a></div></div><div class=\\\"card\\\"><div class=\\\"card-head\\\"><h2>D\\u1eef li\\u1ec7u k\\u1ebft qu\\u1ea3</h2></div><div class=\\\"card-body\\\"><p class=\\\"subtle\\\">N\\u00fat \\u201cXu\\u1ea5t d\\u1eef li\\u1ec7u\\u201d t\\u1ea3i k\\u1ebft qu\\u1ea3 hi\\u1ec7n t\\u1ea1i v\\u00e0 to\\u00e0n b\\u1ed9 danh s\\u00e1ch c\\u1ea3nh b\\u00e1o \\u0111\\u00e3 \\u0111\\u1ecdc. N\\u1ebfu \\u0111\\u1ecdc kho th\\u1ea5t b\\u1ea1i, file xu\\u1ea5t s\\u1ebd \\u0111\\u00e1nh d\\u1ea5u d\\u1eef li\\u1ec7u ch\\u01b0a \\u0111\\u01b0\\u1ee3c l\\u00e0m m\\u1edbi.</p></div><details><summary>Xem JSON c\\u1ee7a l\\u1ea7n ph\\u00e2n t\\u00edch g\\u1ea7n nh\\u1ea5t</summary><pre id=\\\"detail\\\">Ch\\u01b0a c\\u00f3 k\\u1ebft qu\\u1ea3.</pre></details></div></div></section>\\n<footer class=\\\"footer\\\"><span>Inspect \\u00b7 Kh\\u00f4ng gian th\\u1eed nghi\\u1ec7m PCB4</span><span id=\\\"updated\\\">Ch\\u01b0a c\\u1eadp nh\\u1eadt c\\u1ea3nh b\\u00e1o</span></footer></main></div><div id=\\\"toast\\\" class=\\\"toast\\\" role=\\\"status\\\" hidden></div>\\n<script>\\nconst $=id=>document.getElementById(id);\\nlet selectedFile=null,last=null,result=null,alerts=null,url=null,busy=false,overlay=true,filter='all',page=1,toastTimer=null,alertsFresh=false;\\nconst pageSize=10;\\nconst viewNames={inspection:['Ki\\u1ec3m tra h\\u00ecnh \\u1ea3nh','T\\u1ea3i \\u1ea3nh bo m\\u1ea1ch \\u0111\\u1ec3 ki\\u1ec3m tra v\\u00e0 theo d\\u00f5i k\\u1ebft qu\\u1ea3.'],alerts:['Qu\\u1ea3n l\\u00fd c\\u1ea3nh b\\u00e1o','Ki\\u1ec3m tra c\\u00e1c k\\u1ebft qu\\u1ea3 b\\u1ea5t th\\u01b0\\u1eddng v\\u00e0 c\\u1eadp nh\\u1eadt tr\\u1ea1ng th\\u00e1i x\\u00e1c nh\\u1eadn.'],model:['Th\\u00f4ng tin m\\u00f4 h\\u00ecnh','C\\u1ea5u h\\u00ecnh, k\\u1ebft qu\\u1ea3 \\u0111\\u00e1nh gi\\u00e1 v\\u00e0 gi\\u1edbi h\\u1ea1n c\\u1ee7a phi\\u00ean b\\u1ea3n \\u0111ang s\\u1eed d\\u1ee5ng.']};\\nfunction toast(message,error=false){$('toast').textContent=message;$('toast').classList.toggle('error',error);$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,6500);}\\nfunction connection(message,state){$('connectionText').textContent=message;$('connection').dataset.state=state;}\\nfunction showView(view){if(!viewNames[view])return;for(const name of Object.keys(viewNames))$('view-'+name).hidden=name!==view;document.querySelectorAll('nav [data-view]').forEach(b=>{if(b.dataset.view===view)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});$('breadcrumb').textContent=$('pageTitle').textContent=viewNames[view][0];$('pageDescription').textContent=viewNames[view][1];if(view==='alerts')refresh();}\\ndocument.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>showView(b.dataset.view));\\nconst errorMessages={INVALID_IMAGE:'\\u1ea2nh kh\\u00f4ng \\u0111\\u1ecdc \\u0111\\u01b0\\u1ee3c. H\\u00e3y ch\\u1ecdn JPEG ho\\u1eb7c PNG h\\u1ee3p l\\u1ec7.',MODEL_UNAVAILABLE_OR_IMAGE_ERROR:'D\\u1ecbch v\\u1ee5 kh\\u00f4ng x\\u1eed l\\u00fd \\u0111\\u01b0\\u1ee3c \\u1ea3nh. Ki\\u1ec3m tra \\u1ea3nh v\\u00e0 c\\u1eeda s\\u1ed5 ch\\u1ea1y m\\u00f4 h\\u00ecnh.',STORAGE_UNAVAILABLE:'Kh\\u00f4ng k\\u1ebft n\\u1ed1i \\u0111\\u01b0\\u1ee3c kho c\\u1ea3nh b\\u00e1o.',MODEL_OR_WORKFLOW_ERROR:'D\\u1ecbch v\\u1ee5 x\\u1eed l\\u00fd ch\\u01b0a s\\u1eb5n s\\u00e0ng.',ID_CONFLICT:'M\\u00e3 b\\u1ea3n ghi \\u0111\\u00e3 c\\u00f3 n\\u1ed9i dung kh\\u00e1c. H\\u00e3y t\\u1ea1o l\\u1ea7n ph\\u00e2n t\\u00edch m\\u1edbi.',STALE_RECORD:'B\\u1ea3n ghi \\u0111\\u00e3 qu\\u00e1 c\\u0169. H\\u00e3y b\\u1ea5m Ph\\u00e2n t\\u00edch \\u1ea3nh \\u0111\\u1ec3 t\\u1ea1o l\\u1ea7n ki\\u1ec3m tra m\\u1edbi.',OUT_OF_ORDER:'B\\u1ea3n ghi \\u0111\\u1ebfn sai th\\u1ee9 t\\u1ef1. H\\u00e3y t\\u1ea1o l\\u1ea7n ph\\u00e2n t\\u00edch m\\u1edbi.',LEGACY_ID_RESERVED_USE_NEW_RECORD:'B\\u1ea3n ghi c\\u0169 \\u0111\\u01b0\\u1ee3c gi\\u1eef t\\u1eeb phi\\u00ean tr\\u01b0\\u1edbc. H\\u00e3y t\\u1ea1o l\\u1ea7n ph\\u00e2n t\\u00edch m\\u1edbi.'};\\nasync function api(route,body){try{const r=await fetch('/giang-pcb4/v1/'+route,{method:body===undefined?'GET':'POST',headers:{'Content-Type':'application/json'},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(45000)});let b;try{b=await r.json();}catch{throw Error('M\\u00e1y ch\\u1ee7 tr\\u1ea3 d\\u1eef li\\u1ec7u kh\\u00f4ng h\\u1ee3p l\\u1ec7 (HTTP '+r.status+').');}if(!r.ok)throw Error(errorMessages[b.code]||b.code||('HTTP '+r.status));return b;}catch(e){if(e.name==='TimeoutError'||e.name==='AbortError')throw Error('H\\u1ebft th\\u1eddi gian ch\\u1edd. C\\u00f3 th\\u1ec3 b\\u1ea3n ghi \\u0111\\u00e3 \\u0111\\u01b0\\u1ee3c l\\u01b0u; d\\u00f9ng G\\u1eedi l\\u1ea1i c\\u00f9ng b\\u1ea3n ghi \\u0111\\u1ec3 \\u0111\\u1ed1i chi\\u1ebfu.');if(e instanceof TypeError)throw Error('Kh\\u00f4ng k\\u1ebft n\\u1ed1i \\u0111\\u01b0\\u1ee3c m\\u00e1y ch\\u1ee7. Ki\\u1ec3m tra Node-RED v\\u00e0 d\\u1ecbch v\\u1ee5 m\\u00f4 h\\u00ecnh.');throw e;}}\\nfunction textCell(tr,text){const td=document.createElement('td');td.textContent=text;tr.append(td);return td;}\\nfunction render(){const q=$('search').value.trim().toLowerCase();const matches=(alerts?.alerts||[]).filter(a=>(filter==='all'||a.status===filter)&&((a.record_id+' '+a.alert_id).toLowerCase().includes(q))).slice().reverse();const pages=Math.max(1,Math.ceil(matches.length/pageSize));page=Math.min(page,pages);$('rows').replaceChildren();for(const a of matches.slice((page-1)*pageSize,page*pageSize)){const tr=document.createElement('tr');const id=textCell(tr,a.record_id.length>22?a.record_id.slice(0,19)+'\\u2026':a.record_id);id.title=a.record_id;const source=document.createElement('small');source.textContent=a.record_id.startsWith('verify_')?'B\\u1ea3n ghi ki\\u1ec3m th\\u1eed \\u00b7 PCB4':'PCB4';id.append(source);textCell(tr,new Date(a.timestamp).toLocaleString('vi-VN'));const raw=Number.isFinite(a.raw_score)&&Number.isFinite(a.raw_threshold);const score=textCell(tr,raw?a.raw_score.toFixed(4)+' / '+a.raw_threshold.toFixed(4):a.anomaly_score.toFixed(4)+' / '+a.threshold);if(!raw){const note=document.createElement('small');note.textContent='\\u0110i\\u1ec3m quy \\u0111\\u1ed5i \\u00b7 b\\u1ea3n ghi c\\u0169';score.append(note);}const td=textCell(tr,'');const badge=document.createElement('span');badge.className='status'+(a.status==='acknowledged'?' acked':'');badge.textContent=a.status==='pending'?'\\u25f7 Ch\\u1edd x\\u00e1c nh\\u1eadn':'\\u2713 \\u0110\\u00e3 x\\u00e1c nh\\u1eadn';td.append(badge);const action=textCell(tr,'');if(a.status==='pending'){const b=document.createElement('button');b.className='btn small';b.textContent='X\\u00e1c nh\\u1eadn';b.disabled=busy;b.onclick=async()=>{b.disabled=true;try{await api('ack',{alert_id:a.alert_id});toast('\\u0110\\u00e3 x\\u00e1c nh\\u1eadn c\\u1ea3nh b\\u00e1o.');await refresh();}catch(e){toast(e.message,true);b.disabled=false;}};action.append(b);}else{action.textContent='\\u2014';action.title=a.acknowledged_at?new Date(a.acknowledged_at).toLocaleString('vi-VN'):'';}$('rows').append(tr);}if(!matches.length){const tr=document.createElement('tr'),td=textCell(tr,alertsFresh?'Kh\\u00f4ng c\\u00f3 c\\u1ea3nh b\\u00e1o ph\\u00f9 h\\u1ee3p v\\u1edbi b\\u1ed9 l\\u1ecdc.':'Ch\\u01b0a \\u0111\\u1ecdc \\u0111\\u01b0\\u1ee3c d\\u1eef li\\u1ec7u c\\u1ea3nh b\\u00e1o. H\\u00e3y th\\u1eed l\\u00e0m m\\u1edbi.');td.colSpan=5;td.className='table-empty';$('rows').append(tr);}$('rowCount').textContent=matches.length+' c\\u1ea3nh b\\u00e1o'+(alertsFresh?'':' \\u00b7 d\\u1eef li\\u1ec7u ch\\u01b0a \\u0111\\u01b0\\u1ee3c l\\u00e0m m\\u1edbi');$('pageIndex').textContent=page+' / '+pages;$('previous').disabled=page<=1;$('next').disabled=page>=pages;}\\nasync function refresh(){const button=$('refresh');button.disabled=true;try{alerts=await api('alerts');alertsFresh=true;$('total').textContent=alerts.total;$('pending').textContent=$('navPending').textContent=alerts.pending;$('acked').textContent=alerts.acknowledged;$('updated').textContent='C\\u1eadp nh\\u1eadt c\\u1ea3nh b\\u00e1o l\\u00fac '+new Date().toLocaleTimeString('vi-VN');render();}catch(e){alertsFresh=false;$('updated').textContent='D\\u1eef li\\u1ec7u c\\u1ea3nh b\\u00e1o ch\\u01b0a \\u0111\\u01b0\\u1ee3c l\\u00e0m m\\u1edbi';render();toast(e.message,true);}finally{button.disabled=false;}}\\nfunction setResult(state,title,note){$('resultCard').dataset.state=state;$('decision').textContent=title;$('decisionNote').textContent=note;$('decisionIcon').setAttribute('href',state==='alert'||state==='error'?'#i-alert':state==='normal'?'#i-check':'#i-scan');}\\nfunction resetResult(){result=null;last=null;$('retry').disabled=true;$('heat').hidden=true;$('heat').removeAttribute('src');$('heatEmpty').hidden=false;for(const id of ['scoreValue','thresholdValue','modelTime','totalTime','recordId'])$(id).textContent='\\u2014';$('scoreBar').style.width='0';$('detail').textContent='Ch\\u01b0a c\\u00f3 k\\u1ebft qu\\u1ea3.';setResult('idle',selectedFile?'S\\u1eb5n s\\u00e0ng ph\\u00e2n t\\u00edch':'Ch\\u1edd \\u1ea3nh ki\\u1ec3m tra',selectedFile?'B\\u1ea5m Ph\\u00e2n t\\u00edch \\u1ea3nh \\u0111\\u1ec3 b\\u1eaft \\u0111\\u1ea7u ki\\u1ec3m tra.':'Ch\\u1ecdn m\\u1ed9t \\u1ea3nh v\\u00e0 b\\u1eaft \\u0111\\u1ea7u ph\\u00e2n t\\u00edch \\u0111\\u1ec3 xem k\\u1ebft qu\\u1ea3.');}\\nfunction chooseFile(file){if(busy)return;if(!file)return;if(!['image/jpeg','image/png'].includes(file.type)||file.size>5*1024*1024||file.size===0){toast('Ch\\u1ecdn \\u1ea3nh JPEG ho\\u1eb7c PNG h\\u1ee3p l\\u1ec7, t\\u1ed1i \\u0111a 5 MB.',true);return;}if(url)URL.revokeObjectURL(url);selectedFile=file;url=URL.createObjectURL(file);$('original').src=url;$('original').hidden=false;$('originalEmpty').hidden=true;$('filebar').hidden=false;$('filename').textContent=file.name;$('filesize').textContent=(file.size/1024/1024).toFixed(2)+' MB';$('run').disabled=false;$('zoom').value=100;setZoom();resetResult();}\\nfunction clearFile(){if(busy)return;if(url)URL.revokeObjectURL(url);url=null;selectedFile=null;$('file').value='';$('original').removeAttribute('src');$('original').hidden=true;$('originalEmpty').hidden=false;$('filebar').hidden=true;$('run').disabled=true;resetResult();}\\nconst drop=$('dropzone');drop.onclick=()=>{if(!busy)$('file').click();};drop.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();if(!busy)$('file').click();}};$('file').onchange=()=>chooseFile($('file').files[0]);$('clear').onclick=clearFile;\\nfor(const name of ['dragenter','dragover'])drop.addEventListener(name,e=>{e.preventDefault();if(!busy)drop.classList.add('dragover');});for(const name of ['dragleave','drop'])drop.addEventListener(name,e=>{e.preventDefault();drop.classList.remove('dragover');});drop.addEventListener('drop',e=>{if(e.dataTransfer.files.length!==1){toast('Ch\\u1ec9 ch\\u1ecdn m\\u1ed9t \\u1ea3nh m\\u1ed7i l\\u1ea7n.',true);return;}chooseFile(e.dataTransfer.files[0]);});window.addEventListener('dragover',e=>e.preventDefault());window.addEventListener('drop',e=>e.preventDefault());\\nfunction setZoom(){const scale=Number($('zoom').value)/100;$('zoomValue').textContent=$('zoom').value+'%';for(const id of ['original','heat'])$(id).style.transform='scale('+scale+')';}$('zoom').oninput=setZoom;\\nfunction setOverlay(value){overlay=value;$('overlayOn').setAttribute('aria-pressed',String(value));$('overlayOff').setAttribute('aria-pressed',String(!value));$('mapLabel').textContent=value?'B\\u1ea3n \\u0111\\u1ed3 ch\\u1ed3ng l\\u1edbp':'B\\u1ea3n \\u0111\\u1ed3 b\\u1ea5t th\\u01b0\\u1eddng';if(result)$('heat').src=value?(result.model.overlay||result.model.heatmap):result.model.heatmap;}$('overlayOn').onclick=()=>setOverlay(true);$('overlayOff').onclick=()=>setOverlay(false);\\nasync function run(retry){if(busy)return;busy=true;$('run').disabled=$('retry').disabled=$('clear').disabled=true;drop.setAttribute('aria-disabled','true');$('run').textContent='\\u0110ang ph\\u00e2n t\\u00edch\\u2026';try{if(!retry){if(!selectedFile)throw Error('Ch\\u1ecdn \\u1ea3nh tr\\u01b0\\u1edbc khi ph\\u00e2n t\\u00edch.');const image=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.split(',')[1]);reader.onerror=()=>reject(Error('Kh\\u00f4ng \\u0111\\u1ecdc \\u0111\\u01b0\\u1ee3c file \\u1ea3nh.'));reader.readAsDataURL(selectedFile);});last={image_base64:image,record_id:crypto.randomUUID(),timestamp:new Date().toISOString()};}result=null;$('heat').hidden=true;$('heatEmpty').hidden=false;for(const id of ['scoreValue','thresholdValue','modelTime','totalTime','recordId'])$(id).textContent='\\u2014';$('scoreBar').style.width='0';$('detail').textContent='\\u0110ang x\\u1eed l\\u00fd\\u2026';setResult('busy','\\u0110ang ph\\u00e2n t\\u00edch','\\u0110ang x\\u1eed l\\u00fd \\u1ea3nh v\\u00e0 ghi nh\\u1eadn k\\u1ebft qu\\u1ea3.');const started=performance.now();const data=await api('infer',last);const item=data.workflow?.results?.[0];if(!item||item.status==='error')throw Error(item?.code||'K\\u1ebft qu\\u1ea3 workflow kh\\u00f4ng h\\u1ee3p l\\u1ec7.');const decision=item.original||item;if(!['alert','normal'].includes(decision.status))throw Error('Tr\\u1ea1ng th\\u00e1i k\\u1ebft qu\\u1ea3 kh\\u00f4ng h\\u1ee3p l\\u1ec7.');result=data;const isAlert=decision.status==='alert';setResult(isAlert?'alert':'normal',isAlert?'Ph\\u00e1t hi\\u1ec7n b\\u1ea5t th\\u01b0\\u1eddng':'D\\u01b0\\u1edbi ng\\u01b0\\u1ee1ng c\\u1ea3nh b\\u00e1o',item.status==='duplicate'?'B\\u1ea3n ghi \\u0111\\u00e3 \\u0111\\u01b0\\u1ee3c nh\\u1eadn tr\\u01b0\\u1edbc \\u0111\\u00f3. Kh\\u00f4ng t\\u1ea1o c\\u1ea3nh b\\u00e1o m\\u1edbi.':isAlert?'\\u0110i\\u1ec3m v\\u01b0\\u1ee3t ng\\u01b0\\u1ee1ng. C\\u1ea3nh b\\u00e1o \\u0111\\u00e3 \\u0111\\u01b0\\u1ee3c l\\u01b0u \\u0111\\u1ec3 ki\\u1ec3m tra.':'Ch\\u01b0a v\\u01b0\\u1ee3t ng\\u01b0\\u1ee1ng \\u0111\\u00e3 c\\u1ea5u h\\u00ecnh. C\\u1ea7n \\u0111\\u1ed1i chi\\u1ebfu \\u1ea3nh \\u0111\\u1ec3 x\\u00e1c nh\\u1eadn.');$('scoreValue').textContent=data.model.raw_score.toFixed(4);$('thresholdValue').textContent=data.model.raw_threshold.toFixed(4);$('scoreBar').style.width=Math.min(100,data.model.raw_score/data.model.raw_threshold*100)+'%';$('modelTime').textContent=data.model.inference_ms.toFixed(1)+' ms';$('totalTime').textContent=(performance.now()-started).toFixed(1)+' ms';$('recordId').textContent=last.record_id.slice(0,8)+'\\u2026';$('recordId').title=last.record_id;$('heat').hidden=false;$('heatEmpty').hidden=true;setOverlay(overlay);$('detail').textContent=JSON.stringify({...data,model:{...data.model,heatmap:'[\\u1ea3nh b\\u1ea3n \\u0111\\u1ed3]',overlay:'[\\u1ea3nh ch\\u1ed3ng l\\u1edbp]'}},null,2);connection('M\\u00f4 h\\u00ecnh s\\u1eb5n s\\u00e0ng','ready');if(item.status==='duplicate')toast('\\u0110\\u00e3 ki\\u1ec3m tra: kh\\u00f4ng t\\u1ea1o th\\u00eam c\\u1ea3nh b\\u00e1o.');await refresh();}catch(e){setResult('error','Ch\\u01b0a c\\u00f3 k\\u1ebft lu\\u1eadn',e.message);$('detail').textContent=JSON.stringify({error:e.message,record_id:last?.record_id},null,2);toast(e.message,true);}finally{busy=false;$('run').textContent='Ph\\u00e2n t\\u00edch \\u1ea3nh';$('run').disabled=!selectedFile;$('retry').disabled=!last;$('clear').disabled=false;drop.setAttribute('aria-disabled','false');render();}}\\n$('run').onclick=()=>run(false);$('retry').onclick=()=>run(true);$('refresh').onclick=()=>{refresh();checkHealth();};document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{filter=b.dataset.filter;page=1;document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));render();});$('search').oninput=()=>{page=1;render();};$('previous').onclick=()=>{page--;render();};$('next').onclick=()=>{page++;render();};\\n$('download').onclick=()=>{if(!result&&!alerts){toast('Ch\\u01b0a c\\u00f3 d\\u1eef li\\u1ec7u \\u0111\\u1ec3 xu\\u1ea5t.',true);return;}const u=URL.createObjectURL(new Blob([JSON.stringify({exported_at:new Date().toISOString(),alerts_fresh:alertsFresh,result,alerts},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=u;a.download='inspection-results-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);toast('\\u0110\\u00e3 t\\u1ea1o file k\\u1ebft qu\\u1ea3 JSON.');};\\nasync function checkHealth(){try{const h=await api('health');connection(h.ready?'M\\u00f4 h\\u00ecnh s\\u1eb5n s\\u00e0ng':'Ch\\u01b0a s\\u1eb5n s\\u00e0ng',h.ready?'ready':'error');}catch(e){connection('M\\u00f4 h\\u00ecnh ngo\\u1ea1i tuy\\u1ebfn','error');$('connection').title=e.message;}}\\ncheckHealth();refresh();\\n</script></body></html>\\n\";return [null,null,msg];}\nif(r==='infer'||r==='health'){\n if(r==='infer'){const p=msg.payload;if(!p||typeof p.image_base64!=='string'||p.image_base64.length>7000000||typeof p.record_id!=='string'||!/^[a-zA-Z0-9_-]{1,64}$/.test(p.record_id)||typeof p.timestamp!=='string'){msg.statusCode=400;msg.payload={code:'INVALID_INPUT'};return [null,null,msg];}msg.record={record_id:p.record_id,timestamp:p.timestamp};}\n msg.url='http://127.0.0.1:1891/'+r;msg.method=r==='health'?'GET':'POST';msg.headers={'content-type':'application/json'};return [msg,null,null];}\nreturn [null,msg,null];"
+  },
+  {
+    "id": "pcb_request",
+    "z": "giang_pcb4_real_v1",
+    "type": "http request",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_model_result"
+      ]
+    ],
+    "name": "Python PatchCore (loopback)",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "persist": false,
+    "insecureHTTPParser": false,
+    "senderr": false,
+    "headers": [],
+    "requestTimeout": "30000"
+  },
+  {
+    "id": "pcb_model_result",
+    "z": "giang_pcb4_real_v1",
+    "type": "function",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_engine"
+      ],
+      [
+        "pcb_response"
+      ]
+    ],
+    "name": "Validate model output",
+    "outputs": 2,
+    "func": "if(msg.statusCode!==200){msg.statusCode=502;msg.payload={code:'MODEL_UNAVAILABLE_OR_IMAGE_ERROR',detail:msg.payload?.code};return [null,msg];}\nmsg.headers={'content-type':'application/json','cache-control':'no-store'};\nif(msg.route==='health')return [null,msg];const p=msg.payload;\nif(!p||!Number.isFinite(p.raw_score)||p.raw_score<0||!Number.isFinite(p.raw_threshold)||p.raw_threshold<=0){msg.statusCode=502;msg.payload={code:'INVALID_MODEL_OUTPUT'};return [null,msg];}\nmsg.model=p;msg.payload={...msg.record,source_id:'visa_pcb4',anomaly_score:p.raw_score/(p.raw_score+p.raw_threshold),raw_score:p.raw_score,raw_threshold:p.raw_threshold,decision:p.raw_score>=p.raw_threshold?'alert':'normal',image_sha256:p.image_sha256,model_version:p.model_version};return [msg,null];"
+  },
+  {
+    "id": "pcb_engine",
+    "z": "giang_pcb4_real_v1",
+    "type": "function",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_store_request"
+      ]
+    ],
+    "name": "Save decision / read alerts / ACK",
+    "outputs": 1,
+    "func": "msg.url='http://127.0.0.1:1891/'+(msg.route==='infer'?'records':msg.route);msg.method=msg.route==='alerts'?'GET':'POST';msg.headers={'content-type':'application/json'};delete msg.statusCode;return msg;"
+  },
+  {
+    "id": "pcb_store_request",
+    "z": "giang_pcb4_real_v1",
+    "type": "http request",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_store_result"
+      ]
+    ],
+    "name": "SQLite transactional workflow",
+    "method": "use",
+    "ret": "obj",
+    "paytoqs": "ignore",
+    "url": "",
+    "persist": false,
+    "insecureHTTPParser": false,
+    "senderr": false,
+    "headers": [],
+    "requestTimeout": "10000"
+  },
+  {
+    "id": "pcb_store_result",
+    "z": "giang_pcb4_real_v1",
+    "type": "function",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_response"
+      ]
+    ],
+    "name": "Only respond after database commit",
+    "outputs": 1,
+    "func": "msg.headers={'content-type':'application/json','cache-control':'no-store'};if(typeof msg.statusCode!=='number'){msg.statusCode=502;msg.payload={code:'STORAGE_UNAVAILABLE'};}if(msg.statusCode===200 && msg.model)msg.payload={model:msg.model,workflow:msg.payload};return msg;"
+  },
+  {
+    "id": "pcb_response",
+    "z": "giang_pcb4_real_v1",
+    "type": "http response",
+    "x": 1000,
+    "y": 200,
+    "wires": [],
+    "name": "HTTP response",
+    "statusCode": "",
+    "headers": {}
+  },
+  {
+    "id": "pcb_catch",
+    "z": "giang_pcb4_real_v1",
+    "type": "catch",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_error"
+      ]
+    ],
+    "name": "Processing / network error",
+    "scope": null,
+    "uncaught": false
+  },
+  {
+    "id": "pcb_error",
+    "z": "giang_pcb4_real_v1",
+    "type": "function",
+    "x": 500,
+    "y": 200,
+    "wires": [
+      [
+        "pcb_response"
+      ]
+    ],
+    "name": "Never normal on error",
+    "outputs": 1,
+    "func": "msg.statusCode=502;msg.headers={'content-type':'application/json'};msg.payload={code:'MODEL_OR_WORKFLOW_ERROR'};return msg;"
+  }
+]

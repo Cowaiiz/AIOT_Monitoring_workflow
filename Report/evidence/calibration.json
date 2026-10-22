@@ -1,0 +1,702 @@
+[
+  {
+    "image": "pcb4/Data/Images/Normal/0099.JPG",
+    "label": "normal",
+    "score": 10.797171592712402,
+    "inference_ms": 69.85019998683129,
+    "image_to_score_ms": 182.3679999943124
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0681.JPG",
+    "label": "normal",
+    "score": 12.02614974975586,
+    "inference_ms": 29.04080000007525,
+    "image_to_score_ms": 45.436500004143454
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/1000.JPG",
+    "label": "normal",
+    "score": 12.35339069366455,
+    "inference_ms": 27.85579999908805,
+    "image_to_score_ms": 45.8340000041062
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0524.JPG",
+    "label": "normal",
+    "score": 11.353631973266602,
+    "inference_ms": 26.95180001319386,
+    "image_to_score_ms": 43.86710000107996
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0754.JPG",
+    "label": "normal",
+    "score": 10.895980834960938,
+    "inference_ms": 27.000300004146993,
+    "image_to_score_ms": 44.02309999568388
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0819.JPG",
+    "label": "normal",
+    "score": 14.534078598022461,
+    "inference_ms": 24.49890000571031,
+    "image_to_score_ms": 44.21860000002198
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0616.JPG",
+    "label": "normal",
+    "score": 12.57397174835205,
+    "inference_ms": 24.716500003705733,
+    "image_to_score_ms": 42.21509999479167
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0358.JPG",
+    "label": "normal",
+    "score": 12.043880462646484,
+    "inference_ms": 25.313999998616055,
+    "image_to_score_ms": 43.9940999931423
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0342.JPG",
+    "label": "normal",
+    "score": 11.617952346801758,
+    "inference_ms": 24.420700006885454,
+    "image_to_score_ms": 43.61839999910444
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0541.JPG",
+    "label": "normal",
+    "score": 10.904356956481934,
+    "inference_ms": 26.102600008016452,
+    "image_to_score_ms": 45.177799998782575
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0682.JPG",
+    "label": "normal",
+    "score": 12.646044731140137,
+    "inference_ms": 26.300900004571304,
+    "image_to_score_ms": 45.49229999247473
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0329.JPG",
+    "label": "normal",
+    "score": 11.123619079589844,
+    "inference_ms": 24.492099997587502,
+    "image_to_score_ms": 41.87019998789765
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0034.JPG",
+    "label": "normal",
+    "score": 10.956586837768555,
+    "inference_ms": 22.619999988819472,
+    "image_to_score_ms": 42.7143000124488
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0884.JPG",
+    "label": "normal",
+    "score": 12.17728042602539,
+    "inference_ms": 25.450399989495054,
+    "image_to_score_ms": 43.87239999778103
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0391.JPG",
+    "label": "normal",
+    "score": 11.502887725830078,
+    "inference_ms": 25.569100005668588,
+    "image_to_score_ms": 45.29519999050535
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0190.JPG",
+    "label": "normal",
+    "score": 11.311296463012695,
+    "inference_ms": 25.924699992174283,
+    "image_to_score_ms": 43.88529999414459
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0505.JPG",
+    "label": "normal",
+    "score": 11.708259582519531,
+    "inference_ms": 25.754000002052635,
+    "image_to_score_ms": 47.234300000127405
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0766.JPG",
+    "label": "normal",
+    "score": 11.621747016906738,
+    "inference_ms": 29.325399998924695,
+    "image_to_score_ms": 54.744699998991564
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0942.JPG",
+    "label": "normal",
+    "score": 11.30460262298584,
+    "inference_ms": 26.75210000597872,
+    "image_to_score_ms": 48.398200000519864
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0220.JPG",
+    "label": "normal",
+    "score": 11.187746047973633,
+    "inference_ms": 24.931000007200055,
+    "image_to_score_ms": 40.014400001382455
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0362.JPG",
+    "label": "normal",
+    "score": 11.451412200927734,
+    "inference_ms": 24.067799997283146,
+    "image_to_score_ms": 40.97869999532122
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0438.JPG",
+    "label": "normal",
+    "score": 14.64073657989502,
+    "inference_ms": 23.08340001036413,
+    "image_to_score_ms": 38.01730000122916
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0598.JPG",
+    "label": "normal",
+    "score": 11.822195053100586,
+    "inference_ms": 25.996399999712594,
+    "image_to_score_ms": 40.96450000361074
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0672.JPG",
+    "label": "normal",
+    "score": 11.311178207397461,
+    "inference_ms": 24.33010000095237,
+    "image_to_score_ms": 39.02640000160318
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0398.JPG",
+    "label": "normal",
+    "score": 11.291285514831543,
+    "inference_ms": 23.578100008307956,
+    "image_to_score_ms": 38.51970001414884
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0599.JPG",
+    "label": "normal",
+    "score": 12.414216995239258,
+    "inference_ms": 23.567600001115352,
+    "image_to_score_ms": 38.35699999763165
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0486.JPG",
+    "label": "normal",
+    "score": 11.769222259521484,
+    "inference_ms": 22.876999995787628,
+    "image_to_score_ms": 37.93690000020433
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0430.JPG",
+    "label": "normal",
+    "score": 11.406405448913574,
+    "inference_ms": 23.603599998750724,
+    "image_to_score_ms": 40.21859999920707
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0582.JPG",
+    "label": "normal",
+    "score": 10.808791160583496,
+    "inference_ms": 23.942200001329184,
+    "image_to_score_ms": 40.96980000031181
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0669.JPG",
+    "label": "normal",
+    "score": 12.212895393371582,
+    "inference_ms": 23.027400005958043,
+    "image_to_score_ms": 37.98960000858642
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0321.JPG",
+    "label": "normal",
+    "score": 11.93653392791748,
+    "inference_ms": 24.49219999834895,
+    "image_to_score_ms": 39.011600005324
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0317.JPG",
+    "label": "normal",
+    "score": 11.802352905273438,
+    "inference_ms": 24.106099997879937,
+    "image_to_score_ms": 40.38579999178182
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0042.JPG",
+    "label": "normal",
+    "score": 11.404348373413086,
+    "inference_ms": 23.748499996145256,
+    "image_to_score_ms": 39.38969998853281
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0667.JPG",
+    "label": "normal",
+    "score": 10.732929229736328,
+    "inference_ms": 23.414600000251085,
+    "image_to_score_ms": 39.90689999773167
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0909.JPG",
+    "label": "normal",
+    "score": 12.586838722229004,
+    "inference_ms": 24.823100000503473,
+    "image_to_score_ms": 39.58279998914804
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0891.JPG",
+    "label": "normal",
+    "score": 12.289651870727539,
+    "inference_ms": 24.544300002162345,
+    "image_to_score_ms": 40.012199999182485
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0679.JPG",
+    "label": "normal",
+    "score": 10.875126838684082,
+    "inference_ms": 22.844099992653355,
+    "image_to_score_ms": 37.9904000001261
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0250.JPG",
+    "label": "normal",
+    "score": 11.304180145263672,
+    "inference_ms": 23.837400003685616,
+    "image_to_score_ms": 39.478800012147985
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0803.JPG",
+    "label": "normal",
+    "score": 11.599410057067871,
+    "inference_ms": 23.44479999737814,
+    "image_to_score_ms": 38.91890001250431
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0019.JPG",
+    "label": "normal",
+    "score": 10.800405502319336,
+    "inference_ms": 23.279300003196113,
+    "image_to_score_ms": 38.62979999394156
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0934.JPG",
+    "label": "normal",
+    "score": 13.187750816345215,
+    "inference_ms": 24.306099992827512,
+    "image_to_score_ms": 39.56340000149794
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0501.JPG",
+    "label": "normal",
+    "score": 11.168863296508789,
+    "inference_ms": 23.204999990412034,
+    "image_to_score_ms": 38.8332000002265
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0157.JPG",
+    "label": "normal",
+    "score": 12.007843971252441,
+    "inference_ms": 23.14029999251943,
+    "image_to_score_ms": 39.01320000295527
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0607.JPG",
+    "label": "normal",
+    "score": 11.895631790161133,
+    "inference_ms": 22.65139999508392,
+    "image_to_score_ms": 38.90939999837428
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0211.JPG",
+    "label": "normal",
+    "score": 12.66096019744873,
+    "inference_ms": 23.88369999243878,
+    "image_to_score_ms": 38.64430000248831
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0056.JPG",
+    "label": "normal",
+    "score": 11.270173072814941,
+    "inference_ms": 25.25529998820275,
+    "image_to_score_ms": 43.2788000034634
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0820.JPG",
+    "label": "normal",
+    "score": 11.551249504089355,
+    "inference_ms": 23.503200005507097,
+    "image_to_score_ms": 39.91419999510981
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0662.JPG",
+    "label": "normal",
+    "score": 11.248912811279297,
+    "inference_ms": 24.125100011588074,
+    "image_to_score_ms": 41.535900003509596
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0810.JPG",
+    "label": "normal",
+    "score": 11.039193153381348,
+    "inference_ms": 22.43840000301134,
+    "image_to_score_ms": 38.86360001342837
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0693.JPG",
+    "label": "normal",
+    "score": 11.738956451416016,
+    "inference_ms": 22.739199994248338,
+    "image_to_score_ms": 39.20700000890065
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0347.JPG",
+    "label": "normal",
+    "score": 11.730910301208496,
+    "inference_ms": 25.164299993775785,
+    "image_to_score_ms": 40.65670000272803
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0551.JPG",
+    "label": "normal",
+    "score": 11.422039031982422,
+    "inference_ms": 24.6200000110548,
+    "image_to_score_ms": 41.119800007436424
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0340.JPG",
+    "label": "normal",
+    "score": 11.34902572631836,
+    "inference_ms": 24.10589999635704,
+    "image_to_score_ms": 41.227899986552075
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0263.JPG",
+    "label": "normal",
+    "score": 11.70529556274414,
+    "inference_ms": 24.61189999303315,
+    "image_to_score_ms": 41.84380000515375
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0799.JPG",
+    "label": "normal",
+    "score": 11.117985725402832,
+    "inference_ms": 23.59430000069551,
+    "image_to_score_ms": 41.252400013036095
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0296.JPG",
+    "label": "normal",
+    "score": 11.349817276000977,
+    "inference_ms": 23.99209998839069,
+    "image_to_score_ms": 38.93609999795444
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0937.JPG",
+    "label": "normal",
+    "score": 11.458722114562988,
+    "inference_ms": 23.4348000085447,
+    "image_to_score_ms": 42.107400004169904
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0337.JPG",
+    "label": "normal",
+    "score": 12.28712272644043,
+    "inference_ms": 22.750299991457723,
+    "image_to_score_ms": 38.790100006735884
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0474.JPG",
+    "label": "normal",
+    "score": 11.862141609191895,
+    "inference_ms": 23.479900002712384,
+    "image_to_score_ms": 40.251700003864244
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0762.JPG",
+    "label": "normal",
+    "score": 11.140050888061523,
+    "inference_ms": 24.6428999962518,
+    "image_to_score_ms": 41.652500003692694
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0585.JPG",
+    "label": "normal",
+    "score": 11.503154754638672,
+    "inference_ms": 24.007200001506135,
+    "image_to_score_ms": 40.1650999992853
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0895.JPG",
+    "label": "normal",
+    "score": 12.573497772216797,
+    "inference_ms": 24.330500003998168,
+    "image_to_score_ms": 40.99149999092333
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0593.JPG",
+    "label": "normal",
+    "score": 12.040802001953125,
+    "inference_ms": 23.239500005729496,
+    "image_to_score_ms": 38.79120000055991
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0218.JPG",
+    "label": "normal",
+    "score": 12.661383628845215,
+    "inference_ms": 22.69969999906607,
+    "image_to_score_ms": 38.11399999540299
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0868.JPG",
+    "label": "normal",
+    "score": 12.378071784973145,
+    "inference_ms": 24.31960000831168,
+    "image_to_score_ms": 41.13620000134688
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0849.JPG",
+    "label": "normal",
+    "score": 12.380578994750977,
+    "inference_ms": 24.469199997838587,
+    "image_to_score_ms": 40.04039999563247
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0677.JPG",
+    "label": "normal",
+    "score": 12.887063980102539,
+    "inference_ms": 23.52950000204146,
+    "image_to_score_ms": 40.223399992100894
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0162.JPG",
+    "label": "normal",
+    "score": 11.759966850280762,
+    "inference_ms": 23.10140000190586,
+    "image_to_score_ms": 38.70140000071842
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0269.JPG",
+    "label": "normal",
+    "score": 10.83926010131836,
+    "inference_ms": 24.152500001946464,
+    "image_to_score_ms": 39.73700001370162
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0435.JPG",
+    "label": "normal",
+    "score": 11.685477256774902,
+    "inference_ms": 23.33300000464078,
+    "image_to_score_ms": 40.01640000205953
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0553.JPG",
+    "label": "normal",
+    "score": 11.578689575195312,
+    "inference_ms": 24.667699995916337,
+    "image_to_score_ms": 41.328000006615184
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0030.JPG",
+    "label": "normal",
+    "score": 11.755911827087402,
+    "inference_ms": 23.112899987609126,
+    "image_to_score_ms": 38.23710000142455
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0119.JPG",
+    "label": "normal",
+    "score": 13.084534645080566,
+    "inference_ms": 23.141699988627806,
+    "image_to_score_ms": 39.435900005628355
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0253.JPG",
+    "label": "normal",
+    "score": 11.636198043823242,
+    "inference_ms": 24.67820000310894,
+    "image_to_score_ms": 40.40050000185147
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0468.JPG",
+    "label": "normal",
+    "score": 10.817025184631348,
+    "inference_ms": 24.38360000087414,
+    "image_to_score_ms": 41.22990000178106
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0302.JPG",
+    "label": "normal",
+    "score": 12.33398151397705,
+    "inference_ms": 23.295600010897033,
+    "image_to_score_ms": 38.47990000213031
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0765.JPG",
+    "label": "normal",
+    "score": 11.768007278442383,
+    "inference_ms": 23.06549999048002,
+    "image_to_score_ms": 40.41470000811387
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0197.JPG",
+    "label": "normal",
+    "score": 12.657214164733887,
+    "inference_ms": 24.253900002804585,
+    "image_to_score_ms": 39.610899999388494
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0039.JPG",
+    "label": "normal",
+    "score": 11.899754524230957,
+    "inference_ms": 22.688900004141033,
+    "image_to_score_ms": 37.29219999513589
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0052.JPG",
+    "label": "normal",
+    "score": 11.868016242980957,
+    "inference_ms": 23.825900003430434,
+    "image_to_score_ms": 39.78740000457037
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0354.JPG",
+    "label": "normal",
+    "score": 11.463422775268555,
+    "inference_ms": 23.809299993445165,
+    "image_to_score_ms": 39.049099999829195
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0862.JPG",
+    "label": "normal",
+    "score": 12.02225112915039,
+    "inference_ms": 23.102899998775683,
+    "image_to_score_ms": 39.818999997805804
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0879.JPG",
+    "label": "normal",
+    "score": 11.803187370300293,
+    "inference_ms": 24.612499997601844,
+    "image_to_score_ms": 41.614000001573004
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0498.JPG",
+    "label": "normal",
+    "score": 11.579328536987305,
+    "inference_ms": 27.1807999961311,
+    "image_to_score_ms": 55.93909999879543
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0353.JPG",
+    "label": "normal",
+    "score": 11.639081954956055,
+    "inference_ms": 23.051800002576783,
+    "image_to_score_ms": 40.458199990098365
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0924.JPG",
+    "label": "normal",
+    "score": 11.850807189941406,
+    "inference_ms": 22.80839999730233,
+    "image_to_score_ms": 130.09729998884723
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0839.JPG",
+    "label": "normal",
+    "score": 11.130035400390625,
+    "inference_ms": 23.72369999648072,
+    "image_to_score_ms": 40.69730000628624
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0995.JPG",
+    "label": "normal",
+    "score": 13.160752296447754,
+    "inference_ms": 23.413600007188506,
+    "image_to_score_ms": 39.46189999987837
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0092.JPG",
+    "label": "normal",
+    "score": 11.324244499206543,
+    "inference_ms": 23.516200002632104,
+    "image_to_score_ms": 39.46960000030231
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0193.JPG",
+    "label": "normal",
+    "score": 11.838676452636719,
+    "inference_ms": 23.674099997151643,
+    "image_to_score_ms": 39.36710000562016
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0720.JPG",
+    "label": "normal",
+    "score": 11.152132987976074,
+    "inference_ms": 23.136399991926737,
+    "image_to_score_ms": 39.5252000016626
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0466.JPG",
+    "label": "normal",
+    "score": 12.162785530090332,
+    "inference_ms": 25.44859999034088,
+    "image_to_score_ms": 40.33519999939017
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0448.JPG",
+    "label": "normal",
+    "score": 11.418490409851074,
+    "inference_ms": 24.899500000174157,
+    "image_to_score_ms": 42.21450000477489
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0257.JPG",
+    "label": "normal",
+    "score": 11.638836860656738,
+    "inference_ms": 25.558599998475984,
+    "image_to_score_ms": 44.095600009313785
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0843.JPG",
+    "label": "normal",
+    "score": 11.967123031616211,
+    "inference_ms": 23.929999995743856,
+    "image_to_score_ms": 40.40629998780787
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0821.JPG",
+    "label": "normal",
+    "score": 11.135422706604004,
+    "inference_ms": 24.120199988828972,
+    "image_to_score_ms": 41.14840000693221
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0037.JPG",
+    "label": "normal",
+    "score": 11.688273429870605,
+    "inference_ms": 23.975799995241687,
+    "image_to_score_ms": 38.189700004295446
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0464.JPG",
+    "label": "normal",
+    "score": 11.145188331604004,
+    "inference_ms": 22.623199998633936,
+    "image_to_score_ms": 40.31540000869427
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0489.JPG",
+    "label": "normal",
+    "score": 11.836835861206055,
+    "inference_ms": 23.110399997676723,
+    "image_to_score_ms": 39.73250000854023
+  },
+  {
+    "image": "pcb4/Data/Images/Normal/0330.JPG",
+    "label": "normal",
+    "score": 11.328636169433594,
+    "inference_ms": 25.3967000026023,
+    "image_to_score_ms": 39.69109999889042
+  }
+]

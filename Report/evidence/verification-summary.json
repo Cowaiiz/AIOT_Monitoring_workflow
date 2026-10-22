@@ -1,0 +1,102 @@
+{
+  "cutoff_date": "2026-10-22",
+  "sources": {
+    "bao_commit": "dbb9e89f3b6feef215f82732cf91407103948510",
+    "giang_before_report_commit": "83d626d85c326d5354bbb8f2c1c4c55c3bd4503c"
+  },
+  "baseline": {
+    "dataset": "VisA",
+    "category": "pcb4",
+    "trained": true,
+    "device": "cuda",
+    "variant": "PatchCore ResNet18, bounded random memory bank; not canonical greedy coreset",
+    "fit_images": 804,
+    "calibration_images": 100,
+    "test_images": 201,
+    "threshold": 14.64073657989502,
+    "tp": 31,
+    "tn": 101,
+    "fp": 0,
+    "fn": 69,
+    "image_auroc": 0.9411386251449585,
+    "precision": 1.0,
+    "recall": 0.31,
+    "f1": 0.4732824427480916,
+    "fit_seconds": 17.170108400008758,
+    "pixel_metrics": null,
+    "latency_scope": "batch=1, warmed, inference includes GPU transfer completion; total includes image loading and preprocessing",
+    "inference_ms_median": 25.03009999054484,
+    "inference_ms_p95": 27.39109999674838,
+    "image_to_score_ms_median": 42.3921000037808,
+    "torch": "2.6.0+cu124",
+    "node_red_connected": false
+  },
+  "baseline_note": "node_red_connected=false is the training-time snapshot; subsequent integration evidence follows",
+  "checkpoint_sha256": "3814d23cbe93ba8138d92006cd3fc017e044e0e710e54c4a53b3ee516a645179",
+  "integration": {
+    "http-verification.json": {
+      "http_passed": true,
+      "checks": [
+        "model health",
+        "normal score / duplicate / ACK where applicable",
+        "alert score / duplicate / ACK where applicable",
+        "unknown ACK rejected",
+        "intentional invalid image: error, never normal",
+        "database reopened: alerts and ACK match HTTP"
+      ],
+      "unrelated_flows_unchanged": true,
+      "source_matches_deployed": true,
+      "backup": "local backup retained (machine path omitted)"
+    },
+    "ui-deployment.json": {
+      "updated_node": "pcb_dispatch",
+      "other_nodes_unchanged": true,
+      "alerts_preserved": true,
+      "model_ready": true,
+      "html_matches_source": true,
+      "backup": "local backup retained (machine path omitted)",
+      "browser_interactions_tested": false
+    },
+    "local-verification.json": {
+      "real_checkpoint_passed": true,
+      "device": "cuda",
+      "cases": [
+        {
+          "image": "pcb4/Data/Images/Normal/0011.JPG",
+          "score": 12.406294822692871,
+          "baseline_score": 12.406294822692871,
+          "matched": true
+        },
+        {
+          "image": "pcb4/Data/Images/Anomaly/009.JPG",
+          "score": 14.803593635559082,
+          "baseline_score": 14.803593635559082,
+          "matched": true
+        },
+        {
+          "image": "pcb4/Data/Images/Anomaly/000.JPG",
+          "score": 12.561969757080078,
+          "baseline_score": 12.561969757080078,
+          "matched": true
+        }
+      ],
+      "invalid_image_rejected": true,
+      "http_tested": false
+    },
+    "verification-v2.json": {
+      "version": "v2",
+      "sqlite_unit_groups_passed": 7,
+      "sqlite_unit_groups_failed": 0,
+      "real_checkpoint_three_samples_match": true,
+      "flow_and_ui_syntax": "pass",
+      "http_v2": "passed_user_terminal_verified_from_http-verification.json",
+      "browser_v2": "user_confirmed_manual_retry_and_ack; no_browser_automation",
+      "deployment_v2": "verified_source_matches_deployed_unrelated_unchanged",
+      "http_v1": "passed_from_existing_http-verification.json",
+      "actual_process_restart": "not_completed"
+    }
+  },
+  "model_improvement_run": false,
+  "actual_process_restart_test_completed": false,
+  "ui_new_interactions_automated": false
+}

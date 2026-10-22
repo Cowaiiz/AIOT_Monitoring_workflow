@@ -1,0 +1,9 @@
+{
+  "updated_node": "pcb_dispatch",
+  "other_nodes_unchanged": true,
+  "alerts_preserved": true,
+  "model_ready": true,
+  "html_matches_source": true,
+  "backup": "local backup retained (machine path omitted)",
+  "browser_interactions_tested": false
+}

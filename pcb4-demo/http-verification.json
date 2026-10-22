@@ -1,0 +1,14 @@
+{
+  "http_passed": true,
+  "checks": [
+    "model health",
+    "normal score / duplicate / ACK where applicable",
+    "alert score / duplicate / ACK where applicable",
+    "unknown ACK rejected",
+    "intentional invalid image: error, never normal",
+    "database reopened: alerts and ACK match HTTP"
+  ],
+  "unrelated_flows_unchanged": true,
+  "source_matches_deployed": true,
+  "backup": "local backup retained (machine path omitted)"
+}

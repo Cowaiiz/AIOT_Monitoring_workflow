@@ -1,0 +1,6 @@
+{
+  "threshold": 14.64073657989502,
+  "rule": "raw_score >= threshold",
+  "selection": "99th percentile (higher) of 100 held-out training normal images",
+  "score_is_probability": false
+}

@@ -1,0 +1,12 @@
+{
+  "version": "v2",
+  "sqlite_unit_groups_passed": 7,
+  "sqlite_unit_groups_failed": 0,
+  "real_checkpoint_three_samples_match": true,
+  "flow_and_ui_syntax": "pass",
+  "http_v2": "passed_user_terminal_verified_from_http-verification.json",
+  "browser_v2": "user_confirmed_manual_retry_and_ack; no_browser_automation",
+  "deployment_v2": "verified_source_matches_deployed_unrelated_unchanged",
+  "http_v1": "passed_from_existing_http-verification.json",
+  "actual_process_restart": "not_completed"
+}

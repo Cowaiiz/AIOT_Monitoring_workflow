@@ -1,3 +1,21 @@
+# Industrial AI Monitoring Framework
+
+**Cập nhật 22/10/2026:** đã bổ sung demo AI thật trên VisA PCB4, Node-RED, SQLite và giao diện Inspect.
+
+- **[Đọc báo cáo tiến độ gửi thầy](Report/BAO_CAO_TIEN_DO.md)** — tổng hợp repo Bảo, phần Giang thực hiện, kết quả đo và các giới hạn.
+- [Chạy demo AI thật](pcb4-demo/README.md) · [Chuẩn bị/train baseline](bao-model/TRAINING_README.md) · [Bằng chứng kết quả](Report/evidence/verification-summary.json).
+- Model do Giang tự chạy: Image AUROC **94,11%**, recall **31%**, bỏ sót **69/100 ảnh lỗi** ở ngưỡng hiện tại. Chưa có lần cải thiện mô hình; không coi đây là bộ chọn sản phẩm tốt đáng tin cậy.
+- HTTP AI thật và cập nhật UI đã được xác minh bằng script; kiểm thử đầy đủ UI mới và restart tiến trình thực còn chưa hoàn tất.
+- Tham khảo [repo Bảo](https://github.com/RoyalB26/AIoT_H261). Không dùng checkpoint Bảo bàn giao và không nhận benchmark của Bảo là kết quả tái lập của Giang.
+- Git không chứa dataset, checkpoint, database vận hành, cache hoặc môi trường Python. Hướng dẫn nêu các đường dẫn môi trường Windows cần điều chỉnh trên máy khác.
+
+---
+
+<details>
+<summary>Báo cáo giai đoạn trước: demo HTTP với dữ liệu giả lập</summary>
+
+Các mô tả RAM và “chưa gọi AI thật” bên dưới áp dụng riêng demo giả lập cũ tại /giang-aiot/v1. Demo AI thật tại /giang-pcb4/v1 được mô tả trong báo cáo cập nhật phía trên.
+
 # Industrial AI Monitoring Framework — Báo cáo tiến độ tích hợp HTTP và workflow
 
 **Người thực hiện:** Trần Long Giang (Bò) · **Nhóm:** 1 · **Cập nhật:** 22/10/2026
@@ -137,3 +155,6 @@ Tiền tố `/giang-aiot/v1`:
 - `mixed_cases.json`, `test_*.js`, `test_*.py`, `verify_build.js`: fixture và kiểm thử.
 - `deploy_demo.py`: triển khai riêng demo và backup.
 - `results/`: chứng cứ được chọn cho phiên v2.
+
+
+</details>

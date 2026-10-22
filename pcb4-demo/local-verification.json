@@ -1,0 +1,26 @@
+{
+  "real_checkpoint_passed": true,
+  "device": "cuda",
+  "cases": [
+    {
+      "image": "pcb4/Data/Images/Normal/0011.JPG",
+      "score": 12.406294822692871,
+      "baseline_score": 12.406294822692871,
+      "matched": true
+    },
+    {
+      "image": "pcb4/Data/Images/Anomaly/009.JPG",
+      "score": 14.803593635559082,
+      "baseline_score": 14.803593635559082,
+      "matched": true
+    },
+    {
+      "image": "pcb4/Data/Images/Anomaly/000.JPG",
+      "score": 12.561969757080078,
+      "baseline_score": 12.561969757080078,
+      "matched": true
+    }
+  ],
+  "invalid_image_rejected": true,
+  "http_tested": false
+}
