@@ -1,0 +1,76 @@
+{
+  "stages": [
+    {
+      "mode": "Python real HTTP",
+      "seed": 42,
+      "run_id": "7f08073433d8",
+      "target_rate": 100,
+      "completed": true,
+      "metrics": {
+        "requests": 10,
+        "records_sent": 1000,
+        "records_with_results": 1000,
+        "accepted_records": 1000,
+        "record_errors": 0,
+        "transport_errors": 0,
+        "unexpected_request_errors": 0,
+        "unexpected_request_error_rate": 0.0,
+        "elapsed_seconds": 9.006174499998451,
+        "accepted_records_per_second": 111.03493497712842,
+        "requests_per_second": 1.1103493497712842,
+        "latency_median_ms": 4.866699993726797,
+        "latency_p95_ms": 14.746000000741333,
+        "latency_scope": "client request including failed attempts; not per-record latency"
+      },
+      "first_error": null
+    },
+    {
+      "mode": "Python real HTTP",
+      "seed": 42,
+      "run_id": "1e9f0426d8e5",
+      "target_rate": 500,
+      "completed": true,
+      "metrics": {
+        "requests": 30,
+        "records_sent": 3000,
+        "records_with_results": 3000,
+        "accepted_records": 3000,
+        "record_errors": 0,
+        "transport_errors": 0,
+        "unexpected_request_errors": 0,
+        "unexpected_request_error_rate": 0.0,
+        "elapsed_seconds": 5.804037800000515,
+        "accepted_records_per_second": 516.8815406405062,
+        "requests_per_second": 5.168815406405061,
+        "latency_median_ms": 4.431400004250463,
+        "latency_p95_ms": 6.077099998947233,
+        "latency_scope": "client request including failed attempts; not per-record latency"
+      },
+      "first_error": null
+    },
+    {
+      "mode": "Python real HTTP",
+      "seed": 42,
+      "run_id": "c7a73dbd1d1f",
+      "target_rate": 1000,
+      "completed": true,
+      "metrics": {
+        "requests": 60,
+        "records_sent": 6000,
+        "records_with_results": 6000,
+        "accepted_records": 6000,
+        "record_errors": 0,
+        "transport_errors": 0,
+        "unexpected_request_errors": 0,
+        "unexpected_request_error_rate": 0.0,
+        "elapsed_seconds": 5.906224599995767,
+        "accepted_records_per_second": 1015.8773846839994,
+        "requests_per_second": 10.158773846839994,
+        "latency_median_ms": 4.230850005114917,
+        "latency_p95_ms": 5.525000000488944,
+        "latency_scope": "client request including failed attempts; not per-record latency"
+      },
+      "first_error": null
+    }
+  ]
+}

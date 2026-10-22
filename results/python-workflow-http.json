@@ -1,0 +1,2591 @@
+{
+  "mode": "Python real HTTP workflow",
+  "run": "pyw181bfb5568",
+  "seed": 42,
+  "blocked": false,
+  "passed": 93,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "Mixed batch",
+      "expected": "207 and 80 results",
+      "actual": {
+        "http": 207,
+        "body": {
+          "results": [
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_1",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_2",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_2",
+              "alert_id": "sim:src01:pyw181bfb5568_2"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_3",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.5,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_3",
+              "alert_id": "sim:src01:pyw181bfb5568_3"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_4"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_5"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_6"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_7"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_TIMESTAMP",
+              "record_id": "pyw181bfb5568_8"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_9",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_9",
+              "alert_id": "sim:src01:pyw181bfb5568_9"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_10",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_11"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_12"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_13"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_14",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.5,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_14",
+              "alert_id": "sim:src01:pyw181bfb5568_14"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_15",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_15",
+              "alert_id": "sim:src01:pyw181bfb5568_15"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_16",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_16",
+              "alert_id": "sim:src01:pyw181bfb5568_16"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_17"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_18",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_19",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_20",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_20",
+              "alert_id": "sim:src01:pyw181bfb5568_20"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_21"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_22"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_23",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_24"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_25"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_26"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_TIMESTAMP",
+              "record_id": "pyw181bfb5568_27"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_28"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_29",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_30",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.5,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_30",
+              "alert_id": "sim:src01:pyw181bfb5568_30"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_31"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_32"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_33"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_34",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.5,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_34",
+              "alert_id": "sim:src01:pyw181bfb5568_34"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_35"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_36"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_37",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_37",
+              "alert_id": "sim:src01:pyw181bfb5568_37"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_38",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_38",
+              "alert_id": "sim:src01:pyw181bfb5568_38"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_39"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_40",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_40",
+              "alert_id": "sim:src01:pyw181bfb5568_40"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_41"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_42"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_43"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_44",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_TIMESTAMP",
+              "record_id": "pyw181bfb5568_45"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_46",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_46",
+              "alert_id": "sim:src01:pyw181bfb5568_46"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_47"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_48",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_48",
+              "alert_id": "sim:src01:pyw181bfb5568_48"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_49"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_50"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_51"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_52",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_52",
+              "alert_id": "sim:src01:pyw181bfb5568_52"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_53",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_54"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_55"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_56",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_56",
+              "alert_id": "sim:src01:pyw181bfb5568_56"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_57"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_58",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_58",
+              "alert_id": "sim:src01:pyw181bfb5568_58"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_59"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_60"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_TIMESTAMP",
+              "record_id": "pyw181bfb5568_61"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_62"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_63",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.5,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_63",
+              "alert_id": "sim:src01:pyw181bfb5568_63"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_64"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_65"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_66"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_67"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_68",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_68",
+              "alert_id": "sim:src01:pyw181bfb5568_68"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_69",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.5,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_69",
+              "alert_id": "sim:src01:pyw181bfb5568_69"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_70"
+            },
+            {
+              "status": "alert",
+              "record_id": "pyw181bfb5568_71",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.5,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_71",
+              "alert_id": "sim:src01:pyw181bfb5568_71"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_TIMESTAMP",
+              "record_id": "pyw181bfb5568_72"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "STALE_RECORD",
+              "record_id": "pyw181bfb5568_73"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "MISSING_FIELD_anomaly_score",
+              "record_id": "pyw181bfb5568_74"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_75"
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_76"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_77",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "INVALID_SCORE",
+              "record_id": "pyw181bfb5568_78"
+            },
+            {
+              "status": "normal",
+              "record_id": "pyw181bfb5568_79",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.833Z",
+              "anomaly_score": 0.2,
+              "threshold": 0.5,
+              "simulated": true
+            },
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "UNKNOWN_SOURCE",
+              "record_id": "pyw181bfb5568_80"
+            }
+          ],
+          "summary": {
+            "records": 80,
+            "errors": 49,
+            "accepted": 31,
+            "duplicates": 0
+          }
+        },
+        "latency_ms": 6.436800002120435,
+        "transport_error": null
+      },
+      "pass": true
+    },
+    {
+      "name": "m0 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_1",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m1 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_2",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_2",
+        "alert_id": "sim:src01:pyw181bfb5568_2"
+      },
+      "pass": true
+    },
+    {
+      "name": "m2 boundary",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_3",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_3",
+        "alert_id": "sim:src01:pyw181bfb5568_3"
+      },
+      "pass": true
+    },
+    {
+      "name": "m3 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_4"
+      },
+      "pass": true
+    },
+    {
+      "name": "m4 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_5"
+      },
+      "pass": true
+    },
+    {
+      "name": "m5 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_6"
+      },
+      "pass": true
+    },
+    {
+      "name": "m6 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_7"
+      },
+      "pass": true
+    },
+    {
+      "name": "m7 bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "pyw181bfb5568_8"
+      },
+      "pass": true
+    },
+    {
+      "name": "m8 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_9",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_9",
+        "alert_id": "sim:src01:pyw181bfb5568_9"
+      },
+      "pass": true
+    },
+    {
+      "name": "m9 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_10",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m10 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_11"
+      },
+      "pass": true
+    },
+    {
+      "name": "m11 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_12"
+      },
+      "pass": true
+    },
+    {
+      "name": "m12 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_13"
+      },
+      "pass": true
+    },
+    {
+      "name": "m13 boundary",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_14",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_14",
+        "alert_id": "sim:src01:pyw181bfb5568_14"
+      },
+      "pass": true
+    },
+    {
+      "name": "m14 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_15",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_15",
+        "alert_id": "sim:src01:pyw181bfb5568_15"
+      },
+      "pass": true
+    },
+    {
+      "name": "m15 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_16",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_16",
+        "alert_id": "sim:src01:pyw181bfb5568_16"
+      },
+      "pass": true
+    },
+    {
+      "name": "m16 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_17"
+      },
+      "pass": true
+    },
+    {
+      "name": "m17 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_18",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m18 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_19",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m19 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_20",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_20",
+        "alert_id": "sim:src01:pyw181bfb5568_20"
+      },
+      "pass": true
+    },
+    {
+      "name": "m20 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_21"
+      },
+      "pass": true
+    },
+    {
+      "name": "m21 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_22"
+      },
+      "pass": true
+    },
+    {
+      "name": "m22 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_23",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m23 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_24"
+      },
+      "pass": true
+    },
+    {
+      "name": "m24 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_25"
+      },
+      "pass": true
+    },
+    {
+      "name": "m25 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_26"
+      },
+      "pass": true
+    },
+    {
+      "name": "m26 bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "pyw181bfb5568_27"
+      },
+      "pass": true
+    },
+    {
+      "name": "m27 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_28"
+      },
+      "pass": true
+    },
+    {
+      "name": "m28 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_29",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m29 boundary",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_30",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_30",
+        "alert_id": "sim:src01:pyw181bfb5568_30"
+      },
+      "pass": true
+    },
+    {
+      "name": "m30 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_31"
+      },
+      "pass": true
+    },
+    {
+      "name": "m31 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_32"
+      },
+      "pass": true
+    },
+    {
+      "name": "m32 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_33"
+      },
+      "pass": true
+    },
+    {
+      "name": "m33 boundary",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_34",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_34",
+        "alert_id": "sim:src01:pyw181bfb5568_34"
+      },
+      "pass": true
+    },
+    {
+      "name": "m34 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_35"
+      },
+      "pass": true
+    },
+    {
+      "name": "m35 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_36"
+      },
+      "pass": true
+    },
+    {
+      "name": "m36 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_37",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_37",
+        "alert_id": "sim:src01:pyw181bfb5568_37"
+      },
+      "pass": true
+    },
+    {
+      "name": "m37 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_38",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_38",
+        "alert_id": "sim:src01:pyw181bfb5568_38"
+      },
+      "pass": true
+    },
+    {
+      "name": "m38 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_39"
+      },
+      "pass": true
+    },
+    {
+      "name": "m39 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_40",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_40",
+        "alert_id": "sim:src01:pyw181bfb5568_40"
+      },
+      "pass": true
+    },
+    {
+      "name": "m40 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_41"
+      },
+      "pass": true
+    },
+    {
+      "name": "m41 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_42"
+      },
+      "pass": true
+    },
+    {
+      "name": "m42 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_43"
+      },
+      "pass": true
+    },
+    {
+      "name": "m43 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_44",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m44 bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "pyw181bfb5568_45"
+      },
+      "pass": true
+    },
+    {
+      "name": "m45 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_46",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_46",
+        "alert_id": "sim:src01:pyw181bfb5568_46"
+      },
+      "pass": true
+    },
+    {
+      "name": "m46 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_47"
+      },
+      "pass": true
+    },
+    {
+      "name": "m47 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_48",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_48",
+        "alert_id": "sim:src01:pyw181bfb5568_48"
+      },
+      "pass": true
+    },
+    {
+      "name": "m48 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_49"
+      },
+      "pass": true
+    },
+    {
+      "name": "m49 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_50"
+      },
+      "pass": true
+    },
+    {
+      "name": "m50 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_51"
+      },
+      "pass": true
+    },
+    {
+      "name": "m51 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_52",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_52",
+        "alert_id": "sim:src01:pyw181bfb5568_52"
+      },
+      "pass": true
+    },
+    {
+      "name": "m52 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_53",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m53 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_54"
+      },
+      "pass": true
+    },
+    {
+      "name": "m54 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_55"
+      },
+      "pass": true
+    },
+    {
+      "name": "m55 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_56",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_56",
+        "alert_id": "sim:src01:pyw181bfb5568_56"
+      },
+      "pass": true
+    },
+    {
+      "name": "m56 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_57"
+      },
+      "pass": true
+    },
+    {
+      "name": "m57 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_58",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_58",
+        "alert_id": "sim:src01:pyw181bfb5568_58"
+      },
+      "pass": true
+    },
+    {
+      "name": "m58 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_59"
+      },
+      "pass": true
+    },
+    {
+      "name": "m59 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_60"
+      },
+      "pass": true
+    },
+    {
+      "name": "m60 bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "pyw181bfb5568_61"
+      },
+      "pass": true
+    },
+    {
+      "name": "m61 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_62"
+      },
+      "pass": true
+    },
+    {
+      "name": "m62 boundary",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_63",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_63",
+        "alert_id": "sim:src01:pyw181bfb5568_63"
+      },
+      "pass": true
+    },
+    {
+      "name": "m63 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_64"
+      },
+      "pass": true
+    },
+    {
+      "name": "m64 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_65"
+      },
+      "pass": true
+    },
+    {
+      "name": "m65 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_66"
+      },
+      "pass": true
+    },
+    {
+      "name": "m66 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_67"
+      },
+      "pass": true
+    },
+    {
+      "name": "m67 alert",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_68",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_68",
+        "alert_id": "sim:src01:pyw181bfb5568_68"
+      },
+      "pass": true
+    },
+    {
+      "name": "m68 boundary",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_69",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_69",
+        "alert_id": "sim:src01:pyw181bfb5568_69"
+      },
+      "pass": true
+    },
+    {
+      "name": "m69 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_70"
+      },
+      "pass": true
+    },
+    {
+      "name": "m70 boundary",
+      "expected": "alert",
+      "actual": {
+        "status": "alert",
+        "record_id": "pyw181bfb5568_71",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:pyw181bfb5568_71",
+        "alert_id": "sim:src01:pyw181bfb5568_71"
+      },
+      "pass": true
+    },
+    {
+      "name": "m71 bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "pyw181bfb5568_72"
+      },
+      "pass": true
+    },
+    {
+      "name": "m72 stale",
+      "expected": "STALE_RECORD",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "pyw181bfb5568_73"
+      },
+      "pass": true
+    },
+    {
+      "name": "m73 missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "pyw181bfb5568_74"
+      },
+      "pass": true
+    },
+    {
+      "name": "m74 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_75"
+      },
+      "pass": true
+    },
+    {
+      "name": "m75 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_76"
+      },
+      "pass": true
+    },
+    {
+      "name": "m76 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_77",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m77 wrong_type",
+      "expected": "INVALID_SCORE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "pyw181bfb5568_78"
+      },
+      "pass": true
+    },
+    {
+      "name": "m78 normal",
+      "expected": "normal",
+      "actual": {
+        "status": "normal",
+        "record_id": "pyw181bfb5568_79",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:36:50.833Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      },
+      "pass": true
+    },
+    {
+      "name": "m79 unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "pyw181bfb5568_80"
+      },
+      "pass": true
+    },
+    {
+      "name": "Malformed JSON",
+      "expected": "400 INVALID_JSON",
+      "actual": {
+        "http": 400,
+        "body": {
+          "status": "error",
+          "kind": "request",
+          "code": "INVALID_JSON"
+        },
+        "latency_ms": 2.1418999967863783,
+        "transport_error": null
+      },
+      "pass": true
+    },
+    {
+      "name": "Duplicate",
+      "expected": "duplicate",
+      "actual": {
+        "http": 200,
+        "body": {
+          "results": [
+            {
+              "status": "duplicate",
+              "record_id": "pyw181bfb5568_81",
+              "source_id": "src01",
+              "original": {
+                "status": "alert",
+                "record_id": "pyw181bfb5568_81",
+                "source_id": "src01",
+                "timestamp": "2026-10-22T10:36:50.842Z",
+                "anomaly_score": 0.9,
+                "threshold": 0.5,
+                "simulated": true,
+                "event_id": "sim:src01:pyw181bfb5568_81",
+                "alert_id": "sim:src01:pyw181bfb5568_81"
+              }
+            }
+          ],
+          "summary": {
+            "records": 1,
+            "errors": 0,
+            "accepted": 0,
+            "duplicates": 1
+          }
+        },
+        "latency_ms": 1.4057999942451715,
+        "transport_error": null
+      },
+      "pass": true
+    },
+    {
+      "name": "Conflict",
+      "expected": "ID_CONFLICT",
+      "actual": {
+        "http": 422,
+        "body": {
+          "results": [
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "ID_CONFLICT",
+              "record_id": "pyw181bfb5568_81"
+            }
+          ],
+          "summary": {
+            "records": 1,
+            "errors": 1,
+            "accepted": 0,
+            "duplicates": 0
+          }
+        },
+        "latency_ms": 25.295399987953715,
+        "transport_error": null
+      },
+      "pass": true
+    },
+    {
+      "name": "Out of order",
+      "expected": "OUT_OF_ORDER",
+      "actual": {
+        "http": 422,
+        "body": {
+          "results": [
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "OUT_OF_ORDER",
+              "record_id": "pyw181bfb5568_82"
+            }
+          ],
+          "summary": {
+            "records": 1,
+            "errors": 1,
+            "accepted": 0,
+            "duplicates": 0
+          }
+        },
+        "latency_ms": 1.8871000065701082,
+        "transport_error": null
+      },
+      "pass": true
+    },
+    {
+      "name": "Concurrent sources",
+      "expected": "4 alert",
+      "actual": [
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "pyw181bfb5568_83",
+                "source_id": "src02",
+                "timestamp": "2026-10-22T10:36:50.872Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.55,
+                "simulated": true,
+                "event_id": "sim:src02:pyw181bfb5568_83",
+                "alert_id": "sim:src02:pyw181bfb5568_83"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          },
+          "latency_ms": 3.6475000088103116,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "pyw181bfb5568_84",
+                "source_id": "src03",
+                "timestamp": "2026-10-22T10:36:50.872Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.6,
+                "simulated": true,
+                "event_id": "sim:src03:pyw181bfb5568_84",
+                "alert_id": "sim:src03:pyw181bfb5568_84"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          },
+          "latency_ms": 3.892299995641224,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "pyw181bfb5568_85",
+                "source_id": "src04",
+                "timestamp": "2026-10-22T10:36:50.872Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.65,
+                "simulated": true,
+                "event_id": "sim:src04:pyw181bfb5568_85",
+                "alert_id": "sim:src04:pyw181bfb5568_85"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          },
+          "latency_ms": 3.7336000095820054,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "pyw181bfb5568_86",
+                "source_id": "src05",
+                "timestamp": "2026-10-22T10:36:50.872Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.7,
+                "simulated": true,
+                "event_id": "sim:src05:pyw181bfb5568_86",
+                "alert_id": "sim:src05:pyw181bfb5568_86"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          },
+          "latency_ms": 3.3645000075921416,
+          "transport_error": null
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "Concurrent duplicate",
+      "expected": "1 alert and 3 duplicate",
+      "actual": [
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "pyw181bfb5568_87",
+                "source_id": "src06",
+                "timestamp": "2026-10-22T10:36:50.927Z",
+                "anomaly_score": 0.9,
+                "threshold": 0.5,
+                "simulated": true,
+                "event_id": "sim:src06:pyw181bfb5568_87",
+                "alert_id": "sim:src06:pyw181bfb5568_87"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          },
+          "latency_ms": 4.484899996896274,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "duplicate",
+                "record_id": "pyw181bfb5568_87",
+                "source_id": "src06",
+                "original": {
+                  "status": "alert",
+                  "record_id": "pyw181bfb5568_87",
+                  "source_id": "src06",
+                  "timestamp": "2026-10-22T10:36:50.927Z",
+                  "anomaly_score": 0.9,
+                  "threshold": 0.5,
+                  "simulated": true,
+                  "event_id": "sim:src06:pyw181bfb5568_87",
+                  "alert_id": "sim:src06:pyw181bfb5568_87"
+                }
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 0,
+              "duplicates": 1
+            }
+          },
+          "latency_ms": 4.339199993410148,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "duplicate",
+                "record_id": "pyw181bfb5568_87",
+                "source_id": "src06",
+                "original": {
+                  "status": "alert",
+                  "record_id": "pyw181bfb5568_87",
+                  "source_id": "src06",
+                  "timestamp": "2026-10-22T10:36:50.927Z",
+                  "anomaly_score": 0.9,
+                  "threshold": 0.5,
+                  "simulated": true,
+                  "event_id": "sim:src06:pyw181bfb5568_87",
+                  "alert_id": "sim:src06:pyw181bfb5568_87"
+                }
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 0,
+              "duplicates": 1
+            }
+          },
+          "latency_ms": 4.33589999738615,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "duplicate",
+                "record_id": "pyw181bfb5568_87",
+                "source_id": "src06",
+                "original": {
+                  "status": "alert",
+                  "record_id": "pyw181bfb5568_87",
+                  "source_id": "src06",
+                  "timestamp": "2026-10-22T10:36:50.927Z",
+                  "anomaly_score": 0.9,
+                  "threshold": 0.5,
+                  "simulated": true,
+                  "event_id": "sim:src06:pyw181bfb5568_87",
+                  "alert_id": "sim:src06:pyw181bfb5568_87"
+                }
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 0,
+              "duplicates": 1
+            }
+          },
+          "latency_ms": 4.115999996429309,
+          "transport_error": null
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "Sender timeout retry",
+      "expected": "timeout and duplicate",
+      "actual": {
+        "first": {
+          "http": null,
+          "body": null,
+          "latency_ms": 29.547999991336837,
+          "transport_error": "TimeoutError: timed out"
+        },
+        "retry": {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "duplicate",
+                "record_id": "pyw181bfb5568_88",
+                "source_id": "src07",
+                "original": {
+                  "status": "alert",
+                  "record_id": "pyw181bfb5568_88",
+                  "source_id": "src07",
+                  "timestamp": "2026-10-22T10:36:50.932Z",
+                  "anomaly_score": 0.9,
+                  "threshold": 0.55,
+                  "simulated": true,
+                  "event_id": "sim:src07:pyw181bfb5568_88",
+                  "alert_id": "sim:src07:pyw181bfb5568_88"
+                }
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 0,
+              "duplicates": 1
+            }
+          },
+          "latency_ms": 19.291499993414618,
+          "transport_error": null
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "ACK once and again",
+      "expected": "true then false; same time",
+      "actual": {
+        "first": {
+          "http": 200,
+          "body": {
+            "changed": true,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "pyw181bfb5568_81",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.842Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_81",
+              "alert_id": "sim:src01:pyw181bfb5568_81",
+              "created_at": "2026-10-22T10:36:50.843Z",
+              "acknowledged_at": "2026-10-22T10:36:51.285Z"
+            }
+          },
+          "latency_ms": 3.1033999985083938,
+          "transport_error": null
+        },
+        "again": {
+          "http": 200,
+          "body": {
+            "changed": false,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "pyw181bfb5568_81",
+              "source_id": "src01",
+              "timestamp": "2026-10-22T10:36:50.842Z",
+              "anomaly_score": 0.9,
+              "threshold": 0.5,
+              "simulated": true,
+              "event_id": "sim:src01:pyw181bfb5568_81",
+              "alert_id": "sim:src01:pyw181bfb5568_81",
+              "created_at": "2026-10-22T10:36:50.843Z",
+              "acknowledged_at": "2026-10-22T10:36:51.285Z"
+            }
+          },
+          "latency_ms": 27.732500006095506,
+          "transport_error": null
+        }
+      },
+      "pass": true
+    },
+    {
+      "name": "Concurrent ACK",
+      "expected": "one change; one timestamp",
+      "actual": [
+        {
+          "http": 200,
+          "body": {
+            "changed": true,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "pyw181bfb5568_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:36:50.872Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:pyw181bfb5568_83",
+              "alert_id": "sim:src02:pyw181bfb5568_83",
+              "created_at": "2026-10-22T10:36:50.926Z",
+              "acknowledged_at": "2026-10-22T10:36:51.321Z"
+            }
+          },
+          "latency_ms": 8.575600004405715,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "changed": false,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "pyw181bfb5568_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:36:50.872Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:pyw181bfb5568_83",
+              "alert_id": "sim:src02:pyw181bfb5568_83",
+              "created_at": "2026-10-22T10:36:50.926Z",
+              "acknowledged_at": "2026-10-22T10:36:51.321Z"
+            }
+          },
+          "latency_ms": 9.432100006961264,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "changed": false,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "pyw181bfb5568_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:36:50.872Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:pyw181bfb5568_83",
+              "alert_id": "sim:src02:pyw181bfb5568_83",
+              "created_at": "2026-10-22T10:36:50.926Z",
+              "acknowledged_at": "2026-10-22T10:36:51.321Z"
+            }
+          },
+          "latency_ms": 9.764900009031408,
+          "transport_error": null
+        },
+        {
+          "http": 200,
+          "body": {
+            "changed": false,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "pyw181bfb5568_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:36:50.872Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:pyw181bfb5568_83",
+              "alert_id": "sim:src02:pyw181bfb5568_83",
+              "created_at": "2026-10-22T10:36:50.926Z",
+              "acknowledged_at": "2026-10-22T10:36:51.321Z"
+            }
+          },
+          "latency_ms": 11.317600001348183,
+          "transport_error": null
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "Unknown ACK",
+      "expected": "404 ALERT_NOT_FOUND",
+      "actual": {
+        "http": 404,
+        "body": {
+          "status": "error",
+          "kind": "request",
+          "code": "ALERT_NOT_FOUND"
+        },
+        "latency_ms": 3.7219000078039244,
+        "transport_error": null
+      },
+      "pass": true
+    },
+    {
+      "name": "Actual alert state",
+      "expected": "28 created; 2 acknowledged",
+      "actual": [
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_2",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_2",
+          "alert_id": "sim:src01:pyw181bfb5568_2",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_3",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.5,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_3",
+          "alert_id": "sim:src01:pyw181bfb5568_3",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_9",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_9",
+          "alert_id": "sim:src01:pyw181bfb5568_9",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_14",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.5,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_14",
+          "alert_id": "sim:src01:pyw181bfb5568_14",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_15",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_15",
+          "alert_id": "sim:src01:pyw181bfb5568_15",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_16",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_16",
+          "alert_id": "sim:src01:pyw181bfb5568_16",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_20",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_20",
+          "alert_id": "sim:src01:pyw181bfb5568_20",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_30",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.5,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_30",
+          "alert_id": "sim:src01:pyw181bfb5568_30",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_34",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.5,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_34",
+          "alert_id": "sim:src01:pyw181bfb5568_34",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_37",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_37",
+          "alert_id": "sim:src01:pyw181bfb5568_37",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_38",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_38",
+          "alert_id": "sim:src01:pyw181bfb5568_38",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_40",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_40",
+          "alert_id": "sim:src01:pyw181bfb5568_40",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_46",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_46",
+          "alert_id": "sim:src01:pyw181bfb5568_46",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_48",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_48",
+          "alert_id": "sim:src01:pyw181bfb5568_48",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_52",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_52",
+          "alert_id": "sim:src01:pyw181bfb5568_52",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_56",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_56",
+          "alert_id": "sim:src01:pyw181bfb5568_56",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_58",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_58",
+          "alert_id": "sim:src01:pyw181bfb5568_58",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_63",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.5,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_63",
+          "alert_id": "sim:src01:pyw181bfb5568_63",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_68",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_68",
+          "alert_id": "sim:src01:pyw181bfb5568_68",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_69",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.5,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_69",
+          "alert_id": "sim:src01:pyw181bfb5568_69",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_71",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.833Z",
+          "anomaly_score": 0.5,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_71",
+          "alert_id": "sim:src01:pyw181bfb5568_71",
+          "created_at": "2026-10-22T10:36:50.834Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "acknowledged",
+          "record_id": "pyw181bfb5568_81",
+          "source_id": "src01",
+          "timestamp": "2026-10-22T10:36:50.842Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src01:pyw181bfb5568_81",
+          "alert_id": "sim:src01:pyw181bfb5568_81",
+          "created_at": "2026-10-22T10:36:50.843Z",
+          "acknowledged_at": "2026-10-22T10:36:51.285Z"
+        },
+        {
+          "status": "acknowledged",
+          "record_id": "pyw181bfb5568_83",
+          "source_id": "src02",
+          "timestamp": "2026-10-22T10:36:50.872Z",
+          "anomaly_score": 0.95,
+          "threshold": 0.55,
+          "simulated": true,
+          "event_id": "sim:src02:pyw181bfb5568_83",
+          "alert_id": "sim:src02:pyw181bfb5568_83",
+          "created_at": "2026-10-22T10:36:50.926Z",
+          "acknowledged_at": "2026-10-22T10:36:51.321Z"
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_84",
+          "source_id": "src03",
+          "timestamp": "2026-10-22T10:36:50.872Z",
+          "anomaly_score": 0.95,
+          "threshold": 0.6,
+          "simulated": true,
+          "event_id": "sim:src03:pyw181bfb5568_84",
+          "alert_id": "sim:src03:pyw181bfb5568_84",
+          "created_at": "2026-10-22T10:36:50.926Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_85",
+          "source_id": "src04",
+          "timestamp": "2026-10-22T10:36:50.872Z",
+          "anomaly_score": 0.95,
+          "threshold": 0.65,
+          "simulated": true,
+          "event_id": "sim:src04:pyw181bfb5568_85",
+          "alert_id": "sim:src04:pyw181bfb5568_85",
+          "created_at": "2026-10-22T10:36:50.926Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_86",
+          "source_id": "src05",
+          "timestamp": "2026-10-22T10:36:50.872Z",
+          "anomaly_score": 0.95,
+          "threshold": 0.7,
+          "simulated": true,
+          "event_id": "sim:src05:pyw181bfb5568_86",
+          "alert_id": "sim:src05:pyw181bfb5568_86",
+          "created_at": "2026-10-22T10:36:50.926Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_87",
+          "source_id": "src06",
+          "timestamp": "2026-10-22T10:36:50.927Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.5,
+          "simulated": true,
+          "event_id": "sim:src06:pyw181bfb5568_87",
+          "alert_id": "sim:src06:pyw181bfb5568_87",
+          "created_at": "2026-10-22T10:36:50.932Z",
+          "acknowledged_at": null
+        },
+        {
+          "status": "pending",
+          "record_id": "pyw181bfb5568_88",
+          "source_id": "src07",
+          "timestamp": "2026-10-22T10:36:50.932Z",
+          "anomaly_score": 0.9,
+          "threshold": 0.55,
+          "simulated": true,
+          "event_id": "sim:src07:pyw181bfb5568_88",
+          "alert_id": "sim:src07:pyw181bfb5568_88",
+          "created_at": "2026-10-22T10:36:50.934Z",
+          "acknowledged_at": null
+        }
+      ],
+      "pass": true
+    },
+    {
+      "name": "Silence and recovery",
+      "expected": "silent then active",
+      "actual": {
+        "silent": {
+          "source_id": "src10",
+          "threshold": 0.7,
+          "watermark": 1792665411334,
+          "last_valid_at": 1792665411335,
+          "state": "silent"
+        },
+        "active": {
+          "source_id": "src10",
+          "threshold": 0.7,
+          "watermark": 1792665442387,
+          "last_valid_at": 1792665442389,
+          "state": "active"
+        }
+      },
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-22",
+  "engine_unit": {
+    "passed": 15,
+    "failed": 0
+  },
+  "workflow_offline": {
+    "passed": 98,
+    "failed": 0
+  },
+  "python_unit": {
+    "passed": 4,
+    "failed": 0,
+    "evidence": "local final-local-verification.json; not included because it contains local environment logs"
+  },
+  "browser_http_v2": {
+    "passed": 94,
+    "failed": 0,
+    "evidence": "user-provided screenshot; no browser v2 JSON included"
+  },
+  "python_http_v2": {
+    "passed": 93,
+    "failed": 0,
+    "evidence": "python-workflow-http.json"
+  },
+  "manual_ui": {
+    "status": "user reports ACK and filtering work",
+    "automated": false
+  },
+  "deployment": {
+    "source_matches_deployed": true,
+    "unrelated_unchanged": true,
+    "routes": 8,
+    "demo_objects": 15,
+    "evidence": "local deployment-v2.json and persisted-v2-check.json"
+  },
+  "performance": {
+    "records": 10000,
+    "errors": 0,
+    "evidence": "python-ramp-v2.json"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "mode": "offline engine unit tests, no HTTP",
+  "node": "v24.22.0",
+  "platform": "win32",
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "name": "threshold and per-source rules",
+      "pass": true
+    },
+    {
+      "name": "validation matrix",
+      "pass": true
+    },
+    {
+      "name": "missing fields and unknown source",
+      "pass": true
+    },
+    {
+      "name": "malformed JSON and non-record",
+      "pass": true
+    },
+    {
+      "name": "mixed batch continues after error",
+      "pass": true
+    },
+    {
+      "name": "age, future and equality boundaries",
+      "pass": true
+    },
+    {
+      "name": "duplicate does not emit second event; conflict rejected",
+      "pass": true
+    },
+    {
+      "name": "late data rejected; equal timestamp accepted",
+      "pass": true
+    },
+    {
+      "name": "dedup capacity eviction and TTL",
+      "pass": true
+    },
+    {
+      "name": "event ring cap and stable event id",
+      "pass": true
+    },
+    {
+      "name": "restart loses dedup memory",
+      "pass": true
+    },
+    {
+      "name": "internal exception never becomes normal",
+      "pass": true
+    },
+    {
+      "name": "heartbeat states and duplicate is not a heartbeat",
+      "pass": true
+    },
+    {
+      "name": "empty/oversize batch and body limits",
+      "pass": true
+    },
+    {
+      "name": "invalid configuration fails closed",
+      "pass": true
+    }
+  ]
+}

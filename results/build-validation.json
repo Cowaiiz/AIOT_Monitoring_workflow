@@ -1,0 +1,8 @@
+{
+  "mode": "offline generated flow validation; NOT Node-RED HTTP",
+  "script_syntax": true,
+  "embedded_engine": true,
+  "alert_output": true,
+  "ack_route": true,
+  "unique_routes": 8
+}

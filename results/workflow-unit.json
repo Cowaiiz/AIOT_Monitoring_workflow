@@ -1,0 +1,1558 @@
+{
+  "run": "w1792665019264_m34515",
+  "seed": 42,
+  "mode": "offline engine + workflow; timeout simulated, NOT HTTP",
+  "passed": 98,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "Lô hỗn hợp seed 42",
+      "expected": "HTTP 207; đúng kết quả của cả 80 bản ghi",
+      "pass": true,
+      "actual": 207
+    },
+    {
+      "name": "Mẫu m0 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_1",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m1 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_2",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_2",
+        "alert_id": "sim:src01:w1792665019264_m34515_2"
+      }
+    },
+    {
+      "name": "Mẫu m2 • boundary",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_3",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_3",
+        "alert_id": "sim:src01:w1792665019264_m34515_3"
+      }
+    },
+    {
+      "name": "Mẫu m3 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_4"
+      }
+    },
+    {
+      "name": "Mẫu m4 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_5"
+      }
+    },
+    {
+      "name": "Mẫu m5 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_6"
+      }
+    },
+    {
+      "name": "Mẫu m6 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_7"
+      }
+    },
+    {
+      "name": "Mẫu m7 • bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "w1792665019264_m34515_8"
+      }
+    },
+    {
+      "name": "Mẫu m8 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_9",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_9",
+        "alert_id": "sim:src01:w1792665019264_m34515_9"
+      }
+    },
+    {
+      "name": "Mẫu m9 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_10",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m10 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_11"
+      }
+    },
+    {
+      "name": "Mẫu m11 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_12"
+      }
+    },
+    {
+      "name": "Mẫu m12 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_13"
+      }
+    },
+    {
+      "name": "Mẫu m13 • boundary",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_14",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_14",
+        "alert_id": "sim:src01:w1792665019264_m34515_14"
+      }
+    },
+    {
+      "name": "Mẫu m14 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_15",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_15",
+        "alert_id": "sim:src01:w1792665019264_m34515_15"
+      }
+    },
+    {
+      "name": "Mẫu m15 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_16",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_16",
+        "alert_id": "sim:src01:w1792665019264_m34515_16"
+      }
+    },
+    {
+      "name": "Mẫu m16 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_17"
+      }
+    },
+    {
+      "name": "Mẫu m17 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_18",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m18 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_19",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m19 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_20",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_20",
+        "alert_id": "sim:src01:w1792665019264_m34515_20"
+      }
+    },
+    {
+      "name": "Mẫu m20 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_21"
+      }
+    },
+    {
+      "name": "Mẫu m21 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_22"
+      }
+    },
+    {
+      "name": "Mẫu m22 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_23",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m23 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_24"
+      }
+    },
+    {
+      "name": "Mẫu m24 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_25"
+      }
+    },
+    {
+      "name": "Mẫu m25 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_26"
+      }
+    },
+    {
+      "name": "Mẫu m26 • bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "w1792665019264_m34515_27"
+      }
+    },
+    {
+      "name": "Mẫu m27 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_28"
+      }
+    },
+    {
+      "name": "Mẫu m28 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_29",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m29 • boundary",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_30",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_30",
+        "alert_id": "sim:src01:w1792665019264_m34515_30"
+      }
+    },
+    {
+      "name": "Mẫu m30 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_31"
+      }
+    },
+    {
+      "name": "Mẫu m31 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_32"
+      }
+    },
+    {
+      "name": "Mẫu m32 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_33"
+      }
+    },
+    {
+      "name": "Mẫu m33 • boundary",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_34",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_34",
+        "alert_id": "sim:src01:w1792665019264_m34515_34"
+      }
+    },
+    {
+      "name": "Mẫu m34 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_35"
+      }
+    },
+    {
+      "name": "Mẫu m35 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_36"
+      }
+    },
+    {
+      "name": "Mẫu m36 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_37",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_37",
+        "alert_id": "sim:src01:w1792665019264_m34515_37"
+      }
+    },
+    {
+      "name": "Mẫu m37 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_38",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_38",
+        "alert_id": "sim:src01:w1792665019264_m34515_38"
+      }
+    },
+    {
+      "name": "Mẫu m38 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_39"
+      }
+    },
+    {
+      "name": "Mẫu m39 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_40",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_40",
+        "alert_id": "sim:src01:w1792665019264_m34515_40"
+      }
+    },
+    {
+      "name": "Mẫu m40 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_41"
+      }
+    },
+    {
+      "name": "Mẫu m41 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_42"
+      }
+    },
+    {
+      "name": "Mẫu m42 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_43"
+      }
+    },
+    {
+      "name": "Mẫu m43 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_44",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m44 • bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "w1792665019264_m34515_45"
+      }
+    },
+    {
+      "name": "Mẫu m45 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_46",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_46",
+        "alert_id": "sim:src01:w1792665019264_m34515_46"
+      }
+    },
+    {
+      "name": "Mẫu m46 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_47"
+      }
+    },
+    {
+      "name": "Mẫu m47 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_48",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_48",
+        "alert_id": "sim:src01:w1792665019264_m34515_48"
+      }
+    },
+    {
+      "name": "Mẫu m48 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_49"
+      }
+    },
+    {
+      "name": "Mẫu m49 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_50"
+      }
+    },
+    {
+      "name": "Mẫu m50 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_51"
+      }
+    },
+    {
+      "name": "Mẫu m51 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_52",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_52",
+        "alert_id": "sim:src01:w1792665019264_m34515_52"
+      }
+    },
+    {
+      "name": "Mẫu m52 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_53",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m53 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_54"
+      }
+    },
+    {
+      "name": "Mẫu m54 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_55"
+      }
+    },
+    {
+      "name": "Mẫu m55 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_56",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_56",
+        "alert_id": "sim:src01:w1792665019264_m34515_56"
+      }
+    },
+    {
+      "name": "Mẫu m56 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_57"
+      }
+    },
+    {
+      "name": "Mẫu m57 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_58",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_58",
+        "alert_id": "sim:src01:w1792665019264_m34515_58"
+      }
+    },
+    {
+      "name": "Mẫu m58 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_59"
+      }
+    },
+    {
+      "name": "Mẫu m59 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_60"
+      }
+    },
+    {
+      "name": "Mẫu m60 • bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "w1792665019264_m34515_61"
+      }
+    },
+    {
+      "name": "Mẫu m61 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_62"
+      }
+    },
+    {
+      "name": "Mẫu m62 • boundary",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_63",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_63",
+        "alert_id": "sim:src01:w1792665019264_m34515_63"
+      }
+    },
+    {
+      "name": "Mẫu m63 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_64"
+      }
+    },
+    {
+      "name": "Mẫu m64 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_65"
+      }
+    },
+    {
+      "name": "Mẫu m65 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_66"
+      }
+    },
+    {
+      "name": "Mẫu m66 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_67"
+      }
+    },
+    {
+      "name": "Mẫu m67 • alert",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_68",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.9,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_68",
+        "alert_id": "sim:src01:w1792665019264_m34515_68"
+      }
+    },
+    {
+      "name": "Mẫu m68 • boundary",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_69",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_69",
+        "alert_id": "sim:src01:w1792665019264_m34515_69"
+      }
+    },
+    {
+      "name": "Mẫu m69 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_70"
+      }
+    },
+    {
+      "name": "Mẫu m70 • boundary",
+      "expected": "alert",
+      "pass": true,
+      "actual": {
+        "status": "alert",
+        "record_id": "w1792665019264_m34515_71",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.5,
+        "threshold": 0.5,
+        "simulated": true,
+        "event_id": "sim:src01:w1792665019264_m34515_71",
+        "alert_id": "sim:src01:w1792665019264_m34515_71"
+      }
+    },
+    {
+      "name": "Mẫu m71 • bad_time",
+      "expected": "INVALID_TIMESTAMP",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_TIMESTAMP",
+        "record_id": "w1792665019264_m34515_72"
+      }
+    },
+    {
+      "name": "Mẫu m72 • stale",
+      "expected": "STALE_RECORD",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "STALE_RECORD",
+        "record_id": "w1792665019264_m34515_73"
+      }
+    },
+    {
+      "name": "Mẫu m73 • missing",
+      "expected": "MISSING_FIELD_anomaly_score",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "MISSING_FIELD_anomaly_score",
+        "record_id": "w1792665019264_m34515_74"
+      }
+    },
+    {
+      "name": "Mẫu m74 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_75"
+      }
+    },
+    {
+      "name": "Mẫu m75 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_76"
+      }
+    },
+    {
+      "name": "Mẫu m76 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_77",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m77 • wrong_type",
+      "expected": "INVALID_SCORE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "INVALID_SCORE",
+        "record_id": "w1792665019264_m34515_78"
+      }
+    },
+    {
+      "name": "Mẫu m78 • normal",
+      "expected": "normal",
+      "pass": true,
+      "actual": {
+        "status": "normal",
+        "record_id": "w1792665019264_m34515_79",
+        "source_id": "src01",
+        "timestamp": "2026-10-22T10:30:19.264Z",
+        "anomaly_score": 0.2,
+        "threshold": 0.5,
+        "simulated": true
+      }
+    },
+    {
+      "name": "Mẫu m79 • unknown",
+      "expected": "UNKNOWN_SOURCE",
+      "pass": true,
+      "actual": {
+        "status": "error",
+        "kind": "data",
+        "code": "UNKNOWN_SOURCE",
+        "record_id": "w1792665019264_m34515_80"
+      }
+    },
+    {
+      "name": "JSON hỏng",
+      "expected": "400 INVALID_JSON",
+      "pass": true,
+      "actual": {
+        "http": 400,
+        "body": {
+          "status": "error",
+          "kind": "request",
+          "code": "INVALID_JSON"
+        }
+      }
+    },
+    {
+      "name": "Gửi lại bản ghi",
+      "expected": "duplicate; không tạo cảnh báo",
+      "pass": true,
+      "actual": {
+        "http": 200,
+        "body": {
+          "results": [
+            {
+              "status": "duplicate",
+              "record_id": "w1792665019264_m34515_81",
+              "source_id": "src01",
+              "original": {
+                "status": "alert",
+                "record_id": "w1792665019264_m34515_81",
+                "source_id": "src01",
+                "timestamp": "2026-10-22T10:30:19.264Z",
+                "anomaly_score": 0.9,
+                "threshold": 0.5,
+                "simulated": true,
+                "event_id": "sim:src01:w1792665019264_m34515_81",
+                "alert_id": "sim:src01:w1792665019264_m34515_81"
+              }
+            }
+          ],
+          "summary": {
+            "records": 1,
+            "errors": 0,
+            "accepted": 0,
+            "duplicates": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Cùng ID khác nội dung",
+      "expected": "ID_CONFLICT",
+      "pass": true,
+      "actual": {
+        "http": 422,
+        "body": {
+          "results": [
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "ID_CONFLICT",
+              "record_id": "w1792665019264_m34515_81"
+            }
+          ],
+          "summary": {
+            "records": 1,
+            "errors": 1,
+            "accepted": 0,
+            "duplicates": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "Đến sai thứ tự",
+      "expected": "OUT_OF_ORDER",
+      "pass": true,
+      "actual": {
+        "http": 422,
+        "body": {
+          "results": [
+            {
+              "status": "error",
+              "kind": "data",
+              "code": "OUT_OF_ORDER",
+              "record_id": "w1792665019264_m34515_82"
+            }
+          ],
+          "summary": {
+            "records": 1,
+            "errors": 1,
+            "accepted": 0,
+            "duplicates": 0
+          }
+        }
+      }
+    },
+    {
+      "name": "Bốn nguồn đồng thời",
+      "expected": "4 alert",
+      "pass": true,
+      "actual": [
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "w1792665019264_m34515_83",
+                "source_id": "src02",
+                "timestamp": "2026-10-22T10:30:19.264Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.55,
+                "simulated": true,
+                "event_id": "sim:src02:w1792665019264_m34515_83",
+                "alert_id": "sim:src02:w1792665019264_m34515_83"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "w1792665019264_m34515_84",
+                "source_id": "src03",
+                "timestamp": "2026-10-22T10:30:19.264Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.6,
+                "simulated": true,
+                "event_id": "sim:src03:w1792665019264_m34515_84",
+                "alert_id": "sim:src03:w1792665019264_m34515_84"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "w1792665019264_m34515_85",
+                "source_id": "src04",
+                "timestamp": "2026-10-22T10:30:19.264Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.65,
+                "simulated": true,
+                "event_id": "sim:src04:w1792665019264_m34515_85",
+                "alert_id": "sim:src04:w1792665019264_m34515_85"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "w1792665019264_m34515_86",
+                "source_id": "src05",
+                "timestamp": "2026-10-22T10:30:19.264Z",
+                "anomaly_score": 0.95,
+                "threshold": 0.7,
+                "simulated": true,
+                "event_id": "sim:src05:w1792665019264_m34515_86",
+                "alert_id": "sim:src05:w1792665019264_m34515_86"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bốn retry đồng thời",
+      "expected": "1 alert + 3 duplicate",
+      "pass": true,
+      "actual": [
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "alert",
+                "record_id": "w1792665019264_m34515_87",
+                "source_id": "src06",
+                "timestamp": "2026-10-22T10:30:19.264Z",
+                "anomaly_score": 0.9,
+                "threshold": 0.5,
+                "simulated": true,
+                "event_id": "sim:src06:w1792665019264_m34515_87",
+                "alert_id": "sim:src06:w1792665019264_m34515_87"
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 1,
+              "duplicates": 0
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "duplicate",
+                "record_id": "w1792665019264_m34515_87",
+                "source_id": "src06",
+                "original": {
+                  "status": "alert",
+                  "record_id": "w1792665019264_m34515_87",
+                  "source_id": "src06",
+                  "timestamp": "2026-10-22T10:30:19.264Z",
+                  "anomaly_score": 0.9,
+                  "threshold": 0.5,
+                  "simulated": true,
+                  "event_id": "sim:src06:w1792665019264_m34515_87",
+                  "alert_id": "sim:src06:w1792665019264_m34515_87"
+                }
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 0,
+              "duplicates": 1
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "duplicate",
+                "record_id": "w1792665019264_m34515_87",
+                "source_id": "src06",
+                "original": {
+                  "status": "alert",
+                  "record_id": "w1792665019264_m34515_87",
+                  "source_id": "src06",
+                  "timestamp": "2026-10-22T10:30:19.264Z",
+                  "anomaly_score": 0.9,
+                  "threshold": 0.5,
+                  "simulated": true,
+                  "event_id": "sim:src06:w1792665019264_m34515_87",
+                  "alert_id": "sim:src06:w1792665019264_m34515_87"
+                }
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 0,
+              "duplicates": 1
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "results": [
+              {
+                "status": "duplicate",
+                "record_id": "w1792665019264_m34515_87",
+                "source_id": "src06",
+                "original": {
+                  "status": "alert",
+                  "record_id": "w1792665019264_m34515_87",
+                  "source_id": "src06",
+                  "timestamp": "2026-10-22T10:30:19.264Z",
+                  "anomaly_score": 0.9,
+                  "threshold": 0.5,
+                  "simulated": true,
+                  "event_id": "sim:src06:w1792665019264_m34515_87",
+                  "alert_id": "sim:src06:w1792665019264_m34515_87"
+                }
+              }
+            ],
+            "summary": {
+              "records": 1,
+              "errors": 0,
+              "accepted": 0,
+              "duplicates": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Timeout có chủ đích rồi retry",
+      "expected": "timeout + duplicate",
+      "pass": true,
+      "actual": {
+        "http": 200,
+        "body": {
+          "results": [
+            {
+              "status": "duplicate",
+              "record_id": "w1792665019264_m34515_88",
+              "source_id": "src07",
+              "original": {
+                "status": "alert",
+                "record_id": "w1792665019264_m34515_88",
+                "source_id": "src07",
+                "timestamp": "2026-10-22T10:30:19.264Z",
+                "anomaly_score": 0.9,
+                "threshold": 0.55,
+                "simulated": true,
+                "event_id": "sim:src07:w1792665019264_m34515_88",
+                "alert_id": "sim:src07:w1792665019264_m34515_88"
+              }
+            }
+          ],
+          "summary": {
+            "records": 1,
+            "errors": 0,
+            "accepted": 0,
+            "duplicates": 1
+          }
+        }
+      }
+    },
+    {
+      "name": "Xác nhận lần đầu",
+      "expected": "changed=true; acknowledged",
+      "pass": true,
+      "actual": {
+        "http": 200,
+        "body": {
+          "changed": true,
+          "alert": {
+            "status": "acknowledged",
+            "record_id": "w1792665019264_m34515_81",
+            "source_id": "src01",
+            "timestamp": "2026-10-22T10:30:19.264Z",
+            "anomaly_score": 0.9,
+            "threshold": 0.5,
+            "simulated": true,
+            "event_id": "sim:src01:w1792665019264_m34515_81",
+            "alert_id": "sim:src01:w1792665019264_m34515_81",
+            "created_at": "2026-10-22T10:30:19.264Z",
+            "acknowledged_at": "2026-10-22T10:30:19.564Z"
+          }
+        }
+      }
+    },
+    {
+      "name": "Xác nhận lặp",
+      "expected": "changed=false; giữ thời gian ban đầu",
+      "pass": true,
+      "actual": {
+        "http": 200,
+        "body": {
+          "changed": false,
+          "alert": {
+            "status": "acknowledged",
+            "record_id": "w1792665019264_m34515_81",
+            "source_id": "src01",
+            "timestamp": "2026-10-22T10:30:19.264Z",
+            "anomaly_score": 0.9,
+            "threshold": 0.5,
+            "simulated": true,
+            "event_id": "sim:src01:w1792665019264_m34515_81",
+            "alert_id": "sim:src01:w1792665019264_m34515_81",
+            "created_at": "2026-10-22T10:30:19.264Z",
+            "acknowledged_at": "2026-10-22T10:30:19.564Z"
+          }
+        }
+      }
+    },
+    {
+      "name": "Xác nhận đồng thời",
+      "expected": "đúng 1 thay đổi; cùng timestamp",
+      "pass": true,
+      "actual": [
+        {
+          "http": 200,
+          "body": {
+            "changed": true,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "w1792665019264_m34515_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:30:19.264Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:w1792665019264_m34515_83",
+              "alert_id": "sim:src02:w1792665019264_m34515_83",
+              "created_at": "2026-10-22T10:30:19.264Z",
+              "acknowledged_at": "2026-10-22T10:30:19.564Z"
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "changed": false,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "w1792665019264_m34515_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:30:19.264Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:w1792665019264_m34515_83",
+              "alert_id": "sim:src02:w1792665019264_m34515_83",
+              "created_at": "2026-10-22T10:30:19.264Z",
+              "acknowledged_at": "2026-10-22T10:30:19.564Z"
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "changed": false,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "w1792665019264_m34515_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:30:19.264Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:w1792665019264_m34515_83",
+              "alert_id": "sim:src02:w1792665019264_m34515_83",
+              "created_at": "2026-10-22T10:30:19.264Z",
+              "acknowledged_at": "2026-10-22T10:30:19.564Z"
+            }
+          }
+        },
+        {
+          "http": 200,
+          "body": {
+            "changed": false,
+            "alert": {
+              "status": "acknowledged",
+              "record_id": "w1792665019264_m34515_83",
+              "source_id": "src02",
+              "timestamp": "2026-10-22T10:30:19.264Z",
+              "anomaly_score": 0.95,
+              "threshold": 0.55,
+              "simulated": true,
+              "event_id": "sim:src02:w1792665019264_m34515_83",
+              "alert_id": "sim:src02:w1792665019264_m34515_83",
+              "created_at": "2026-10-22T10:30:19.264Z",
+              "acknowledged_at": "2026-10-22T10:30:19.564Z"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Mã cảnh báo không tồn tại",
+      "expected": "404 ALERT_NOT_FOUND",
+      "pass": true,
+      "actual": {
+        "http": 404,
+        "body": {
+          "status": "error",
+          "kind": "request",
+          "code": "ALERT_NOT_FOUND"
+        }
+      }
+    },
+    {
+      "name": "Đếm cảnh báo thực tế",
+      "expected": "tạo 28; 2 acknowledged; còn lại pending",
+      "pass": true,
+      "actual": {
+        "created": 28,
+        "acknowledged": 2
+      }
+    },
+    {
+      "name": "Nguồn ngừng rồi gửi lại",
+      "expected": "silent → active",
+      "pass": true,
+      "actual": {
+        "before": "silent",
+        "after": "active"
+      }
+    },
+    {
+      "name": "Alert capacity rejects without dropping pending or marking accepted",
+      "pass": true
+    },
+    {
+      "name": "Alert identity survives dedup eviction and TTL, including conflict",
+      "pass": true
+    },
+    {
+      "name": "Reinitialization loses alerts and acknowledgment (explicit RAM limitation)",
+      "pass": true
+    },
+    {
+      "name": "ACK copies cannot mutate internal state",
+      "pass": true
+    }
+  ]
+}

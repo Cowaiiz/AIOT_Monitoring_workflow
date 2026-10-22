@@ -1,0 +1,566 @@
+{
+  "seed": 42,
+  "note": "Independent declared oracle: src01 threshold=0.5. Expected labels are fixture data, never computed by engine.",
+  "cases": [
+    {
+      "id": "m0",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m1",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m2",
+      "kind": "boundary",
+      "score": 0.5,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m3",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m4",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m5",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m6",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m7",
+      "kind": "bad_time",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "INVALID_TIMESTAMP"
+    },
+    {
+      "id": "m8",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m9",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m10",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m11",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m12",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m13",
+      "kind": "boundary",
+      "score": 0.5,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m14",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m15",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m16",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m17",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m18",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m19",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m20",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m21",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m22",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m23",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m24",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m25",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m26",
+      "kind": "bad_time",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "INVALID_TIMESTAMP"
+    },
+    {
+      "id": "m27",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m28",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m29",
+      "kind": "boundary",
+      "score": 0.5,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m30",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m31",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m32",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m33",
+      "kind": "boundary",
+      "score": 0.5,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m34",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m35",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m36",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m37",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m38",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m39",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m40",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m41",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m42",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m43",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m44",
+      "kind": "bad_time",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "INVALID_TIMESTAMP"
+    },
+    {
+      "id": "m45",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m46",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m47",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m48",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m49",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m50",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m51",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m52",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m53",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m54",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m55",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m56",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m57",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m58",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m59",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m60",
+      "kind": "bad_time",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "INVALID_TIMESTAMP"
+    },
+    {
+      "id": "m61",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m62",
+      "kind": "boundary",
+      "score": 0.5,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m63",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m64",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m65",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m66",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m67",
+      "kind": "alert",
+      "score": 0.9,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m68",
+      "kind": "boundary",
+      "score": 0.5,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m69",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m70",
+      "kind": "boundary",
+      "score": 0.5,
+      "expected_status": "alert",
+      "expected_code": null
+    },
+    {
+      "id": "m71",
+      "kind": "bad_time",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "INVALID_TIMESTAMP"
+    },
+    {
+      "id": "m72",
+      "kind": "stale",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "STALE_RECORD"
+    },
+    {
+      "id": "m73",
+      "kind": "missing",
+      "score": null,
+      "expected_status": "error",
+      "expected_code": "MISSING_FIELD_anomaly_score"
+    },
+    {
+      "id": "m74",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m75",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    },
+    {
+      "id": "m76",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m77",
+      "kind": "wrong_type",
+      "score": "0.9",
+      "expected_status": "error",
+      "expected_code": "INVALID_SCORE"
+    },
+    {
+      "id": "m78",
+      "kind": "normal",
+      "score": 0.2,
+      "expected_status": "normal",
+      "expected_code": null
+    },
+    {
+      "id": "m79",
+      "kind": "unknown",
+      "score": 0.2,
+      "expected_status": "error",
+      "expected_code": "UNKNOWN_SOURCE"
+    }
+  ]
+}

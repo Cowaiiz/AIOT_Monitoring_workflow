@@ -1,0 +1,247 @@
+[
+  {
+    "id": "giang_http_v1_20261022",
+    "type": "tab",
+    "label": "AIoT - HTTP medium demo",
+    "disabled": false,
+    "info": "Simulated AI only. Loopback clients only. See README.md. State resets on redeploy/restart."
+  },
+  {
+    "id": "gh_records",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "records",
+    "x": 150,
+    "y": 80,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/records",
+    "method": "post",
+    "upload": false,
+    "skipBodyParsing": true,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_batch",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "batch",
+    "x": 150,
+    "y": 150,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/batch",
+    "method": "post",
+    "upload": false,
+    "skipBodyParsing": true,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_metrics",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "metrics",
+    "x": 150,
+    "y": 220,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/metrics",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_events",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "events",
+    "x": 150,
+    "y": 290,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/events",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_sources",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "sources",
+    "x": 150,
+    "y": 360,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/sources",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_demo",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "demo",
+    "x": 150,
+    "y": 430,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/demo",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_alerts",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "alerts",
+    "x": 150,
+    "y": 500,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/alerts",
+    "method": "get",
+    "upload": false,
+    "skipBodyParsing": false,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_ack",
+    "z": "giang_http_v1_20261022",
+    "type": "http in",
+    "name": "ack",
+    "x": 150,
+    "y": 570,
+    "wires": [
+      [
+        "gh_guard"
+      ]
+    ],
+    "url": "/giang-aiot/v1/ack",
+    "method": "post",
+    "upload": false,
+    "skipBodyParsing": true,
+    "swaggerDoc": ""
+  },
+  {
+    "id": "gh_guard",
+    "z": "giang_http_v1_20261022",
+    "type": "function",
+    "name": "Local clients only",
+    "x": 390,
+    "y": 200,
+    "wires": [
+      [
+        "gh_engine"
+      ],
+      [
+        "gh_response"
+      ]
+    ],
+    "outputs": 2,
+    "func": "const ip=msg.req.socket?.remoteAddress || msg.req._req?.socket?.remoteAddress; if(!['127.0.0.1','::1','::ffff:127.0.0.1'].includes(ip)){msg.statusCode=403;msg.payload={status:'error',code:'LOCAL_ONLY'};return [null,msg];} return [msg,null];"
+  },
+  {
+    "id": "gh_engine",
+    "z": "giang_http_v1_20261022",
+    "type": "function",
+    "name": "Validate / dedup / rules / events",
+    "x": 680,
+    "y": 200,
+    "wires": [
+      [
+        "gh_response"
+      ],
+      [
+        "gh_event_out"
+      ]
+    ],
+    "outputs": 2,
+    "initialize": "function createEngine(cfg) {\n const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);\n if(!cfg||!cfg.thresholds||!Object.keys(cfg.thresholds).length)throw Error('Invalid configuration');\n for(const [k,v] of Object.entries(cfg.thresholds))if(!/^[A-Za-z0-9_-]{1,64}$/.test(k)||typeof v!=='number'||!Number.isFinite(v)||v<0||v>1)throw Error('Invalid threshold');\n for(const k of ['max_age_ms','future_tolerance_ms','dedup_ttl_ms','dedup_max_entries','max_batch','max_body_bytes','event_capacity','offline_after_ms'])if(!Number.isSafeInteger(cfg[k])||cfg[k]<=0)throw Error('Invalid limit '+k);\n if(!Number.isSafeInteger(cfg.alert_capacity)||cfg.alert_capacity<=0)throw Error('Invalid alert_capacity');\n const seen=new Map(),sources=new Map(),events=[],alerts=new Map(),alertRecords=new Map();\n // Canonical JSON includes extra fields: reordered keys are equal, changed content conflicts.\n const canonical=v=>JSON.stringify(v===null||typeof v!=='object'?v:Array.isArray(v)?v.map(x=>JSON.parse(canonical(x))):Object.fromEntries(Object.keys(v).sort().map(k=>[k,JSON.parse(canonical(v[k]))])));\n const m={requests:0,records:0,accepted:0,normal:0,alert:0,duplicate:0,data_errors:0,request_errors:0,internal_errors:0,capacity_errors:0,events:0,evictions:0};let sequence=0;\n function prune(now){for(const [key,item] of seen){if(now-item.at<cfg.dedup_ttl_ms)break;seen.delete(key);}}\n function ingest(p,now){\n const err=code=>{m.data_errors++;return {status:'error',kind:'data',code,record_id:p&&typeof p.record_id==='string'?p.record_id:null};};\n if(!p||typeof p!=='object'||Array.isArray(p))return err('INVALID_RECORD');\n for(const k of ['record_id','source_id','timestamp','anomaly_score'])if(!own(p,k))return err('MISSING_FIELD_'+k);\n for(const k of ['record_id','source_id'])if(typeof p[k]!=='string'||!/^[A-Za-z0-9_-]{1,64}$/.test(p[k]))return err('INVALID_'+k.toUpperCase());\n if(!own(cfg.thresholds,p.source_id))return err('UNKNOWN_SOURCE');\n if(typeof p.anomaly_score!=='number'||!Number.isFinite(p.anomaly_score)||p.anomaly_score<0||p.anomaly_score>1)return err('INVALID_SCORE');\n if(typeof p.timestamp!=='string'||!/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/.test(p.timestamp))return err('INVALID_TIMESTAMP');\n const ts=Date.parse(p.timestamp);if(!Number.isFinite(ts)||new Date(ts).toISOString()!==p.timestamp)return err('INVALID_TIMESTAMP');\n const key=JSON.stringify([p.source_id,p.record_id]),fingerprint=canonical(p);\n if(seen.has(key)||alertRecords.has(key)){const previous=seen.get(key)||alertRecords.get(key);if(previous.fingerprint!==fingerprint)return err('ID_CONFLICT');m.duplicate++;return {status:'duplicate',record_id:p.record_id,source_id:p.source_id,original:previous.result};}\n if(now-ts>cfg.max_age_ms)return err('STALE_RECORD');if(ts-now>cfg.future_tolerance_ms)return err('FUTURE_RECORD');\n const prev=sources.get(p.source_id);if(prev&&ts<prev.watermark)return err('OUT_OF_ORDER');\n const threshold=cfg.thresholds[p.source_id],status=p.anomaly_score>=threshold?'alert':'normal';\n const result={status,record_id:p.record_id,source_id:p.source_id,timestamp:p.timestamp,anomaly_score:p.anomaly_score,threshold,simulated:true};\n if(status==='alert'){\n   if(alerts.size>=cfg.alert_capacity){m.capacity_errors++;return {status:'error',kind:'capacity',code:'ALERT_CAPACITY_FULL',record_id:p.record_id,source_id:p.source_id,retryable:true};}\n   result.event_id='sim:'+p.source_id+':'+p.record_id;result.alert_id=result.event_id;\n   const alert={...result,status:'pending',created_at:new Date(now).toISOString(),acknowledged_at:null};\n   alerts.set(result.alert_id,alert);alertRecords.set(key,{fingerprint,result});\n   events.push({...result,event_type:'anomaly_detected',received_at:alert.created_at,sequence:++sequence});if(events.length>cfg.event_capacity)events.shift();m.events++;\n }\n sources.set(p.source_id,{watermark:ts,last_valid_at:now});seen.set(key,{at:now,fingerprint,result});while(seen.size>cfg.dedup_max_entries){seen.delete(seen.keys().next().value);m.evictions++;}m.accepted++;m[status]++;return result;\n }\n return {handle(path,payload,now=Date.now()){\n prune(now);\n if(path==='alerts'){const list=[...alerts.values()].map(a=>({...a}));return {http:200,body:{alerts:list,total:list.length,pending:list.filter(a=>a.status==='pending').length,acknowledged:list.filter(a=>a.status==='acknowledged').length,capacity:cfg.alert_capacity,storage:'RAM; restart/redeploy resets state; no automatic eviction'}};}\n if(path==='metrics')return {http:200,body:{...m,dedup_entries:seen.size,event_entries:events.length,config_version:cfg.version}};\n if(path==='events')return {http:200,body:{events:[...events],total_events:m.events,capacity:cfg.event_capacity}};\n if(path==='sources')return {http:200,body:{sources:Object.keys(cfg.thresholds).map(id=>({source_id:id,threshold:cfg.thresholds[id],...sources.get(id),state:!sources.has(id)?'unseen':now-sources.get(id).last_valid_at>cfg.offline_after_ms?'silent':'active'}))}};\n m.requests++;const fail=(http,code,kind='request')=>{m.request_errors++;return {http,body:{status:'error',kind,code}};};\n try{if(typeof payload==='string'){if(payload.length>cfg.max_body_bytes)return fail(413,'BODY_TOO_LARGE');try{payload=JSON.parse(payload);}catch{return fail(400,'INVALID_JSON');}}\n if(path==='ack'){\n   if(!payload||typeof payload.alert_id!=='string')return fail(400,'INVALID_ALERT_ID');\n   const alert=alerts.get(payload.alert_id);if(!alert)return fail(404,'ALERT_NOT_FOUND');\n   const changed=alert.status==='pending';if(changed){alert.status='acknowledged';alert.acknowledged_at=new Date(now).toISOString();}\n   return {http:200,body:{changed,alert:{...alert}}};\n }\n let batch;if(path==='records')batch=[payload];else if(path==='batch'){if(!payload||!Array.isArray(payload.records)||!payload.records.length)return fail(400,'INVALID_BATCH');if(payload.records.length>cfg.max_batch)return fail(413,'BATCH_TOO_LARGE');batch=payload.records;}else return fail(404,'NOT_FOUND');\n const results=batch.map(p=>{m.records++;return ingest(p,now);}),errors=results.filter(r=>r.status==='error').length;\n return {http:path==='records'?(errors?(results[0].kind==='capacity'?503:422):200):(errors?207:200),body:{results,summary:{records:results.length,errors,accepted:results.filter(r=>['normal','alert'].includes(r.status)).length,duplicates:results.filter(r=>r.status==='duplicate').length}}};\n }catch(e){m.internal_errors++;return {http:500,body:{status:'error',kind:'internal',code:'INTERNAL_ERROR'}};}\n }};\n}\n\n\ncontext.set(\"engine\",createEngine({\"version\": \"demo-v2-alert-workflow\", \"alert_capacity\": 20000, \"thresholds\": {\"src01\": 0.5, \"src02\": 0.55, \"src03\": 0.6, \"src04\": 0.65, \"src05\": 0.7, \"src06\": 0.5, \"src07\": 0.55, \"src08\": 0.6, \"src09\": 0.65, \"src10\": 0.7}, \"max_age_ms\": 300000, \"future_tolerance_ms\": 30000, \"dedup_ttl_ms\": 600000, \"dedup_max_entries\": 20000, \"max_batch\": 200, \"max_body_bytes\": 262144, \"event_capacity\": 1000, \"offline_after_ms\": 30000}));",
+    "func": "const route=msg.req.url.split('?')[0].split('/').pop();\nif(route==='demo') {msg.headers={'content-type':'text/html; charset=utf-8'};msg.payload=\"<!doctype html><html lang=\\\"vi\\\"><meta charset=\\\"utf-8\\\"><meta name=\\\"viewport\\\" content=\\\"width=device-width, initial-scale=1\\\"><title>Giang \\u2022 Industrial AI Monitoring</title>\\n<style>*{box-sizing:border-box}body{font:15px/1.5 system-ui;margin:0;background:#f1f5f9;color:#17263a}main{max-width:1250px;margin:auto;padding:28px}header{background:#142d42;color:white;padding:24px;border-radius:16px}h1{font-size:27px;margin:0}h2{font-size:20px}p{margin:8px 0}section{background:white;padding:20px;margin-top:18px;border:1px solid #dce5ed;border-radius:12px}.cards{display:flex;gap:14px;flex-wrap:wrap}.card{flex:1;min-width:160px;border-left:4px solid #167b79;padding:12px;background:#f4faf9}.card strong{display:block;font-size:30px}button,select{font:inherit;padding:9px 14px;border:1px solid #94a7b5;border-radius:7px;background:#fff;margin:4px;cursor:pointer}button.primary{background:#086b68;color:white;border:0}button:disabled{opacity:.5;cursor:wait}.scroll{overflow:auto;max-height:470px}table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:10px;border-bottom:1px solid #e2e8f0;text-align:left;vertical-align:top}th{position:sticky;top:0;background:#eaf1f6}td{overflow-wrap:anywhere}.ok{color:#11613d}.bad{color:#ac2430}.notice{background:#fff4dc;border-left:4px solid #b78019;padding:12px}pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:400px;overflow:auto;background:#edf2f7;padding:14px}.muted{color:#52677b}#connection{font-weight:600}@media(max-width:650px){main{padding:12px}h1{font-size:22px}section{padding:12px}}</style>\\n<main><header><p>GIANG / B\\u00d2 \\u00b7 DEMO V2</p><h1>Industrial AI Monitoring Framework</h1><p>\\u0110i\\u1ec3m AI gi\\u1ea3 \\u2192 ki\\u1ec3m tra d\\u1eef li\\u1ec7u \\u2192 c\\u1ea3nh b\\u00e1o \\u2192 x\\u00e1c nh\\u1eadn</p></header>\\n<section><p id=\\\"connection\\\" role=\\\"status\\\">\\u0110ang \\u0111\\u1ecdc tr\\u1ea1ng th\\u00e1i\\u2026</p><p class=\\\"notice\\\">L\\u01b0u trong RAM. Restart ho\\u1eb7c redeploy engine l\\u00e0m m\\u1ea5t c\\u1ea3nh b\\u00e1o v\\u00e0 x\\u00e1c nh\\u1eadn. Gi\\u1edbi h\\u1ea1n 20.000 c\\u1ea3nh b\\u00e1o; khi \\u0111\\u1ea7y tr\\u1ea3 l\\u1ed7i, kh\\u00f4ng t\\u1ef1 x\\u00f3a c\\u1ea3nh b\\u00e1o \\u0111ang ch\\u1edd. H\\u00e3y t\\u1ea3i JSON tr\\u01b0\\u1edbc khi redeploy.</p><div class=\\\"cards\\\"><div class=\\\"card\\\">T\\u1ed5ng c\\u1ea3nh b\\u00e1o \\u0111ang l\\u01b0u<strong id=\\\"total\\\">\\u2014</strong></div><div class=\\\"card\\\">Ch\\u1edd x\\u00e1c nh\\u1eadn<strong id=\\\"pending\\\">\\u2014</strong></div><div class=\\\"card\\\">\\u0110\\u00e3 x\\u00e1c nh\\u1eadn<strong id=\\\"acknowledged\\\">\\u2014</strong></div></div><p id=\\\"errors\\\" class=\\\"muted\\\"></p><button id=\\\"refresh\\\">L\\u00e0m m\\u1edbi tr\\u1ea1ng th\\u00e1i</button><button id=\\\"download\\\">T\\u1ea3i JSON \\u0111\\u1ea7y \\u0111\\u1ee7</button></section>\\n<section><h2>C\\u1ea3nh b\\u00e1o AI gi\\u1ea3</h2><label for=\\\"filter\\\">Tr\\u1ea1ng th\\u00e1i</label><select id=\\\"filter\\\"><option value=\\\"all\\\">T\\u1ea5t c\\u1ea3</option><option value=\\\"pending\\\">Ch\\u1edd x\\u00e1c nh\\u1eadn</option><option value=\\\"acknowledged\\\">\\u0110\\u00e3 x\\u00e1c nh\\u1eadn</option></select><p id=\\\"alertCount\\\" class=\\\"muted\\\"></p><div class=\\\"scroll\\\"><table><thead><tr><th>M\\u00e3 c\\u1ea3nh b\\u00e1o / b\\u1ea3n ghi</th><th>Ngu\\u1ed3n</th><th>Th\\u1eddi gian b\\u1ea3n ghi</th><th>Score / ng\\u01b0\\u1ee1ng</th><th>Tr\\u1ea1ng th\\u00e1i / thao t\\u00e1c</th></tr></thead><tbody id=\\\"alerts\\\"></tbody></table></div></section>\\n<section><h2>Tr\\u1ea1ng th\\u00e1i ngu\\u1ed3n</h2><p class=\\\"muted\\\">\\u201cIm l\\u1eb7ng\\u201d l\\u00e0 qu\\u00e1 30 gi\\u00e2y kh\\u00f4ng c\\u00f3 m\\u1eabu h\\u1ee3p l\\u1ec7, ch\\u01b0a \\u0111\\u1ee7 k\\u1ebft lu\\u1eadn m\\u1ea5t k\\u1ebft n\\u1ed1i. Duplicate kh\\u00f4ng l\\u00e0m m\\u1edbi tr\\u1ea1ng th\\u00e1i.</p><div class=\\\"scroll\\\"><table><thead><tr><th>Ngu\\u1ed3n</th><th>Ng\\u01b0\\u1ee1ng</th><th>Tr\\u1ea1ng th\\u00e1i</th><th>L\\u1ea7n nh\\u1eadn h\\u1ee3p l\\u1ec7</th></tr></thead><tbody id=\\\"sources\\\"></tbody></table></div></section>\\n<section><h2>Ki\\u1ec3m th\\u1eed c\\u00f3 k\\u1ef3 v\\u1ecdng</h2><p>80 m\\u1eabu h\\u1ed7n h\\u1ee3p seed 42 v\\u00e0 c\\u00e1c t\\u00ecnh hu\\u1ed1ng retry, \\u0111\\u1ed3ng th\\u1eddi, x\\u00e1c nh\\u1eadn, ngu\\u1ed3n im l\\u1eb7ng r\\u1ed3i ho\\u1ea1t \\u0111\\u1ed9ng l\\u1ea1i. Kho\\u1ea3ng 33 gi\\u00e2y. L\\u1ed7i d\\u1eef li\\u1ec7u c\\u1ed1 \\u00fd nh\\u1eadn \\u0111\\u00fang m\\u00e3 l\\u1ed7i v\\u1eabn l\\u00e0 \\u0110\\u1ea0T.</p><button id=\\\"tests\\\" class=\\\"primary\\\">Ch\\u1ea1y ki\\u1ec3m th\\u1eed HTTP</button><p id=\\\"progress\\\" role=\\\"status\\\">Ch\\u01b0a ch\\u1ea1y trong l\\u1ea7n m\\u1edf trang n\\u00e0y.</p><div class=\\\"scroll\\\"><table><thead><tr><th>T\\u00ecnh hu\\u1ed1ng</th><th>K\\u1ef3 v\\u1ecdng</th><th>K\\u1ebft qu\\u1ea3</th></tr></thead><tbody id=\\\"cases\\\"></tbody></table></div></section>\\n<section><h2>Hi\\u1ec7u n\\u0103ng HTTP</h2><p>10.000 b\\u1ea3n ghi h\\u1ee3p l\\u1ec7 / 10 ngu\\u1ed3n; l\\u00f4 100, concurrency 1; 100 \\u2192 500 \\u2192 1.000 b\\u1ea3n ghi/s. T\\u1ed1i \\u0111a 60 gi\\u00e2y/m\\u1ee9c, timeout 3 gi\\u00e2y/request. D\\u1eebng khi c\\u00f3 l\\u1ed7i ngo\\u00e0i d\\u1ef1 ki\\u1ebfn.</p><button id=\\\"load\\\">Ch\\u1ea1y t\\u1ea3i 10.000 b\\u1ea3n ghi</button><div class=\\\"scroll\\\"><table><thead><tr><th>M\\u1ee5c ti\\u00eau (b\\u1ea3n ghi/s)</th><th>\\u0110\\u00e3 nh\\u1eadn / m\\u1ee5c ti\\u00eau</th><th>Th\\u1eddi gian (s)</th><th>Th\\u1ef1c t\\u1ebf (b\\u1ea3n ghi/s)</th><th>Median (ms)</th><th>p95 (ms)</th><th>L\\u1ed7i ngo\\u00e0i d\\u1ef1 ki\\u1ebfn</th></tr></thead><tbody id=\\\"performance\\\"></tbody></table></div></section>\\n<section><details><summary>JSON chi ti\\u1ebft: k\\u1ebft qu\\u1ea3 test v\\u00e0 tr\\u1ea1ng th\\u00e1i</summary><pre id=\\\"json\\\">{}</pre></details><p class=\\\"muted\\\">Ch\\u01b0a ch\\u1ea1y PatchCore th\\u1eadt, MQTT, ph\\u1ea7n c\\u1ee9ng, n8n ho\\u1eb7c ComfyUI. Kh\\u00f4ng g\\u1eedi c\\u1ea3nh b\\u00e1o ra ngo\\u00e0i.</p></section></main>\\n<script>\\nasync function runDemoLoad(log){const stages=[],run='load'+Date.now();let counter=0,seed=42;const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};\\n for(const [count,rate] of [[1000,100],[3000,500],[6000,1000]]){const start=performance.now(),latencies=[];let requests=0,accepted=0,errors=0,transport=0;\\n for(let done=0;done<count;done+=100){if(performance.now()-start>60000)throw Error('Stage deadline reached');const target=start+done/rate*1000;if(target>performance.now())await new Promise(r=>setTimeout(r,target-performance.now()));const timestamp=new Date().toISOString(),records=Array.from({length:Math.min(100,count-done)},()=>({record_id:run+'_'+counter++,source_id:'src'+String(counter%10+1).padStart(2,'0'),timestamp,anomaly_score:random()}));const t=performance.now();requests++;try{const r=await fetch('/giang-aiot/v1/batch',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({records}),signal:AbortSignal.timeout(3000)});const data=await r.json();latencies.push(performance.now()-t);accepted+=data.summary?.accepted||0;errors+=data.summary?.errors||0;if(r.status!==200||data.summary?.accepted!==records.length)transport++;}catch(e){transport++;}if(transport>0)break;}\\n const seconds=(performance.now()-start)/1000;latencies.sort((a,b)=>a-b);const result={target_records:count,target_records_per_second:rate,requests,accepted,record_errors:errors,unexpected_request_errors:transport,elapsed_seconds:seconds,records_per_second:accepted/seconds,requests_per_second:requests/seconds,median_ms:latencies.length%2?latencies[Math.floor(latencies.length/2)]:(latencies[latencies.length/2-1]+latencies[latencies.length/2])/2,p95_ms:latencies[Math.max(0,Math.ceil(latencies.length*.95)-1)]||0,unexpected_request_error_rate:transport/requests};stages.push(result);log(JSON.stringify(result));if(transport)break;}return {mode:'real HTTP from browser, simulated data; batch=100, concurrency=1',seed:42,stages};}\\n\\n// Shared scenario runner; req is a real HTTP adapter or an explicitly labelled offline adapter.\\n// Expected results come from reviewed fixtures, never from createEngine.\\nasync function runWorkflowTests(req, fixture, log=()=>{}, sleep=ms=>new Promise(r=>setTimeout(r,ms)), clock=()=>Date.now()) {\\n const run='w'+clock()+'_'+Math.random().toString(36).slice(2,8),cases=[];let seq=0;\\n const rec=(score=.2,source='src01',extra={})=>({record_id:run+'_'+(++seq),source_id:source,timestamp:new Date(clock()).toISOString(),anomaly_score:score,...extra});\\n const check=(name,expected,ok,actual)=>{const c={name,expected,pass:!!ok,actual};cases.push(c);log((ok?'\\u0110\\u1ea0T: ':'KH\\u00d4NG \\u0110\\u1ea0T: ')+name);};\\n const first=r=>r.body.results?.[0]||{};\\n const before=await req('alerts');if(before.http!==200)throw Error('Kh\\u00f4ng \\u0111\\u1ecdc \\u0111\\u01b0\\u1ee3c API c\\u1ea3nh b\\u00e1o');\\n let expectedCreated=0;\\n const rows=fixture.cases.map(c=>{let p=rec(c.score);if(c.kind==='missing')delete p.anomaly_score;if(c.kind==='unknown')p.source_id='unknown';if(c.kind==='stale')p.timestamp=new Date(clock()-3600000).toISOString();if(c.kind==='bad_time')p.timestamp='invalid';return p;});\\n const mixed=await req('batch',{records:rows});\\n check('L\\u00f4 h\\u1ed7n h\\u1ee3p seed 42','HTTP 207; \\u0111\\u00fang k\\u1ebft qu\\u1ea3 c\\u1ee7a c\\u1ea3 80 b\\u1ea3n ghi',mixed.http===207&&mixed.body.results?.length===rows.length,mixed.http);\\n fixture.cases.forEach((c,i)=>{const got=mixed.body.results?.[i];check('M\\u1eabu '+c.id+' \\u2022 '+c.kind,c.expected_code||c.expected_status,got?.status===c.expected_status&&(got?.code||null)===c.expected_code,got);if(c.expected_status==='alert')expectedCreated++;});\\n const malformed=await req('records','{broken');check('JSON h\\u1ecfng','400 INVALID_JSON',malformed.http===400&&malformed.body.code==='INVALID_JSON',malformed);\\n const d=rec(.9),created=await req('records',d);expectedCreated++;\\n const dup=await req('records',d),conflict=await req('records',{...d,anomaly_score:.1});\\n check('G\\u1eedi l\\u1ea1i b\\u1ea3n ghi','duplicate; kh\\u00f4ng t\\u1ea1o c\\u1ea3nh b\\u00e1o',first(dup).status==='duplicate',dup);\\n check('C\\u00f9ng ID kh\\u00e1c n\\u1ed9i dung','ID_CONFLICT',first(conflict).code==='ID_CONFLICT',conflict);\\n const old=await req('records',rec(.2,'src01',{timestamp:new Date(Date.parse(d.timestamp)-1).toISOString()}));check('\\u0110\\u1ebfn sai th\\u1ee9 t\\u1ef1','OUT_OF_ORDER',first(old).code==='OUT_OF_ORDER',old);\\n const parallel=await Promise.all(['src02','src03','src04','src05'].map(s=>req('records',rec(.95,s))));expectedCreated+=4;\\n check('B\\u1ed1n ngu\\u1ed3n \\u0111\\u1ed3ng th\\u1eddi','4 alert',parallel.every(r=>first(r).status==='alert'),parallel);\\n const same=rec(.9,'src06'),retries=await Promise.all(Array.from({length:4},()=>req('records',same)));expectedCreated++;\\n check('B\\u1ed1n retry \\u0111\\u1ed3ng th\\u1eddi','1 alert + 3 duplicate',retries.filter(r=>first(r).status==='alert').length===1&&retries.filter(r=>first(r).status==='duplicate').length===3,retries);\\n const delayed=rec(.9,'src07');let timeout=false;\\n try{await req('records',delayed,{timeout:20,headers:{'x-demo-delay-ms':'200'}});}catch(e){timeout=e.name==='AbortError'||e.name==='TimeoutError';}\\n await sleep(300);const retry=await req('records',delayed);expectedCreated++;\\n check('Timeout c\\u00f3 ch\\u1ee7 \\u0111\\u00edch r\\u1ed3i retry','timeout + duplicate',timeout&&first(retry).status==='duplicate',retry);\\n const id=first(created).alert_id,ack=await req('ack',{alert_id:id}),again=await req('ack',{alert_id:id});\\n check('X\\u00e1c nh\\u1eadn l\\u1ea7n \\u0111\\u1ea7u','changed=true; acknowledged',ack.body.changed===true&&ack.body.alert?.status==='acknowledged',ack);\\n check('X\\u00e1c nh\\u1eadn l\\u1eb7p','changed=false; gi\\u1eef th\\u1eddi gian ban \\u0111\\u1ea7u',again.body.changed===false&&again.body.alert?.acknowledged_at===ack.body.alert?.acknowledged_at,again);\\n const id2=first(parallel[0]).alert_id,acks=await Promise.all(Array.from({length:4},()=>req('ack',{alert_id:id2})));\\n check('X\\u00e1c nh\\u1eadn \\u0111\\u1ed3ng th\\u1eddi','\\u0111\\u00fang 1 thay \\u0111\\u1ed5i; c\\u00f9ng timestamp',acks.filter(a=>a.body.changed===true).length===1&&new Set(acks.map(a=>a.body.alert?.acknowledged_at)).size===1,acks);\\n const unknown=await req('ack',{alert_id:'does-not-exist'});check('M\\u00e3 c\\u1ea3nh b\\u00e1o kh\\u00f4ng t\\u1ed3n t\\u1ea1i','404 ALERT_NOT_FOUND',unknown.http===404&&unknown.body.code==='ALERT_NOT_FOUND',unknown);\\n const after=await req('alerts'),mine=after.body.alerts.filter(a=>a.record_id.startsWith(run));\\n check('\\u0110\\u1ebfm c\\u1ea3nh b\\u00e1o th\\u1ef1c t\\u1ebf','t\\u1ea1o '+expectedCreated+'; 2 acknowledged; c\\u00f2n l\\u1ea1i pending',mine.length===expectedCreated&&mine.filter(a=>a.status==='acknowledged').length===2&&after.body.total-before.body.total===expectedCreated,{created:mine.length,acknowledged:mine.filter(a=>a.status==='acknowledged').length});\\n await req('records',rec(.2,'src10'));log('\\u0110\\u1ee3i 31 gi\\u00e2y \\u0111\\u1ec3 ki\\u1ec3m tra ngu\\u1ed3n ng\\u1eebng g\\u1eedi\\u2026');await sleep(31050);\\n const silent=(await req('sources')).body.sources.find(s=>s.source_id==='src10');\\n await req('records',rec(.2,'src10'));const active=(await req('sources')).body.sources.find(s=>s.source_id==='src10');\\n check('Ngu\\u1ed3n ng\\u1eebng r\\u1ed3i g\\u1eedi l\\u1ea1i','silent \\u2192 active',silent.state==='silent'&&active.state==='active',{before:silent.state,after:active.state});\\n return {run,seed:fixture.seed,mode:'workflow integration',passed:cases.filter(c=>c.pass).length,failed:cases.filter(c=>!c.pass).length,cases};\\n}\\nif(typeof module!=='undefined')module.exports={runWorkflowTests};\\n\\nconst fixture={\\\"seed\\\":42,\\\"note\\\":\\\"Independent declared oracle: src01 threshold=0.5. Expected labels are fixture data, never computed by engine.\\\",\\\"cases\\\":[{\\\"id\\\":\\\"m0\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m1\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m2\\\",\\\"kind\\\":\\\"boundary\\\",\\\"score\\\":0.5,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m3\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m4\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m5\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m6\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m7\\\",\\\"kind\\\":\\\"bad_time\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_TIMESTAMP\\\"},{\\\"id\\\":\\\"m8\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m9\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m10\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m11\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m12\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m13\\\",\\\"kind\\\":\\\"boundary\\\",\\\"score\\\":0.5,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m14\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m15\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m16\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m17\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m18\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m19\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m20\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m21\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m22\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m23\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m24\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m25\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m26\\\",\\\"kind\\\":\\\"bad_time\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_TIMESTAMP\\\"},{\\\"id\\\":\\\"m27\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m28\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m29\\\",\\\"kind\\\":\\\"boundary\\\",\\\"score\\\":0.5,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m30\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m31\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m32\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m33\\\",\\\"kind\\\":\\\"boundary\\\",\\\"score\\\":0.5,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m34\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m35\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m36\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m37\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m38\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m39\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m40\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m41\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m42\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m43\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m44\\\",\\\"kind\\\":\\\"bad_time\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_TIMESTAMP\\\"},{\\\"id\\\":\\\"m45\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m46\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m47\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m48\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m49\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m50\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m51\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m52\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m53\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m54\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m55\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m56\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m57\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m58\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m59\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m60\\\",\\\"kind\\\":\\\"bad_time\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_TIMESTAMP\\\"},{\\\"id\\\":\\\"m61\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m62\\\",\\\"kind\\\":\\\"boundary\\\",\\\"score\\\":0.5,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m63\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m64\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m65\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m66\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m67\\\",\\\"kind\\\":\\\"alert\\\",\\\"score\\\":0.9,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m68\\\",\\\"kind\\\":\\\"boundary\\\",\\\"score\\\":0.5,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m69\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m70\\\",\\\"kind\\\":\\\"boundary\\\",\\\"score\\\":0.5,\\\"expected_status\\\":\\\"alert\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m71\\\",\\\"kind\\\":\\\"bad_time\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_TIMESTAMP\\\"},{\\\"id\\\":\\\"m72\\\",\\\"kind\\\":\\\"stale\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"STALE_RECORD\\\"},{\\\"id\\\":\\\"m73\\\",\\\"kind\\\":\\\"missing\\\",\\\"score\\\":null,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"MISSING_FIELD_anomaly_score\\\"},{\\\"id\\\":\\\"m74\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m75\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"},{\\\"id\\\":\\\"m76\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m77\\\",\\\"kind\\\":\\\"wrong_type\\\",\\\"score\\\":\\\"0.9\\\",\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"INVALID_SCORE\\\"},{\\\"id\\\":\\\"m78\\\",\\\"kind\\\":\\\"normal\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"normal\\\",\\\"expected_code\\\":null},{\\\"id\\\":\\\"m79\\\",\\\"kind\\\":\\\"unknown\\\",\\\"score\\\":0.2,\\\"expected_status\\\":\\\"error\\\",\\\"expected_code\\\":\\\"UNKNOWN_SOURCE\\\"}]};\\nconst $=id=>document.getElementById(id);let report={},snapshot={},busy=false;\\nconst cell=(tr,value)=>{const td=document.createElement('td');td.textContent=value;tr.append(td);return td;};\\nconst time=v=>v?new Date(v).toLocaleString('vi-VN'):'Ch\\u01b0a c\\u00f3';\\nasync function request(route,body,options={}){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),options.timeout||3000);try{const r=await fetch('/giang-aiot/v1/'+route,{method:body===undefined?'GET':'POST',headers:{'content-type':'application/json',...(options.headers||{})},body:body===undefined?undefined:typeof body==='string'?body:JSON.stringify(body),signal:controller.signal});return {http:r.status,body:await r.json()};}finally{clearTimeout(timer);}}\\nfunction details(){$('json').textContent=JSON.stringify({report,snapshot},null,2);}\\nfunction renderAlerts(){const state=$('filter').value,rows=(snapshot.alerts?.alerts||[]).filter(a=>state==='all'||a.status===state).reverse();$('alerts').replaceChildren();$('alertCount').textContent=`${rows.length} c\\u1ea3nh b\\u00e1o kh\\u1edbp b\\u1ed9 l\\u1ecdc; hi\\u1ec3n th\\u1ecb t\\u1ed1i \\u0111a 200 m\\u1edbi nh\\u1ea5t. JSON ch\\u1ee9a t\\u1ea5t c\\u1ea3.`;for(const a of rows.slice(0,200)){const tr=document.createElement('tr');cell(tr,a.alert_id+' / '+a.record_id);cell(tr,a.source_id);cell(tr,time(a.timestamp));cell(tr,a.anomaly_score.toFixed(3)+' / '+a.threshold.toFixed(3));const td=cell(tr,a.status==='pending'?'\\u23f3 Ch\\u1edd x\\u00e1c nh\\u1eadn':'\\u2713 \\u0110\\u00e3 x\\u00e1c nh\\u1eadn \\u00b7 '+time(a.acknowledged_at));if(a.status==='pending'){const b=document.createElement('button');b.textContent='X\\u00e1c nh\\u1eadn';b.disabled=busy;b.onclick=async()=>{b.disabled=true;try{const r=await request('ack',{alert_id:a.alert_id});if(r.http!==200)throw Error(r.body.code);await refresh();}catch(e){$('connection').textContent='L\\u1ed7i x\\u00e1c nh\\u1eadn / k\\u1ebft n\\u1ed1i: '+e.message;b.disabled=false;}};td.append(b);}$('alerts').append(tr);}}\\nasync function refresh(){try{const [a,s,m]=await Promise.all(['alerts','sources','metrics'].map(r=>request(r)));if([a,s,m].some(r=>r.http!==200))throw Error('API gi\\u00e1m s\\u00e1t tr\\u1ea3 l\\u1ed7i');snapshot={alerts:a.body,sources:s.body,metrics:m.body};for(const k of ['total','pending','acknowledged'])$(k).textContent=a.body[k];$('connection').textContent='\\u2713 K\\u1ebft n\\u1ed1i HTTP ho\\u1ea1t \\u0111\\u1ed9ng \\u00b7 c\\u1eadp nh\\u1eadt '+new Date().toLocaleTimeString('vi-VN');$('errors').textContent=`L\\u1ed7i d\\u1eef li\\u1ec7u: ${m.body.data_errors} \\u00b7 l\\u1ed7i request: ${m.body.request_errors} \\u00b7 l\\u1ed7i x\\u1eed l\\u00fd n\\u1ed9i b\\u1ed9: ${m.body.internal_errors} \\u00b7 l\\u1ed7i \\u0111\\u1ea7y kho c\\u1ea3nh b\\u00e1o: ${m.body.capacity_errors}. C\\u00e1c s\\u1ed1 n\\u00e0y kh\\u00e1c s\\u1ed1 c\\u1ea3nh b\\u00e1o AI; test c\\u00f3 th\\u1ec3 c\\u1ed1 \\u00fd t\\u1ea1o l\\u1ed7i.`;renderAlerts();$('sources').replaceChildren();for(const s of snapshot.sources.sources){const tr=document.createElement('tr');[s.source_id,s.threshold.toFixed(2),{unseen:'\\u25cb Ch\\u01b0a c\\u00f3 d\\u1eef li\\u1ec7u',active:'\\u2713 \\u0110ang g\\u1eedi',silent:'\\u23f8 Im l\\u1eb7ng >30 gi\\u00e2y'}[s.state],time(s.last_valid_at)].forEach(v=>cell(tr,v));$('sources').append(tr);}details();}catch(e){$('connection').textContent='\\u2715 L\\u1ed7i k\\u1ebft n\\u1ed1i / API: '+e.message+' \\u2014 s\\u1ed1 li\\u1ec7u c\\u0169 c\\u00f3 th\\u1ec3 kh\\u00f4ng c\\u00f2n c\\u1eadp nh\\u1eadt.';throw e;}}\\nasync function run(kind){if(busy)return;busy=true;document.querySelectorAll('button').forEach(b=>b.disabled=true);$('progress').textContent='\\u0110ang ch\\u1ea1y\\u2026';try{const log=s=>$('progress').textContent=s;report[kind]=kind==='tests'?await runWorkflowTests(request,fixture,log):await runDemoLoad(log);if(kind==='tests'){$('cases').replaceChildren();for(const c of report.tests.cases){const tr=document.createElement('tr');cell(tr,c.name);cell(tr,c.expected);cell(tr,c.pass?'\\u2713 \\u0110\\u1ea0T':'\\u2715 KH\\u00d4NG \\u0110\\u1ea0T').className=c.pass?'ok':'bad';$('cases').append(tr);}$('progress').textContent=`Ho\\u00e0n t\\u1ea5t: ${report.tests.passed} \\u0111\\u1ea1t / ${report.tests.failed} kh\\u00f4ng \\u0111\\u1ea1t.`;}else{$('performance').replaceChildren();for(const s of report.load.stages){const tr=document.createElement('tr');[s.target_records_per_second,s.accepted+' / '+s.target_records,s.elapsed_seconds.toFixed(2),s.records_per_second.toFixed(2),s.median_ms.toFixed(2),s.p95_ms.toFixed(2),s.unexpected_request_errors].forEach(v=>cell(tr,v));$('performance').append(tr);}$('progress').textContent='\\u0110\\u00e3 k\\u1ebft th\\u00fac b\\u00e0i \\u0111o t\\u1ea3i; xem b\\u1ea3ng hi\\u1ec7u n\\u0103ng.';}await refresh();}catch(e){report[kind]={failed:1,error:e.message};$('progress').textContent='\\u2715 L\\u1ed7i ngo\\u00e0i d\\u1ef1 ki\\u1ebfn: '+e.message;details();}finally{busy=false;document.querySelectorAll('button').forEach(b=>b.disabled=false);renderAlerts();}}\\n$('tests').onclick=()=>run('tests');$('load').onclick=()=>run('load');$('refresh').onclick=()=>refresh().catch(()=>{});$('filter').onchange=renderAlerts;\\n$('download').onclick=()=>{const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify({report,snapshot},null,2)],{type:'application/json'}));a.href=url;a.download='aiot-workflow-results.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};\\nrefresh().catch(()=>{});setInterval(()=>{if(!busy)refresh().catch(()=>{});},10000);\\n</script></html>\\n\";return [msg,null];}\nmsg.headers={'content-type':'application/json','cache-control':'no-store'};\nconst engine=context.get('engine');\nif(!engine) throw Error('Engine not initialized');\nlet body=msg.payload;\nif(Buffer.isBuffer(body)) {\n  if(body.length>262144) {msg.statusCode=413;msg.payload={status:'error',code:'BODY_TOO_LARGE'};return [msg,null];}\n  body=body.toString('utf8');\n}\nif(['records','batch','ack'].includes(route) && !/^application\\/json(?:;|$)/i.test(msg.req.headers['content-type']||'')) {msg.statusCode=415;msg.payload={status:'error',code:'CONTENT_TYPE'};return [msg,null];}\nconst result=engine.handle(route,body);\nmsg.statusCode=result.http;msg.payload=result.body;\nconst alerts=(result.body.results||[]).filter(r=>r.status==='alert').map(r=>({payload:{...r,event_type:'anomaly_detected'}}));\nconst delay=Number(msg.req.headers['x-demo-delay-ms']||0);\nif(delay>0 && delay<=250) {setTimeout(()=>{node.send([msg,null]);node.done();},delay);return [null,alerts.length?alerts:null];}\nreturn [msg,alerts.length?alerts:null];",
+    "finalize": "",
+    "libs": []
+  },
+  {
+    "id": "gh_response",
+    "z": "giang_http_v1_20261022",
+    "type": "http response",
+    "name": "HTTP result",
+    "x": 990,
+    "y": 160,
+    "wires": [],
+    "statusCode": "",
+    "headers": {}
+  },
+  {
+    "id": "gh_event_out",
+    "z": "giang_http_v1_20261022",
+    "type": "link out",
+    "name": "Simulated anomaly events",
+    "x": 1010,
+    "y": 260,
+    "wires": [],
+    "mode": "link",
+    "links": []
+  },
+  {
+    "id": "gh_catch",
+    "z": "giang_http_v1_20261022",
+    "type": "catch",
+    "name": "Unexpected processing errors",
+    "x": 420,
+    "y": 430,
+    "wires": [
+      [
+        "gh_error"
+      ]
+    ],
+    "scope": [
+      "gh_guard",
+      "gh_engine"
+    ],
+    "uncaught": false
+  },
+  {
+    "id": "gh_error",
+    "z": "giang_http_v1_20261022",
+    "type": "function",
+    "name": "Never turn exception into normal",
+    "x": 730,
+    "y": 430,
+    "wires": [
+      [
+        "gh_response"
+      ]
+    ],
+    "outputs": 1,
+    "func": "msg.statusCode=500;msg.headers={'content-type':'application/json'};msg.payload={status:'error',kind:'internal',code:'INTERNAL_ERROR'};return msg;"
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "version": "demo-v2-alert-workflow",
+  "alert_capacity": 20000,
+  "thresholds": {"src01":0.5,"src02":0.55,"src03":0.6,"src04":0.65,"src05":0.7,"src06":0.5,"src07":0.55,"src08":0.6,"src09":0.65,"src10":0.7},
+  "max_age_ms": 300000,
+  "future_tolerance_ms": 30000,
+  "dedup_ttl_ms": 600000,
+  "dedup_max_entries": 20000,
+  "max_batch": 200,
+  "max_body_bytes": 262144,
+  "event_capacity": 1000,
+  "offline_after_ms": 30000
+}
