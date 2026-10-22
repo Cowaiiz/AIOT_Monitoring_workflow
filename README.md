@@ -73,12 +73,6 @@ Tổng 10.000 bản ghi đều có kết quả và được tiếp nhận; khôn
 
 Đây là 100 request tuần tự, batch 100, dữ liệu từ 10 nguồn giả, client/server cùng máy; tổng thời gian khoảng 20,72 giây. Độ trễ là của request, không phải từng bản ghi. Tốc độ thực đo hơi cao hơn mục tiêu do batch đầu gửi ngay và dừng đồng hồ sau batch cuối. Chưa đo tải tối đa, CPU/RAM, chạy dài hạn hoặc suy luận AI trong phép đo này.
 
-## 6. Liên hệ phần mô hình của Bảo
-
-[Báo cáo của Bảo](https://github.com/RoyalB26/AIoT_H261/blob/main/Report/report.md) mô tả thử nghiệm PatchCore trên MVTec AD, VisA và PCB Defect. Đây là kết quả của Bảo; demo này chưa chạy lại hay xác minh các số đo đó. File báo cáo được đọc chưa mô tả API phục vụ mô hình hoặc tích hợp Node-RED; không suy ra rằng các phần đó chắc chắn chưa tồn tại ở nơi khác.
-
-Mốc tiếp theo đề xuất: nhận mã suy luận và checkpoint/memory bank từ Bảo; thống nhất hợp đồng với Bảo/Đạo/Đạt; chọn một nhóm sản phẩm và nối ảnh → mô hình thật → Node-RED → cảnh báo/web. Ghi phiên bản mô hình, mã ảnh, score, thời gian suy luận và trạng thái lỗi. Nhãn dataset chỉ dùng đánh giá, không làm đầu vào quyết định cảnh báo. Giữ tập test độc lập và chọn ngưỡng bằng dữ liệu phù hợp trước đánh giá.
-
 ## 7. Giới hạn và việc tiếp theo
 
 - Cảnh báo và ACK lưu RAM, mất khi restart/redeploy engine; chưa có database hoặc restore API.
@@ -143,11 +137,3 @@ Tiền tố `/giang-aiot/v1`:
 - `mixed_cases.json`, `test_*.js`, `test_*.py`, `verify_build.js`: fixture và kiểm thử.
 - `deploy_demo.py`: triển khai riêng demo và backup.
 - `results/`: chứng cứ được chọn cho phiên v2.
-
-## 10. Nội dung trình bày với người hướng dẫn
-
-1. Mục tiêu phần tích hợp và ranh giới với phần mô hình của Bảo.
-2. Demo normal → alert → duplicate → dữ liệu lỗi → ACK và trạng thái nguồn.
-3. Bảng kiểm thử và phép đo tải, nêu đúng điều kiện đo.
-4. Giới hạn RAM, dữ liệu giả và những phần chưa tích hợp.
-5. Đề xuất mốc tiếp theo: chạy một nhóm ảnh thật qua mô hình của Bảo và workflow hiện tại; thống nhất hợp đồng đầu ra với nhóm.
