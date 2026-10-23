@@ -9,7 +9,6 @@ Implementation and evaluation by **Tran Long Giang**, Computer Engineering, Grou
 | Purpose | Link |
 |---|---|
 | Read Giang's individual implementation report in English | [Implementation report](reports/IMPLEMENTATION_REPORT.md) |
-| Check translation and deliverable progress | [Localization status](reports/LOCALIZATION_STATUS.md) |
 | Run the real-image application | [Demo instructions](demo/README.md) |
 | Prepare VisA PCB4 and fit the baseline | [Model instructions](model/TRAINING_README.md) |
 | Inspect measured evidence | [Evidence summary](reports/evidence/verification-summary.json) |
