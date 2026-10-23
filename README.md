@@ -1,52 +1,55 @@
 # Industrial AI Monitoring Framework
 
-Demo kiểm tra bất thường ảnh PCB4: **ảnh → AI → Node-RED → cảnh báo → web nội bộ**.
+A local research prototype connecting **PCB images, real anomaly inference, Node-RED, persistent alerts and the Inspect web interface**.
 
-## Bắt đầu từ đây
+Implementation and evaluation by **Tran Long Giang**, Computer Engineering, Group 1.
 
-| Bạn muốn… | Mở |
+## Start here
+
+| Purpose | Link |
 |---|---|
-| Đọc báo cáo tiến độ gửi thầy | [Báo cáo tổng hợp](reports/BAO_CAO_TIEN_DO.md) |
-| Chạy giao diện Inspect và workflow | [Hướng dẫn demo](demo/README.md) |
-| Chuẩn bị dữ liệu hoặc chạy baseline | [Hướng dẫn mô hình](model/TRAINING_README.md) |
-| Đối chiếu số liệu và kiểm thử | [Bằng chứng kết quả](reports/evidence/verification-summary.json) |
-| Xem giai đoạn dùng dữ liệu giả lập | [Demo HTTP cũ](legacy/http-mock/README.md) |
+| Read Giang's individual implementation report in English | [Implementation report](reports/IMPLEMENTATION_REPORT.md) |
+| Check translation and deliverable progress | [Localization status](reports/LOCALIZATION_STATUS.md) |
+| Run the real-image application | [Demo instructions](demo/README.md) |
+| Prepare VisA PCB4 and fit the baseline | [Model instructions](model/TRAINING_README.md) |
+| Inspect measured evidence | [Evidence summary](reports/evidence/verification-summary.json) |
+| Review the earlier synthetic HTTP workflow | [Legacy demo](legacy/http-mock/README.md) |
 
-## Cấu trúc repo
+## Repository layout
 
-| Thư mục | Nội dung |
-|---|---|
-| `demo/` | Web Inspect, dịch vụ inference, SQLite, flow Node-RED, script deploy và kiểm thử |
-| `model/` | Chuẩn bị VisA PCB4, train baseline và hướng dẫn môi trường |
-| `reports/` | Báo cáo tiếng Việt, manifest chia tập và kết quả thực đo |
-| `legacy/http-mock/` | Mã và kết quả demo giả lập trước khi nối AI thật |
+- `demo/`: interface, inference service, SQLite store, Node-RED flow, deployment and checks.
+- `model/`: data preparation and baseline fitting.
+- `reports/`: implementation report and selected experimental evidence.
+- `legacy/http-mock/`: synthetic-data workflow and bounded HTTP tests.
 
-## Chạy demo
+## Running the demo
 
-Cần chuẩn bị môi trường Python, dataset và checkpoint theo [hướng dẫn mô hình](model/TRAINING_README.md). Repo không chứa dataset, trọng số, môi trường `.venv`, cache hoặc database vận hành. Script hiện sử dụng các đường dẫn Windows của môi trường đã thử; đọc [điều kiện chạy](demo/README.md#điều-kiện-chạy) khi dùng máy khác.
+The scripts currently use paths from the tested Windows setup. Dataset images, checkpoint weights, virtual environments and operating databases are excluded from Git. Read the component instructions before using another machine.
 
-Giữ Node-RED chạy ở cổng 1880. Từ thư mục gốc repo:
+Keep Node-RED running on port 1880. From the repository root:
 
 ```powershell
 & "D:\Project\aiot-model\.venv\Scripts\python.exe" .\demo\start_demo.py
 ```
 
-Sau khi terminal báo hoàn tất kiểm tra, mở http://localhost:1880/giang-pcb4/v1/demo . Giữ dịch vụ model chạy.
+After startup verification succeeds, open http://localhost:1880/giang-pcb4/v1/demo and keep the model terminal open.
 
-Chỉ cập nhật giao diện khi cả hai dịch vụ đang chạy:
+To update only the interface while both services are running:
 
 ```powershell
 & "D:\Project\aiot-model\.venv\Scripts\python.exe" .\demo\update_ui.py
 ```
 
-**Lưu ý khi đang dùng bản cũ:** lần sắp xếp repo này không di chuyển dịch vụ hoặc database trên máy đang chạy. Bạn vẫn dùng được các lệnh cũ trong thư mục dự án hiện tại. Nếu chuyển sang bản checkout mới, đọc [hướng dẫn chuyển thư mục](demo/README.md#chuyển-từ-cấu-trúc-cũ) trước khi chạy, để giữ database và tránh mở trùng dịch vụ.
+Do not launch a second service if the existing installation is still running from the earlier `pcb4-demo` directory. Preserve its SQLite database and follow the migration notes before switching directories.
 
-## Trạng thái thực tế
+## Current measured status
 
-- Đã chạy AI thật trên VisA PCB4, tích hợp HTTP, lưu SQLite và deploy giao diện Inspect.
-- Baseline do Giang tự chạy: **Image AUROC 94,11%, recall 31%**, bỏ sót 69/100 ảnh lỗi ở ngưỡng hiện tại. Chưa có lần cải thiện mô hình; chưa dùng để kết luận sản phẩm tốt.
-- Script HTTP và cập nhật UI đã kiểm chứng thành công. Kiểm thử đầy đủ UI mới và restart tiến trình thực còn chưa hoàn tất.
-- Tham khảo [repo của Bảo](https://github.com/RoyalB26/AIoT_H261). Không dùng checkpoint Bảo bàn giao và không nhận benchmark của Bảo là kết quả tái lập của Giang.
-- Source trên GitHub không công khai dịch vụ localhost. Chưa có camera, MQTT hoặc cảm biến thật.
+- Real VisA PCB4 inference, HTTP integration, alert acknowledgment and SQLite persistence have been implemented and tested locally.
+- Baseline image AUROC is **94.11%**, but recall at the selected threshold is **31%**: 69 of 100 anomalous test images were missed.
+- No subsequent model-improvement run has been completed.
+- Complete process restart recovery and full interaction coverage of the redesigned interface remain outstanding.
+- No real camera, MQTT sensor, second workflow-tool comparison or fully validated offline package has been completed.
 
-Số liệu, phân công, giới hạn và mốc công việc tiếp theo được trình bày trong [báo cáo tiến độ](reports/BAO_CAO_TIEN_DO.md).
+Below threshold does not establish that a PCB is defect-free. Synthetic HTTP throughput is not AI image throughput.
+
+Attribution is consolidated in the report's [references](reports/IMPLEMENTATION_REPORT.md#references-and-attribution). The academic PDF and LaTeX source are being prepared for separate delivery, not GitHub publication. Publishing source code does not expose local services.
