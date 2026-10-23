@@ -1,54 +1,71 @@
 # Industrial AI Monitoring Framework
 
-A local research prototype connecting **PCB images, real anomaly inference, Node-RED, persistent alerts and the Inspect web interface**.
+A local research prototype for inspecting PCB images and managing anomaly alerts. The real-image path connects a Python model service, Node-RED, SQLite and the Inspect web interface.
 
-Implementation and evaluation by **Tran Long Giang**, Computer Engineering, Group 1.
+**New here? Choose a starting point:**
 
-## Start here
+| Goal | Start here | What you need |
+|---|---|---|
+| Try the workflow without training a model | [Synthetic HTTP demo](legacy/http-mock/README.md) | Python, Node.js and Node-RED |
+| Inspect real PCB4 images | [Model setup](model/README.md), then [Inspect setup](demo/README.md) | VisA PCB4 images, Python ML environment and a locally fitted checkpoint |
+| Review the implementation and measured results | [Report index](reports/README.md) | No installation |
+| Understand saved result files | [Evidence guide](reports/evidence/README.md) | No installation |
 
-| Purpose | Link |
+This is a source-based Windows/PowerShell walkthrough. A checkpoint, dataset, operating database and Python environment are **not** included. CPU fallback exists in the model code, but the published model measurements used an NVIDIA RTX 4060. A clean-machine installation has not yet been verified.
+
+## 1. Get the source
+
+Install Git, Python 3.11 and Node.js using their official installers if they are not already available. For Node-RED, follow its [Windows setup guide](https://nodered.org/docs/getting-started/windows).
+
+From a directory where you keep projects:
+
+```powershell
+git clone https://github.com/Cowaiiz/AIOT_Monitoring_workflow.git
+cd AIOT_Monitoring_workflow
+py -3.11 --version
+node --version
+npm.cmd --version
+```
+
+You can also use GitHub's **Code > Download ZIP**, extract it and open PowerShell in the extracted repository root. No command below requires your folder to match the author's directory.
+
+If Node-RED is not installed:
+
+```powershell
+npm.cmd install -g node-red
+```
+
+Install dependencies only for the path you choose. The synthetic demo does not require PyTorch, a GPU or model weights.
+
+## 2. Follow one complete walkthrough
+
+- **Synthetic workflow:** open [legacy/http-mock](legacy/http-mock/README.md). Run offline tests first, then deploy and send a small bounded batch.
+- **Real images:** complete [model preparation](model/README.md), record the generated run directory, then follow [demo setup](demo/README.md). The demo guide lists every currently hard-coded path that must match your machine.
+
+The code still contains original-machine defaults. The documentation shows how to replace them; it does not claim that environment variables or a universal installer already exist.
+
+## 3. Know what you are running
+
+| Directory | Purpose |
 |---|---|
-| Read Giang's individual implementation report in English | [Implementation report](reports/IMPLEMENTATION_REPORT.md) |
-| Run the real-image application | [Demo instructions](demo/README.md) |
-| Prepare VisA PCB4 and fit the baseline | [Model instructions](model/TRAINING_README.md) |
-| Inspect measured evidence | [Evidence summary](reports/evidence/verification-summary.json) |
-| Review the earlier synthetic HTTP workflow | [Legacy demo](legacy/http-mock/README.md) |
+| [demo/](demo/README.md) | Real-image interface, model HTTP adapter, persistent alerts and deployment |
+| [model/](model/README.md) | Dataset extraction and bounded-memory PatchCore-style baseline |
+| [reports/](reports/README.md) | Individual implementation report and evidence |
+| [legacy/](legacy/README.md) | Earlier synthetic-score prototype |
 
-## Repository layout
+Two local pages are available **after their corresponding flow is deployed**:
 
-- `demo/`: interface, inference service, SQLite store, Node-RED flow, deployment and checks.
-- `model/`: data preparation and baseline fitting.
-- `reports/`: implementation report and selected experimental evidence.
-- `legacy/http-mock/`: synthetic-data workflow and bounded HTTP tests.
+- Real images: http://localhost:1880/giang-pcb4/v1/demo
+- Synthetic scores: http://localhost:1880/giang-aiot/v1/demo
 
-## Running the demo
+`localhost` means the computer running your browser. This repository does not host a shared live dashboard. The Python service and workflow are intended for loopback-only local use.
 
-The scripts currently use paths from the tested Windows setup. Dataset images, checkpoint weights, virtual environments and operating databases are excluded from Git. Read the component instructions before using another machine.
+## Current results and limits
 
-Keep Node-RED running on port 1880. From the repository root:
+The recorded PCB4 baseline achieved image AUROC **94.11%**, but recall at its selected threshold was **31%**: 69 of 100 anomalous test images were missed. Below threshold does not establish that a PCB is defect-free.
 
-```powershell
-& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\demo\start_demo.py
-```
+SQLite persistence, duplicate handling and acknowledgment were tested. Full process stop/start recovery and complete interaction testing of the redesigned UI remain outstanding. There is no completed improvement experiment, real camera/MQTT integration, second workflow-tool comparison or fully validated offline package.
 
-After startup verification succeeds, open http://localhost:1880/giang-pcb4/v1/demo and keep the model terminal open.
+README instructions are now in English. Some published UI strings and historical test descriptions may still be Vietnamese; this documentation update does not imply a new UI deployment.
 
-To update only the interface while both services are running:
-
-```powershell
-& "D:\Project\aiot-model\.venv\Scripts\python.exe" .\demo\update_ui.py
-```
-
-Do not launch a second service if the existing installation is still running from the earlier `pcb4-demo` directory. Preserve its SQLite database and follow the migration notes before switching directories.
-
-## Current measured status
-
-- Real VisA PCB4 inference, HTTP integration, alert acknowledgment and SQLite persistence have been implemented and tested locally.
-- Baseline image AUROC is **94.11%**, but recall at the selected threshold is **31%**: 69 of 100 anomalous test images were missed.
-- No subsequent model-improvement run has been completed.
-- Complete process restart recovery and full interaction coverage of the redesigned interface remain outstanding.
-- No real camera, MQTT sensor, second workflow-tool comparison or fully validated offline package has been completed.
-
-Below threshold does not establish that a PCB is defect-free. Synthetic HTTP throughput is not AI image throughput.
-
-Attribution is consolidated in the report's [references](reports/IMPLEMENTATION_REPORT.md#references-and-attribution). The academic PDF and LaTeX source are being prepared for separate delivery, not GitHub publication. Publishing source code does not expose local services.
+Implementation and evaluation: **Tran Long Giang, Group 1**. See the [individual report](reports/IMPLEMENTATION_REPORT.md) for contributions, evidence and consolidated attribution. The academic PDF and LaTeX source are kept outside this repository.

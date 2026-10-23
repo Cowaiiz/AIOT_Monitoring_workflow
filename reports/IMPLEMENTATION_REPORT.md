@@ -123,7 +123,7 @@ Inspect separates image inspection, alert management and model information. It i
 
 Source generators keep the importable flow synchronized with HTML and processing code. Deployment scripts back up flows, check IDs and route collisions, use revision-aware updates and preserve unrelated flows. The UI-only updater changes the HTML-serving function without restarting inference.
 
-English localization is being applied to documentation and presentation text while retaining API identifiers and decision semantics. Historical verification files describe their original runs; translating labels does not constitute a new HTTP test. See the [localization status](LOCALIZATION_STATUS.md) for the exact published/local distinction.
+English localization is being applied to documentation and presentation text while retaining API identifiers and decision semantics. Historical verification files describe their original runs; translating labels does not constitute a new HTTP test. See the [project overview](../README.md) for the documentation and interface language status.
 
 ## 8. Verification and evidence levels
 

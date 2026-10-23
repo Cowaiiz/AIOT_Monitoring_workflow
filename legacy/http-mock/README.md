@@ -1,147 +1,144 @@
-# Demo HTTP giả lập — giai đoạn trước
+# Synthetic HTTP workflow demo
 
-Chạy các lệnh bên dưới tại thư mục `legacy/http-mock`. Mã và kết quả được giữ để đối chiếu lịch sử, không phải demo AI thật. `MANIFEST.json` là bản kê lịch sử trước lần sắp xếp thư mục, không phải checksum cho README mới.
+Use this demo to try record validation, source status, threshold alerts and acknowledgment **without a dataset, checkpoint or GPU**. Scores are simulated. This is not an image classifier.
 
-[Quay về trang chính](../../README.md) · [Demo AI thật](../../demo/README.md)
+[Project overview](../../README.md) · [Real-image demo](../../demo/README.md) · [Saved results](results/README.md)
 
+## 1. Prerequisites and working directory
 
+Install Python 3.11, Node.js and Node-RED using the [root setup instructions](../../README.md#1-get-the-source). The Python/JavaScript scripts in this directory use standard libraries; you do not need the model's ML environment.
 
-**Người thực hiện:** Trần Long Giang (Bò) · **Nhóm:** 1 · **Cập nhật:** 22/10/2026
+From the repository root:
 
-## 1. Tóm tắt
-
-Đã triển khai demo Node-RED chạy tại chỗ để tiếp nhận dữ liệu mô phỏng đầu ra AI qua HTTP, kiểm tra tính hợp lệ và quản lý vòng đời cảnh báo. Đã kiểm chứng chức năng bằng unit test, browser HTTP, Python HTTP và bài tải 10.000 bản ghi hợp lệ. Giao diện xác nhận và lọc cảnh báo đã được Giang thử trực tiếp, báo hoạt động đúng.
-
-**Demo này chưa gọi mô hình AI thật, chưa đọc ảnh dataset, chưa kết nối MQTT hoặc phần cứng.** Việc kiểm tra workflow đạt không chứng minh độ chính xác của mô hình AI hoặc khả năng vận hành công nghiệp dài hạn.
-
-## 2. Mục tiêu và phạm vi
-
-- Tiếp nhận kết quả từ nhiều nguồn theo một cấu trúc chung.
-- Phân biệt bản ghi bình thường, cảnh báo AI, lỗi dữ liệu và lỗi kết nối/xử lý.
-- Không tạo thêm cảnh báo khi gửi lại cùng bản ghi; phát hiện ID xung đột.
-- Hiển thị nguồn đang hoạt động, chưa có dữ liệu hoặc ngừng gửi dữ liệu hợp lệ.
-- Cung cấp workflow có thể xuất/import và kết quả thử nghiệm có thể đối chiếu.
-
-## 3. Luồng hiện tại
-
-```mermaid
-flowchart TD
-    A[Python hoặc trình duyệt phát dữ liệu giả] --> B[Node-RED nhận HTTP]
-    B --> C[Kiểm tra dữ liệu và chống trùng]
-    C --> D[So sánh ngưỡng theo nguồn]
-    D --> E[Web nội bộ và xác nhận cảnh báo]
+```powershell
+cd legacy\http-mock
 ```
 
-`client.py` phát bản ghi; `engine.js` xử lý quy tắc; `config.json` chứa cấu hình; `build_flow.py` đóng gói mã nguồn vào `flow.json`; `demo.html` cung cấp giao diện. Chỉnh source rồi build lại để flow import giữ đúng phiên bản.
+Run all commands below from this directory. Use `py -3.11` explicitly so commands do not depend on the author's interpreter path.
 
-## 4. Hành vi đã triển khai
-
-| Tình huống | Hành vi |
-|---|---|
-| Bản ghi hợp lệ có score dưới ngưỡng | normal, không tạo cảnh báo |
-| Score bằng hoặc lớn hơn ngưỡng | Tạo một cảnh báo pending |
-| Cùng nguồn và ID, nội dung không đổi | duplicate, không tạo cảnh báo mới |
-| Cùng nguồn và ID, nội dung thay đổi | ID_CONFLICT |
-| Thiếu trường, sai kiểu, nguồn lạ, timestamp lỗi/cũ/sai thứ tự | Trả lỗi tương ứng, không coi là normal |
-| ACK lần đầu | acknowledged, lưu thời gian xác nhận |
-| ACK lặp hoặc đồng thời | Chỉ một lần thay đổi, giữ thời gian xác nhận ban đầu |
-| ACK mã không tồn tại | 404 ALERT_NOT_FOUND |
-| Kho cảnh báo đầy | Từ chối cảnh báo mới với lỗi capacity, không âm thầm xóa pending |
-
-Định danh bản ghi có phạm vi `(source_id, record_id)`. Một bản ghi gồm `record_id`, `source_id`, `timestamp` UTC và `anomaly_score`. Score giả lập hiện giới hạn [0,1]; thang score/ngưỡng cần thống nhất lại khi nối mô hình thật.
-
-## 5. Kết quả kiểm chứng
-
-| Phép kiểm tra | Kết quả | Nguồn chứng cứ |
-|---|---|---|
-| Engine unit | 15/15 đạt | results/engine-tests.json |
-| Workflow offline | 98/98 đạt | results/workflow-unit.json |
-| Python unit | 4/4 đạt | Nhật ký kiểm tra cục bộ; bản tóm tắt chia sẻ trong results/verification-summary.json |
-| Browser HTTP v2 | 94/94 đạt | Ảnh kết quả Giang cung cấp; chưa có JSON browser v2 trong gói chia sẻ |
-| Python HTTP v2 | 93/93 đạt, không bị chặn | results/python-workflow-http.json |
-| Build flow | Đạt | results/build-validation.json |
-| Deploy | Source khớp flow, 8 route, 15 đối tượng; flow không liên quan giữ nguyên | Kết quả deploy cục bộ, tóm tắt trong results/verification-summary.json |
-| Nút ACK và bộ lọc | Giang xác nhận thử thành công | Kiểm tra thủ công, không phải UI test tự động |
-
-Python gộp kiểm tra ACK đầu/lặp vào một assertion, browser tách riêng, nên tổng 93 và 94. Bài offline bổ sung kiểm tra cache, TTL, đầy kho và khởi tạo lại; không thay thế việc restart dịch vụ thật.
-
-Fixture có 80 mẫu, seed 42, kỳ vọng khai báo độc lập với hàm xử lý. Các tình huống mở rộng gồm nhiều nguồn, retry đồng thời, timeout rồi retry cùng bản ghi, ACK đồng thời, nguồn im lặng rồi hoạt động lại. Mã lỗi cố ý được đối chiếu với kỳ vọng, không tính là lỗi ngoài dự kiến. ID phiên và timestamp được tạo mới lúc chạy.
-
-### Bài tải Python HTTP
-
-| Tốc độ mục tiêu (bản ghi/s) | Số bản ghi | Thời gian (s) | Thực đo (bản ghi/s) | Trung vị (ms/request) | p95 (ms/request) |
-|---:|---:|---:|---:|---:|---:|
-| 100 | 1.000 | 9,01 | 111,03 | 4,87 | 14,75 |
-| 500 | 3.000 | 5,80 | 516,88 | 4,43 | 6,08 |
-| 1.000 | 6.000 | 5,91 | 1.015,88 | 4,23 | 5,53 |
-
-Tổng 10.000 bản ghi đều có kết quả và được tiếp nhận; không có record error, transport error hoặc unexpected request error. Chứng cứ: `results/python-ramp-v2.json`.
-
-Đây là 100 request tuần tự, batch 100, dữ liệu từ 10 nguồn giả, client/server cùng máy; tổng thời gian khoảng 20,72 giây. Độ trễ là của request, không phải từng bản ghi. Tốc độ thực đo hơi cao hơn mục tiêu do batch đầu gửi ngay và dừng đồng hồ sau batch cuối. Chưa đo tải tối đa, CPU/RAM, chạy dài hạn hoặc suy luận AI trong phép đo này.
-
-## 7. Giới hạn và việc tiếp theo
-
-- Cảnh báo và ACK lưu RAM, mất khi restart/redeploy engine; chưa có database hoặc restore API.
-- Tối đa 20.000 cảnh báo, không tự xóa cả mục đã ACK. ACK không giải phóng dung lượng. Đầy kho trả 503 cho bản ghi đơn hoặc kết quả lỗi từng mục trong batch 207.
-- Cache chống trùng bản normal: TTL 10 phút, tối đa 20.000 mục. Cảnh báo còn lưu có cơ chế bảo vệ định danh riêng. Không tuyên bố exactly-once qua restart.
-- Event ring 1.000 mục độc lập với kho cảnh báo; giao diện hiển thị tối đa 200 mục khớp bộ lọc, JSON chứa toàn bộ cảnh báo đang lưu.
-- Dịch vụ giới hạn client loopback. Đưa source lên GitHub không làm localhost của Giang trở thành website dùng chung; mỗi thành viên chạy bản local.
-- Chưa có phép so sánh cùng mô hình giữa hai công cụ workflow; chưa tích hợp n8n/ComfyUI, MQTT, cảm biến hoặc camera thật.
-
-Ưu tiên tiếp theo: (1) ghép mô hình của Bảo; (2) kiểm tra ảnh lỗi, model timeout và đối chiếu dự đoán; (3) lưu trạng thái bền vững; (4) so sánh phương án workflow và tích hợp thiết bị theo mốc nhóm thống nhất.
-
-## 8. Hướng dẫn chạy
-
-Môi trường đã thử: Windows, Python 3.11.9, Node.js 24.22.0; Node-RED đã được cài và chạy ở cổng 1880. Python/test JS dùng thư viện chuẩn, không cần cài thêm dependency cho các script này. Chạy lệnh tại thư mục chứa README này.
+## 2. Verify the source without running Node-RED
 
 ```powershell
 node test_engine.js
 node test_workflow.js
-python -m unittest test_client -v
-python build_flow.py
+py -3.11 -m unittest test_client -v
+py -3.11 build_flow.py
 node verify_build.js
 ```
 
-Nếu Node-RED chưa chạy, mở terminal riêng và chạy `node-red.cmd`; không mở instance thứ hai nếu cổng 1880 đang dùng. Sau đó:
+Expected: 15 engine checks, 98 offline workflow checks and four Python unit tests pass; flow validation reports eight unique routes. An expected invalid-input error is a passing case when the asserted error matches.
+
+These are offline checks. They do not establish that an HTTP service is reachable. Some test descriptions in historical files and the current browser UI may still be Vietnamese.
+
+## 3. Start Node-RED and deploy
+
+In a separate terminal:
 
 ```powershell
-python deploy_demo.py
+node-red.cmd
 ```
 
-Script chỉ nhắm `127.0.0.1:1880`, dùng revision để tránh ghi đè thay đổi đồng thời, kiểm tra ID/route trùng, backup và đối chiếu flow không liên quan. Deploy reset RAM của demo; backup trạng thái chưa phải chức năng restore.
-
-Mở http://localhost:1880/giang-aiot/v1/demo . Chạy từng bài riêng, không phát dữ liệu khác đồng thời vì test có kiểm tra số cảnh báo và nguồn im lặng:
+If Node-RED is already running on port 1880, reuse it. In the terminal at `legacy/http-mock`:
 
 ```powershell
-python test_workflow_http.py
-python client.py ramp --output results/python-ramp-v2.json
+py -3.11 deploy_demo.py
 ```
 
-Bài workflow HTTP mất khoảng 33 giây do kiểm tra nguồn im lặng. Bài ramp giới hạn batch 100, ba mức 100/500/1.000 bản ghi/s, deadline 60 giây/mức. Các lần chạy ghi đè file kết quả tương ứng; giữ bản sao nếu cần so sánh.
+The script uses the local Node-RED Admin API, checks revision/route collisions, creates backups and preserves unrelated flows. It does not currently supply credentials for an authenticated Admin API. Do not disable security on an existing shared installation to run the demo.
 
-Nếu môi trường công cụ báo WinError 10013, không coi HTTP đã được xác minh trong môi trường đó. Kết quả thành công trong báo cáo này đến từ terminal Windows người dùng và browser, được ghi nhận riêng.
+**Redeploying this legacy engine resets its RAM alerts and acknowledgments.** Export state first if needed; export is not a restore feature.
 
-## 9. API và cấu trúc mã nguồn
+Open **http://localhost:1880/giang-aiot/v1/demo**.
 
-Tiền tố `/giang-aiot/v1`:
+## 4. Send a small first batch
 
-| Method | Route | Vai trò |
+```powershell
+py -3.11 client.py send --count 10 --batch 10 --rate 10 --output results/my-first-run.json
+```
+
+The command sends ten synthetic records with fresh IDs/timestamps. Expected: `completed` is true, ten records are accepted and no unexpected request errors occur. Open/refresh the page to see alert counts and source status.
+
+A valid score at or above its source's configured threshold creates a pending alert. A lower score creates no alert. Reusing the identical record returns duplicate; changed content with the same source/ID returns conflict.
+
+## 5. Run the mixed HTTP tests
+
+Stop other traffic while these tests run; assertions check alert deltas and source inactivity.
+
+```powershell
+py -3.11 test_workflow_http.py
+```
+
+Expected: 93 Python HTTP checks pass. The suite takes about 33 seconds because it waits for source inactivity. It covers 80 seeded mixed cases plus retry, concurrency, acknowledgment and source recovery. Timestamps/IDs are refreshed for each run. Deliberate invalid JSON, bad records and unknown IDs must return their expected errors.
+
+The browser test button runs a separate suite with 94 checks. Python combines two acknowledgment assertions that the browser separates. Browser success does not prove that Python HTTP succeeded in a different execution environment.
+
+Keep copies of result files if comparing runs: scripts can overwrite their default outputs.
+
+## 6. Optional bounded load test
+
+After the small batch and mixed checks succeed:
+
+```powershell
+py -3.11 client.py ramp --output results/my-ramp.json
+```
+
+This sends 10,000 valid records from ten sources in batches of 100, concurrency one, across target rates of 100, 500 and 1,000 records/s. Each stage has a 60-second deadline; requests default to a three-second timeout. Unexpected errors stop the ramp.
+
+The supplied `sample-10000.json` is a synthetic fixture. The client materializes fresh timestamps when sending records; do not reuse an old timestamped HTTP payload as a fresh load run.
+
+This measures HTTP processing of synthetic scores, not AI image throughput, camera capacity or maximum sustained load.
+
+## Record contract and API
+
+Record identity is the pair `(source_id, record_id)`. Each record contains:
+
+| Field | Meaning |
+|---|---|
+| record_id | Stable identifier for retry; new identifier for a new observation |
+| source_id | Configured source, such as src01 |
+| timestamp | UTC timestamp |
+| anomaly_score | Synthetic numeric score in [0,1] |
+
+Prefix: `/giang-aiot/v1`.
+
+| Method | Route | Purpose |
 |---|---|---|
-| POST | /records | Nhận một bản ghi |
-| POST | /batch | Nhận lô, tối đa 200 bản ghi |
-| GET | /alerts | Danh sách và số lượng cảnh báo |
-| POST | /ack | Xác nhận với JSON chứa alert_id |
-| GET | /sources | Trạng thái nguồn |
-| GET | /metrics | Bộ đếm |
-| GET | /events | Vòng đệm sự kiện |
-| GET | /demo | Giao diện |
+| POST | /records | One record |
+| POST | /batch | Up to 200 records |
+| GET | /alerts | Alerts and counts |
+| POST | /ack | JSON containing alert_id |
+| GET | /sources | Source activity status |
+| GET | /metrics | Error and processing counters |
+| GET | /events | Bounded event history |
+| GET | /demo | Browser UI |
 
-- `engine.js`, `config.json`: xử lý và cấu hình.
-- `build_flow.py`, `flow.json`: sinh/import workflow.
-- `demo.html`, `workflow_tests.js`, `browser_tests.js`: giao diện và runner trình duyệt.
-- `client.py`, `sample-10000.json`: bộ phát và mẫu hiệu năng.
-- `mixed_cases.json`, `test_*.js`, `test_*.py`, `verify_build.js`: fixture và kiểm thử.
-- `deploy_demo.py`: triển khai riêng demo và backup.
-- `results/`: chứng cứ được chọn cho phiên v2.
+An initial ACK changes pending to acknowledged. Repeated/concurrent ACK preserves the original acknowledgment time; unknown IDs return `404 ALERT_NOT_FOUND`. Data/processing errors remain distinct from normal results and AI alerts.
 
+## Configuration and storage
 
+Edit `config.json` for source thresholds and limits, then regenerate `flow.json` with `build_flow.py` and redeploy. Editing the configuration alone does not update a running flow.
+
+- Alerts/ACK are stored only in RAM; restart or engine redeployment loses them.
+- Capacity is 20,000 alerts. Full capacity returns an error without silently deleting pending alerts. ACK does not release space.
+- Normal-record deduplication has a ten-minute TTL and 20,000-entry limit; retained alerts separately protect their IDs.
+- The event ring retains 1,000 entries independently of the alert store.
+- Silent means no valid sample for over 30 seconds, not proven disconnection. Duplicate traffic does not refresh activity.
+- The UI shows at most the latest 200 matching alerts; JSON export includes all retained alerts.
+
+## Troubleshooting
+
+| Symptom | What to check |
+|---|---|
+| Connection refused | Node-RED is running on the same computer, port 1880 |
+| HTTP 404 | Deploy completed; correct legacy prefix, not /giang-pcb4/v1 |
+| Revision/route conflict | Resolve the current flow conflict instead of forcing an overwrite |
+| Unexpected source/alert counts | Stop concurrent clients; rerun one suite at a time |
+| STALE_RECORD | Use the client to generate fresh records; keep original payload only for retries |
+| WinError 10013 | Socket access was blocked; it is not a passing HTTP test |
+| Capacity error | Export the state and choose a deliberate reset; no automatic eviction/restore exists |
+
+## File guide
+
+`engine.js` implements rules; `config.json` holds settings; `build_flow.py` embeds source into `flow.json`; `demo.html` and browser runners provide the UI/tests; `client.py` generates traffic; `mixed_cases.json` declares independent expected cases; `deploy_demo.py` handles deployment.
+
+[Results documentation](results/README.md) explains the historical evidence and timing units. `MANIFEST.json` is a historical package manifest, not a checksum of these updated instructions. There is no MQTT, real hardware, model inference or external notification delivery in this prototype.
